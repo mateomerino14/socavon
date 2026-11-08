@@ -27,6 +27,10 @@ const GLOW_RANGE_RATIO := 0.3
 @export var flicker_strength := 0.12
 @export var flicker_speed := 7.0
 @export var low_fuel_flicker_strength := 0.55
+## Temblor extra de la llama con el Tío encima.
+@export var dread_flicker_strength := 0.7
+## Cuánto se encoge la llama con el Tío encima.
+@export_range(0.0, 1.0) var dread_dimming := 0.45
 
 var fuel := 0.0
 var level := 2
@@ -34,6 +38,7 @@ var is_lit := true
 
 var _flicker_noise := FastNoiseLite.new()
 var _time := 0.0
+var _dread := 0.0
 
 @onready var _spot: SpotLight3D = $Spot
 @onready var _glow: OmniLight3D = $Glow
@@ -98,6 +103,11 @@ func consume_fuel(delta: float) -> void:
 		set_lit(false)
 
 
+## Fija cuánto perturba el Tío a la llama, de 0 (lejos) a 1 (encima).
+func set_dread(amount: float) -> void:
+	_dread = clampf(amount, 0.0, 1.0)
+
+
 ## Devuelve cuánto delata la lámpara, de 0 (apagada) a 1 (llama alta).
 func get_light_intensity() -> float:
 	if not is_lit:
@@ -119,13 +129,15 @@ func _set_level(new_level: int) -> void:
 	state_changed.emit(is_lit, level)
 
 
-## Devuelve el multiplicador de energía del parpadeo; tironea cuando queda poco carburo.
+## Devuelve el multiplicador de energía: tironea sin carburo y se encoge con el Tío cerca.
 func _flicker_factor() -> float:
 	var strength := flicker_strength
 	if get_fuel_ratio() < low_fuel_ratio:
 		strength = low_fuel_flicker_strength
+	strength += dread_flicker_strength * _dread
 	var noise := _flicker_noise.get_noise_1d(_time * flicker_speed)
-	return maxf(1.0 + noise * strength * FLICKER_NOISE_SPAN, MIN_FLICKER_FACTOR)
+	var dimming := 1.0 - dread_dimming * _dread
+	return maxf((1.0 + noise * strength * FLICKER_NOISE_SPAN) * dimming, MIN_FLICKER_FACTOR)
 
 
 ## Aplica alcance y energía del nivel actual a las dos luces.

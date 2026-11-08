@@ -20,6 +20,7 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 | Piedras que hacen ruido al caer y se pueden volver a recoger | |
 | El Tío: patrulla, sospecha, caza, búsqueda y calma; oye los ruidos y ve según la luz | |
 | Muerte: si el Tío te alcanza, fundido a negro y reapareces en el último altar | |
+| Presentimiento: a menos de 10 m del Tío la llama tiembla y se encoge | |
 
 ## Requisitos
 
@@ -74,6 +75,7 @@ assets/        Modelos, texturas y audio
 - **Oído:** un ruido de volumen 1 se oye a 18 m. Caminar suena 0,35, correr 1, agachado 0,08 y una piedra 0,9.
 - **Vista:** cono de 110°. Con la lámpara apagada ve a 3 m; con la llama al máximo, a 22 m. A 1,4 m te nota siempre.
 - **Respeto:** con más respeto oye menos, busca menos tiempo y la calma dura más.
+- **Presentimiento:** a menos de 10 m la llama de la lámpara tiembla y se encoge; encima de ti casi se apaga.
 
 La arquitectura, los nombres y el flujo de ramas y commits están en [reglas.md](reglas.md).
 

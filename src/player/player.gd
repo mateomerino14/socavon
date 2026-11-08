@@ -50,6 +50,7 @@ var _controls_enabled := true
 @onready var _lamp: CarbideLamp = $Head/Camera3D/CarbideLamp
 @onready var _interactor: Interactor = $Head/Camera3D/Interactor
 @onready var _stone_thrower: StoneThrower = $Head/Camera3D/StoneThrower
+@onready var _dread_sense: DreadSense = $DreadSense
 
 
 ## Prepara la cápsula, conecta los componentes y pone al jugador de pie.
@@ -100,6 +101,7 @@ func _physics_process(delta: float) -> void:
 	_footsteps.register_movement(travelled.length(), move_state, global_position)
 	_head.update_bob(delta, _horizontal_speed() / walk_speed, is_on_floor())
 	_interactor.update_focus(self)
+	_lamp.set_dread(_dread_sense.update_dread())
 
 
 ## Gasta un carburo de la bolsa para recargar la lámpara.

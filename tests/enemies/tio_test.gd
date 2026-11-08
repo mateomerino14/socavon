@@ -122,3 +122,11 @@ func test_patrols_between_points() -> void:
 ## Cuenta las capturas.
 func _on_player_caught() -> void:
 	_caught_count += 1
+
+
+## Con el Tío cerca el presentimiento sube; lejos es cero.
+func test_dread_rises_when_tio_is_near() -> void:
+	var dread_sense: DreadSense = _player.get_node("DreadSense")
+	assert_almost_eq(dread_sense.update_dread(), 0.0, "Lejos del Tío no debe haber presentimiento")
+	_player.global_position = _tio.global_position + Vector3(-2.0, 0.0, 0.0)
+	assert_true(dread_sense.update_dread() > 0.7, "A 2 metros el presentimiento debe ser fuerte")

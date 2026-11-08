@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://src/player/components/interactor.gd" id="6_interactor"]
 [ext_resource type="Script" path="res://src/player/components/inventory_component.gd" id="7_inventory"]
 [ext_resource type="Script" path="res://src/player/components/stone_thrower.gd" id="8_thrower"]
+[ext_resource type="Script" path="res://src/player/components/dread_sense.gd" id="9_dread"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 resource_local_to_scene = true
@@ -60,3 +61,7 @@ script = ExtResource("4_footsteps")
 
 [node name="InventoryComponent" type="Node" parent="."]
 script = ExtResource("7_inventory")
+
+[node name="DreadSense" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("9_dread")
