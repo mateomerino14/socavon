@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" path="res://src/enemies/tio/tio.tscn" id="9_tio"]
 [ext_resource type="PackedScene" path="res://src/world/respawn/respawn_director.tscn" id="10_respawn"]
 [ext_resource type="PackedScene" path="res://src/ui/pause_menu/pause_menu.tscn" id="11_pause"]
+[ext_resource type="PackedScene" path="res://src/world/props/drip_emitter.tscn" id="12_drip"]
+[ext_resource type="AudioStream" path="res://assets/audio/mine_ambience_loop.wav" id="13_ambience"]
 
 [sub_resource type="Environment" id="Environment_mine"]
 background_mode = 1
@@ -91,6 +93,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 2.6, -18)
 light_color = Color(0.45, 0.55, 0.75, 1)
 light_energy = 0.35
 omni_range = 6.0
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_ambience")
+volume_db = -12.0
+autoplay = true
+
+[node name="Drips" type="Node3D" parent="."]
+
+[node name="DripEntry" parent="Drips" instance=ExtResource("12_drip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 2.5, -7.5)
+
+[node name="DripSide" parent="Drips" instance=ExtResource("12_drip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.5, -18.5)
+
+[node name="DripChamber" parent="Drips" instance=ExtResource("12_drip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 3.3, -16)
 
 [node name="Altars" type="Node3D" parent="." groups=["navigation_source"]]
 
