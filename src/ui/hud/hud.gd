@@ -76,10 +76,15 @@ func _on_inventory_changed(type: ItemCatalog.Type, count: int) -> void:
 	var entries := PackedStringArray()
 	for item_type: ItemCatalog.Type in _inventory_counts:
 		if _inventory_counts[item_type] > 0:
-			var item_name := ItemCatalog.display_name(item_type).capitalize()
+			var item_name := _sentence_case(ItemCatalog.display_name(item_type))
 			entries.append(INVENTORY_ENTRY % [item_name, _inventory_counts[item_type]])
 	_inventory_label.text = INVENTORY_SEPARATOR.join(entries)
 	_show_for(_inventory_label, _inventory_timer, INVENTORY_SECONDS)
+
+
+## Pone en mayúscula solo la primera letra, como se escribe en español.
+func _sentence_case(text: String) -> String:
+	return text.left(1).to_upper() + text.substr(1)
 
 
 ## Pone el valor de la barra y la muestra solo si no está llena.
