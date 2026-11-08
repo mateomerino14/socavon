@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://src/player/components/carbide_lamp.tscn" id="5_lamp"]
 [ext_resource type="Script" path="res://src/player/components/interactor.gd" id="6_interactor"]
 [ext_resource type="Script" path="res://src/player/components/inventory_component.gd" id="7_inventory"]
+[ext_resource type="Script" path="res://src/player/components/stone_thrower.gd" id="8_thrower"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 resource_local_to_scene = true
@@ -46,6 +47,10 @@ target_position = Vector3(0, 0, -2.2)
 collision_mask = 5
 collide_with_areas = true
 script = ExtResource("6_interactor")
+
+[node name="StoneThrower" type="Marker3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -0.1, -0.45)
+script = ExtResource("8_thrower")
 
 [node name="StaminaComponent" type="Node" parent="."]
 script = ExtResource("3_stamina")
