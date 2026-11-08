@@ -38,5 +38,8 @@ signal player_caught
 ## El jugador empezó a meterse en un escondite.
 signal player_hid(spot: HidingSpot)
 
+## Alguien habla: el HUD muestra el subtítulo durante esos segundos.
+signal subtitle_requested(speaker: String, text: String, seconds: float)
+
 ## El jugador abrió una nota para leerla.
 signal note_opened(note: NoteData)

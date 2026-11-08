@@ -1,6 +1,6 @@
 class_name Hud
 extends CanvasLayer
-## HUD mínimo: barras de carburo y aliento, acción al frente, avisos y bolsa.
+## HUD mínimo: barras de carburo y aliento, acción al frente, avisos, bolsa y subtítulos.
 
 const FULL_RATIO := 0.995
 const SHOWN_ALPHA := 1.0
@@ -11,6 +11,7 @@ const INVENTORY_SECONDS := 4.0
 const PROMPT_FORMAT := "[E]  %s"
 const INVENTORY_SEPARATOR := "   ·   "
 const INVENTORY_ENTRY := "%s %d"
+const SUBTITLE_FORMAT := "%s: %s"
 
 var _target_alpha := {}
 var _inventory_counts := {}
@@ -22,21 +23,27 @@ var _inventory_counts := {}
 @onready var _inventory_label: Label = %InventoryLabel
 @onready var _notice_timer: Timer = %NoticeTimer
 @onready var _inventory_timer: Timer = %InventoryTimer
+@onready var _subtitle_label: Label = %SubtitleLabel
+@onready var _subtitle_timer: Timer = %SubtitleTimer
 
 
 ## Escucha al bus y arranca con todo oculto.
 func _ready() -> void:
-	for control: Control in [_fuel_bar, _stamina_bar, _notice_label, _inventory_label]:
+	for control: Control in [
+		_fuel_bar, _stamina_bar, _notice_label, _inventory_label, _subtitle_label
+	]:
 		control.modulate.a = HIDDEN_ALPHA
 		_target_alpha[control] = HIDDEN_ALPHA
 	_prompt_label.text = ""
 	_notice_timer.timeout.connect(_hide.bind(_notice_label))
 	_inventory_timer.timeout.connect(_hide.bind(_inventory_label))
+	_subtitle_timer.timeout.connect(_hide.bind(_subtitle_label))
 	EventBus.stamina_changed.connect(_on_stamina_changed)
 	EventBus.lamp_fuel_changed.connect(_on_lamp_fuel_changed)
 	EventBus.interaction_prompt_changed.connect(_on_interaction_prompt_changed)
 	EventBus.notice_requested.connect(_on_notice_requested)
 	EventBus.inventory_changed.connect(_on_inventory_changed)
+	EventBus.subtitle_requested.connect(_on_subtitle_requested)
 
 
 ## Acerca la transparencia de cada elemento a la que le toca.
@@ -68,6 +75,12 @@ func _on_interaction_prompt_changed(prompt: String) -> void:
 func _on_notice_requested(text: String) -> void:
 	_notice_label.text = text
 	_show_for(_notice_label, _notice_timer, NOTICE_SECONDS)
+
+
+## Muestra quién habla y qué dice durante el tiempo de la línea.
+func _on_subtitle_requested(speaker: String, text: String, seconds: float) -> void:
+	_subtitle_label.text = SUBTITLE_FORMAT % [speaker, text]
+	_show_for(_subtitle_label, _subtitle_timer, seconds)
 
 
 ## Muestra un momento lo que hay en la bolsa.
