@@ -17,6 +17,7 @@ stream_2/stream = ExtResource("4_drip3")
 stream = SubResource("AudioStreamRandomizer_drips")
 volume_db = -8.0
 unit_size = 4.0
+bus = &"Efectos"
 script = ExtResource("1_drip")
 
 [node name="Timer" type="Timer" parent="."]

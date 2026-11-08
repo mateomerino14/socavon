@@ -130,3 +130,17 @@ func test_dread_rises_when_tio_is_near() -> void:
 	assert_almost_eq(dread_sense.update_dread(), 0.0, "Lejos del Tío no debe haber presentimiento")
 	_player.global_position = _tio.global_position + Vector3(-2.0, 0.0, 0.0)
 	assert_true(dread_sense.update_dread() > 0.7, "A 2 metros el presentimiento debe ser fuerte")
+
+
+## Al caminar, sus pasos suenan.
+func test_steps_play_while_walking() -> void:
+	var audio: AudioStreamPlayer3D = _tio.get_node("StrideAudio/Audio")
+	var played := [false]
+	audio.finished.connect(func() -> void: played[0] = true)
+	await wait_physics_frames(SETTLE_FRAMES)
+	EventBus.noise_emitted.emit(_tio.global_position + Vector3(-8.0, 0.0, 0.0), LOUD)
+	var heard := false
+	for i in PATROL_SECONDS * FRAMES_PER_SECOND:
+		await tree.physics_frame
+		heard = heard or audio.playing or played[0]
+	assert_true(heard, "Los pasos del Tío deben sonar al caminar")

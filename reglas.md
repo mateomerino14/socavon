@@ -195,6 +195,16 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 - Solo se hornean los nodos del grupo `navigation_source` (roca, soportes, altares); los objetos sueltos no.
 - Al cambiar la geometría de un nivel, se vuelve a hornear: seleccionar `NavigationRegion3D` y pulsar **Bake NavigationMesh**.
 
+### Buses de audio
+
+| Bus | Uso |
+|---|---|
+| `Master` | Volumen general (ajuste del jugador) |
+| `Ambiente` | Fondo de la mina; baja al escuchar |
+| `Efectos` | Pisadas, goteo, piedras y el Tío; sube al escuchar |
+
+Todo sonido nuevo se asigna a `Ambiente` o a `Efectos`, nunca directo a `Master`.
+
 ### Grupos
 
 | Grupo | Uso |
