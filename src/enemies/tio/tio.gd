@@ -51,6 +51,7 @@ var _move_speed := 0.0
 @onready var _agent: NavigationAgent3D = $NavigationAgent3D
 @onready var _hearing: NoiseHearing = $NoiseHearing
 @onready var _sight: PlayerSight = $Eyes
+@onready var _stride_audio: StrideAudio = $StrideAudio
 
 
 ## Busca al jugador, escucha el mundo y empieza a patrullar.
@@ -64,7 +65,7 @@ func _ready() -> void:
 	_enter_state(State.PATROL)
 
 
-## Actualiza el estado, avanza por el camino y revisa si atrapó al jugador.
+## Actualiza el estado, avanza por el camino, hace sonar sus pasos y revisa si atrapó al jugador.
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
 	if _has_caught:
@@ -72,7 +73,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		_update_state(delta)
 	_follow_path(delta)
+	var previous_position := global_position
 	move_and_slide()
+	var travelled := (global_position - previous_position) * HORIZONTAL_PLANE
+	_stride_audio.register_movement(travelled.length(), travelled.length() / delta)
 	_check_catch()
 
 
