@@ -27,6 +27,7 @@ Prototipo `0.1.0`: el nivel 1, El derrumbe, se juega de principio a fin, y el t�
 | Asomarse por esquinas sin atravesar la roca | |
 | Kit de piezas modulares de 4 m y nivel 1, El derrumbe | |
 | Notas que cuentan la historia: hoja de turno, carta de 1974, recorte de 1975 e inscripción en la roca | |
+| Escondites con animación: nichos en la roca y carros mineros | |
 
 ## Requisitos
 
@@ -50,7 +51,7 @@ Prototipo `0.1.0`: el nivel 1, El derrumbe, se juega de principio a fin, y el t�
 | Encender o apagar la lámpara | F | Y / Triángulo |
 | Subir o bajar la llama | Rueda del ratón | Cruceta arriba / abajo |
 | Recargar la lámpara con carburo | R | X / Cuadrado |
-| Recoger, ofrendar, usar | E | A / Equis |
+| Recoger, ofrendar, leer, esconderse y salir | E | A / Equis |
 | Lanzar una piedra | Clic izquierdo | RT / R2 |
 | Escuchar (te quedas quieto) | Mantener clic derecho | LT / L2 |
 | Asomarse por esquinas | Q / Z | LB / RB |
@@ -88,6 +89,7 @@ Despiertas tras el derrumbe y caminas hacia el norte hasta un cruce. El ramal oe
 - **Oído:** un ruido de volumen 1 se oye a 18 m. Caminar suena 0,35, correr 1, agachado 0,08 y una piedra 0,9.
 - **Vista:** cono de 110°. Con la lámpara apagada ve a 3 m; con la llama al máximo, a 22 m. A 1,4 m te nota siempre.
 - **Respeto:** con más respeto oye menos, busca menos tiempo y la calma dura más.
+- **Escondites:** a oscuras dentro de un nicho o un carro no te ve. Con la lámpara encendida la luz te delata a 4 m. Si te vio entrar, te saca; al buscarte revisa los escondites cercanos (40 % en cada punto).
 - **Pasos:** sus pisadas suenan graves y más fuertes cuanto más rápido va; al escuchar se oyen mejor.
 - **Presentimiento:** a menos de 10 m la llama de la lámpara tiembla y se encoge; encima de ti casi se apaga.
 
