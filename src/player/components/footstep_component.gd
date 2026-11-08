@@ -2,8 +2,6 @@ class_name FootstepComponent
 extends Node
 ## Convierte la distancia recorrida en pasos, y cada paso en un ruido que el Tío puede oír.
 
-signal stepped(loudness: float)
-
 @export_group("Distancia entre pasos (m)")
 @export var walk_step_distance := 0.75
 @export var sprint_step_distance := 1.05
@@ -25,9 +23,7 @@ func register_movement(distance: float, state: Player.MoveState, origin: Vector3
 	_distance_since_step += distance
 	if _distance_since_step >= _step_distance_for(state):
 		_distance_since_step = 0.0
-		var loudness := _loudness_for(state)
-		stepped.emit(loudness)
-		EventBus.noise_emitted.emit(origin, loudness)
+		EventBus.noise_emitted.emit(origin, _loudness_for(state))
 
 
 ## Devuelve el largo del paso para el estado de movimiento.

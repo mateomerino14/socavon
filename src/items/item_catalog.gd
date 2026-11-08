@@ -39,8 +39,3 @@ static func display_name(type: Type) -> String:
 ## Devuelve cuántos objetos de ese tipo caben en la bolsa.
 static func max_stack(type: Type) -> int:
 	return MAX_STACK.get(type, 0)
-
-
-## Dice si el objeto sirve como ofrenda al Tío.
-static func is_offering(type: Type) -> bool:
-	return OFFERING_RESPECT.has(type)

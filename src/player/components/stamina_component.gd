@@ -3,8 +3,6 @@ extends Node
 ## Aliento del jugador: se gasta al correr y se recupera tras una pausa.
 
 signal changed(current: float, maximum: float)
-signal exhausted
-signal recovered
 
 @export var max_stamina := 100.0
 @export var drain_per_second := 22.0
@@ -62,18 +60,12 @@ func can_sprint() -> bool:
 	return not is_exhausted and current > 0.0
 
 
-## Devuelve el aliento como proporción de 0 a 1.
-func get_ratio() -> float:
-	return current / max_stamina
-
-
 ## Resta aliento y marca el agotamiento al llegar a cero.
 func _drain(delta: float) -> void:
 	current = maxf(current - drain_per_second * delta, 0.0)
 	if current <= 0.0 and not is_exhausted:
 		is_exhausted = true
 		_is_draining = false
-		exhausted.emit()
 
 
 ## Suma aliento cuando ya pasó la pausa tras correr.
@@ -84,4 +76,3 @@ func _regenerate(delta: float) -> void:
 	current = minf(current + regen_per_second * delta, max_stamina)
 	if is_exhausted and current >= recover_threshold:
 		is_exhausted = false
-		recovered.emit()

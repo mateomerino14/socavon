@@ -20,9 +20,6 @@ signal stamina_changed(current: float, maximum: float)
 ## El combustible de la lámpara cambió.
 signal lamp_fuel_changed(current: float, maximum: float)
 
-## La lámpara se encendió, apagó o cambió de nivel de llama.
-signal lamp_state_changed(is_lit: bool, level: int)
-
 ## Cambió lo que el jugador puede usar al frente; texto vacío si no hay nada.
 signal interaction_prompt_changed(prompt: String)
 
@@ -34,9 +31,6 @@ signal offering_made(origin: Vector3, type: ItemCatalog.Type)
 
 ## Un aviso breve para el jugador, como "Partida guardada".
 signal notice_requested(text: String)
-
-## El Tío cambió de estado (patrulla, sospecha, caza, búsqueda o calma).
-signal tio_state_changed(state: Tio.State)
 
 ## El Tío alcanzó al jugador.
 signal player_caught

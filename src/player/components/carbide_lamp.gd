@@ -4,7 +4,6 @@ extends Node3D
 
 signal fuel_changed(current: float, maximum: float)
 signal state_changed(is_lit: bool, level: int)
-signal fuel_depleted
 
 const MIN_LEVEL := 1
 const MAX_LEVEL := 3
@@ -97,7 +96,6 @@ func consume_fuel(delta: float) -> void:
 	fuel_changed.emit(fuel, max_fuel)
 	if fuel <= 0.0:
 		set_lit(false)
-		fuel_depleted.emit()
 
 
 ## Devuelve cuánto delata la lámpara, de 0 (apagada) a 1 (llama alta).
