@@ -57,6 +57,7 @@ src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, 
 src/world/     Túnel de prueba, altar, reaparición, soportes de madera y materiales
 src/ui/        HUD y pantalla de muerte
 tests/         Pruebas automáticas
+tools/         Buscador de código sin uso
 assets/        Modelos, texturas y audio
 ```
 
@@ -89,6 +90,7 @@ Formato y lint con [gdtoolkit](https://github.com/Scony/godot-gdscript-toolkit):
 pip install "gdtoolkit==4.*"
 gdformat --check src tests
 gdlint src tests
+python3 tools/find_unused.py src tests
 ```
 
-GitHub Actions corre las tres comprobaciones en cada Pull Request.
+`find_unused.py` busca funciones sin llamadas, señales sin oyentes y constantes o variables sin leer. GitHub Actions corre todas las comprobaciones en cada Pull Request.
