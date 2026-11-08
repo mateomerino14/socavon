@@ -38,6 +38,8 @@ func after_each() -> void:
 func test_intro_blocks_then_returns_control() -> void:
 	await wait_physics_frames(RUN_FRAMES)
 	assert_true(_intro.is_playing, "La cinemática debe empezar sola")
+	var bars: Control = _level.get_node("Hud/Bars")
+	assert_false(bars.visible, "El HUD se oculta durante la cinemática")
 	var start := _player.global_position
 	Input.action_press("move_forward")
 	await wait_physics_frames(RUN_FRAMES)
@@ -49,6 +51,7 @@ func test_intro_blocks_then_returns_control() -> void:
 	assert_false(_intro.is_playing, "La cinemática debe terminar")
 	var camera: Camera3D = _player.get_node("Head/Camera3D")
 	assert_true(camera.current, "Al terminar se ve por los ojos del jugador")
+	assert_true(bars.visible, "Al terminar vuelve el HUD")
 
 
 ## Escape la salta y devuelve el control.

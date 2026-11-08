@@ -25,6 +25,8 @@ var _inventory_counts := {}
 @onready var _inventory_timer: Timer = %InventoryTimer
 @onready var _subtitle_label: Label = %SubtitleLabel
 @onready var _subtitle_timer: Timer = %SubtitleTimer
+@onready var _bars: Control = $Bars
+@onready var _crosshair: Control = $Crosshair
 
 
 ## Escucha al bus y arranca con todo oculto.
@@ -44,6 +46,7 @@ func _ready() -> void:
 	EventBus.notice_requested.connect(_on_notice_requested)
 	EventBus.inventory_changed.connect(_on_inventory_changed)
 	EventBus.subtitle_requested.connect(_on_subtitle_requested)
+	EventBus.hud_visibility_requested.connect(_on_hud_visibility_requested)
 
 
 ## Acerca la transparencia de cada elemento a la que le toca.
@@ -75,6 +78,12 @@ func _on_interaction_prompt_changed(prompt: String) -> void:
 func _on_notice_requested(text: String) -> void:
 	_notice_label.text = text
 	_show_for(_notice_label, _notice_timer, NOTICE_SECONDS)
+
+
+## Oculta o muestra las barras y la mira; los subtítulos siguen visibles.
+func _on_hud_visibility_requested(is_visible: bool) -> void:
+	_bars.visible = is_visible
+	_crosshair.visible = is_visible
 
 
 ## Muestra quién habla y qué dice durante el tiempo de la línea.

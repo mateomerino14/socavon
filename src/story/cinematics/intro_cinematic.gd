@@ -67,6 +67,7 @@ func play() -> void:
 	_player = get_tree().get_first_node_in_group(Player.GROUP) as Player
 	is_playing = true
 	_player.set_controls_enabled(false)
+	EventBus.hud_visibility_requested.emit(false)
 	_curtain.modulate.a = OPAQUE
 	_say(order_line)
 	if await _wait(calm_seconds):
@@ -119,6 +120,7 @@ func _finish() -> void:
 	_player.get_node("Head").rotation.x = 0.0
 	_player.get_node("Head/Camera3D").make_current()
 	_player.set_controls_enabled(true)
+	EventBus.hud_visibility_requested.emit(true)
 	is_playing = false
 
 
