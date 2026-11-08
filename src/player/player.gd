@@ -8,6 +8,11 @@ enum MoveState { IDLE, WALK, SPRINT, CROUCH }
 
 const HORIZONTAL_PLANE := Vector3(1.0, 0.0, 1.0)
 const CROUCH_HEIGHT_TOLERANCE := 0.05
+## Segundos de llama media que da una carga de carburo.
+const CARBIDE_FUEL := 150.0
+const REFILLED_NOTICE := "Recargaste la lámpara"
+const NO_CARBIDE_NOTICE := "No tienes carburo"
+const LAMP_FULL_NOTICE := "La lámpara está llena"
 
 @export_group("Velocidades (m/s)")
 @export var walk_speed := 2.4
@@ -34,12 +39,14 @@ var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _capsule: CapsuleShape3D
 var _is_crouch_requested := false
 
+@onready var inventory: InventoryComponent = $InventoryComponent
 @onready var _collision: CollisionShape3D = $CollisionShape3D
 @onready var _ceiling_check: ShapeCast3D = $CeilingCheck
 @onready var _head: FirstPersonCamera = $Head
 @onready var _stamina: StaminaComponent = $StaminaComponent
 @onready var _footsteps: FootstepComponent = $FootstepComponent
 @onready var _lamp: CarbideLamp = $Head/Camera3D/CarbideLamp
+@onready var _interactor: Interactor = $Head/Camera3D/Interactor
 
 
 ## Prepara la cápsula, conecta los componentes y pone al jugador de pie.
@@ -50,9 +57,13 @@ func _ready() -> void:
 	_head.position.y = stand_height - eye_offset
 
 
-## Atiende las acciones de una sola pulsación: lámpara y agacharse en modo alterno.
+## Atiende las acciones de una sola pulsación: usar, lámpara y agacharse en modo alterno.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("lamp_toggle"):
+	if event.is_action_pressed("interact"):
+		_interactor.try_interact(self)
+	elif event.is_action_pressed("lamp_refill"):
+		refill_lamp()
+	elif event.is_action_pressed("lamp_toggle"):
 		_lamp.toggle()
 	elif event.is_action_pressed("lamp_increase"):
 		_lamp.increase_level()
@@ -80,6 +91,19 @@ func _physics_process(delta: float) -> void:
 	var travelled := (global_position - previous_position) * HORIZONTAL_PLANE
 	_footsteps.register_movement(travelled.length(), move_state, global_position)
 	_head.update_bob(delta, _horizontal_speed() / walk_speed, is_on_floor())
+	_interactor.update_focus(self)
+
+
+## Gasta un carburo de la bolsa para recargar la lámpara.
+func refill_lamp() -> void:
+	if _lamp.get_fuel_ratio() >= 1.0:
+		EventBus.notice_requested.emit(LAMP_FULL_NOTICE)
+	elif inventory.remove(ItemCatalog.Type.CARBIDE):
+		_lamp.add_fuel(CARBIDE_FUEL)
+		_lamp.set_lit(true)
+		EventBus.notice_requested.emit(REFILLED_NOTICE)
+	else:
+		EventBus.notice_requested.emit(NO_CARBIDE_NOTICE)
 
 
 ## Dice si la cápsula está por debajo de la altura de pie.
@@ -92,6 +116,8 @@ func _connect_components() -> void:
 	_stamina.changed.connect(EventBus.stamina_changed.emit)
 	_lamp.fuel_changed.connect(EventBus.lamp_fuel_changed.emit)
 	_lamp.state_changed.connect(_on_lamp_state_changed)
+	_interactor.focus_changed.connect(EventBus.interaction_prompt_changed.emit)
+	inventory.changed.connect(EventBus.inventory_changed.emit)
 	# Los componentes emitieron su estado en su _ready, que corre antes que este.
 	EventBus.stamina_changed.emit(_stamina.current, _stamina.max_stamina)
 	EventBus.lamp_fuel_changed.emit(_lamp.fuel, _lamp.max_fuel)
