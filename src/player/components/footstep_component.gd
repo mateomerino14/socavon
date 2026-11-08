@@ -1,6 +1,10 @@
 class_name FootstepComponent
-extends Node
-## Convierte la distancia recorrida en pasos, y cada paso en un ruido que el Tío puede oír.
+extends Node3D
+## Convierte la distancia recorrida en pasos: cada paso suena y es un ruido que el Tío puede oír.
+
+## Volumen de la pisada más fuerte; las demás bajan según su volumen de ruido.
+const LOUDEST_STEP_DB := 0.0
+const QUIETEST_STEP_DB := -24.0
 
 @export_group("Distancia entre pasos (m)")
 @export var walk_step_distance := 0.75
@@ -14,6 +18,8 @@ extends Node
 
 var _distance_since_step := 0.0
 
+@onready var _audio: AudioStreamPlayer3D = $Audio
+
 
 ## Suma lo que avanzó el jugador y emite un paso al completar el tramo.
 func register_movement(distance: float, state: Player.MoveState, origin: Vector3) -> void:
@@ -23,7 +29,10 @@ func register_movement(distance: float, state: Player.MoveState, origin: Vector3
 	_distance_since_step += distance
 	if _distance_since_step >= _step_distance_for(state):
 		_distance_since_step = 0.0
-		EventBus.noise_emitted.emit(origin, _loudness_for(state))
+		var loudness := _loudness_for(state)
+		_audio.volume_db = lerpf(QUIETEST_STEP_DB, LOUDEST_STEP_DB, loudness)
+		_audio.play()
+		EventBus.noise_emitted.emit(origin, loudness)
 
 
 ## Devuelve el largo del paso para el estado de movimiento.

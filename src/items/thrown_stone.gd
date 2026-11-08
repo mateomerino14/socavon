@@ -10,11 +10,15 @@ const MAX_NOISY_IMPACTS := 3
 const SETTLED_SPEED := 0.08
 const SETTLE_SECONDS := 0.6
 const RADIUS := 0.06
+const LOUDEST_HIT_DB := 0.0
+const QUIETEST_HIT_DB := -18.0
 
 var _impacts := 0
 var _loudness := FIRST_IMPACT_LOUDNESS
 var _speed_before_contact := 0.0
 var _settled_time := 0.0
+
+@onready var _hit_audio: AudioStreamPlayer3D = $HitAudio
 
 
 ## Escucha los choques de la piedra.
@@ -34,10 +38,12 @@ func _physics_process(delta: float) -> void:
 	_speed_before_contact = speed
 
 
-## Emite un ruido en cada choque fuerte, cada vez más suave.
+## Suena y emite un ruido en cada choque fuerte, cada vez más suave.
 func _on_body_entered(_body: Node) -> void:
 	if _impacts >= MAX_NOISY_IMPACTS or _speed_before_contact < MIN_IMPACT_SPEED:
 		return
+	_hit_audio.volume_db = lerpf(QUIETEST_HIT_DB, LOUDEST_HIT_DB, _loudness)
+	_hit_audio.play()
 	EventBus.noise_emitted.emit(global_position, _loudness)
 	_loudness *= BOUNCE_LOUDNESS_RATIO
 	_impacts += 1
