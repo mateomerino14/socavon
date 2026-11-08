@@ -208,10 +208,12 @@ func _go_to(target: Vector3, speed: float) -> void:
 		_agent.target_position = target
 
 
-## Dice si llegó al destino actual, mirando solo la distancia en el suelo.
+## Dice si llegó al destino, o al punto más cercano si el destino no tiene camino.
 func _has_arrived() -> bool:
 	var offset := (_move_target - global_position) * HORIZONTAL_PLANE
-	return offset.length() <= ARRIVAL_DISTANCE
+	if offset.length() <= ARRIVAL_DISTANCE:
+		return true
+	return _agent.is_navigation_finished() and not _agent.is_target_reachable()
 
 
 ## Avanza hacia el siguiente punto del camino y gira hacia donde va.
