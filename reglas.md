@@ -134,7 +134,7 @@ const MAX_LEVEL := 3
 
 ```
 src/
-├── core/             Autoloads globales (EventBus, GameState)
+├── core/             Autoloads globales (EventBus, GameState, Settings)
 ├── items/            Catálogo de objetos, objetos recogibles e Interactable
 ├── player/           Jugador
 │   ├── player.tscn / player.gd      Raíz: lee la entrada y coordina
@@ -161,6 +161,7 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | `EventBus` | Transportar eventos entre sistemas que no se conocen | Guardar estado |
 | `GameState` | Guardar el estado de la partida (respeto, punto de guardado) | Contener reglas de una mecánica |
 | `Interactable` | Avisar a su dueño que el jugador lo usó | Decidir qué pasa al usarlo |
+| `Settings` | Guardar los ajustes del jugador en `user://ajustes.cfg` y avisar cambios | Aplicarlos: cada sistema los lee al recibir `changed` |
 | HUD y audio | Escuchar `EventBus` y presentar | Cambiar el estado del juego |
 
 **Señales hacia arriba, llamadas hacia abajo:** un nodo llama métodos de sus hijos y escucha las señales de ellos; nunca busca a su padre ni a sus hermanos.
@@ -184,6 +185,7 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | `Player` | El jugador |
 | `Hud` | Barras, avisos y bolsa |
 | `RespawnDirector` | Muerte y reaparición en el último guardado |
+| `PauseMenu` | Pausa con Escape y ajustes |
 | `NavigationRegion3D` | Por dónde camina el Tío |
 | Script del nivel | Llama a `GameState.reset()` y guarda el inicio como primer punto |
 
@@ -206,6 +208,7 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 ## PRUEBAS
 
 - Las pruebas viven en `tests/`, con archivos `<nombre>_test.gd` que extienden `TestCase`; cada método `test_` es una prueba.
+- Una prueba que cambia `Settings` usa su propio archivo (`config_path`) y lo borra al terminar.
 - Se ejecutan sin abrir el editor: `godot --headless --path . --script res://tests/run_tests.gd`.
 - Cada componente con lógica tiene pruebas unitarias; los recorridos del jugador se prueban dentro de una escena real.
 - En cada Pull Request, GitHub Actions valida el formato, el lint y el código sin uso, importa el proyecto y corre las pruebas.
