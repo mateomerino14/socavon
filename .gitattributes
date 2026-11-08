@@ -1,0 +1,11 @@
+# Normaliza finales de línea para que Windows y Linux no generen cambios falsos
+* text=auto eol=lf
+
+# Binarios: nunca tocar
+*.png binary
+*.jpg binary
+*.wav binary
+*.ogg binary
+*.blend binary
+*.glb binary
+*.fbx binary

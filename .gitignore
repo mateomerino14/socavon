@@ -1,0 +1,17 @@
+# Godot 4: caché del editor e importaciones (se regeneran solos)
+.godot/
+/android/
+
+# Exportaciones y presets (pueden contener credenciales)
+export_presets.cfg
+/build/
+
+# Archivos temporales y de respaldo
+*.tmp
+*.blend1
+*.blend2
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
