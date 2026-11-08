@@ -20,6 +20,8 @@ const BOB_SIDE_AMPLITUDE_RATIO := 0.6
 @export_group("Altura")
 @export var height_transition_speed := 9.0
 
+var look_enabled := true
+
 var _target_height := 0.0
 var _bob_time := 0.0
 
@@ -39,14 +41,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif event is InputEventMouseButton and event.pressed:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	elif event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	elif event is InputEventMouseMotion and _can_look_with_mouse():
 		_look(event.relative * mouse_sensitivity)
 
 
 ## Mira con el stick derecho y acerca la cabeza a su altura objetivo.
 func _process(delta: float) -> void:
 	var stick := Input.get_vector("look_left", "look_right", "look_up", "look_down")
-	if stick != Vector2.ZERO:
+	if look_enabled and stick != Vector2.ZERO:
 		_look(stick * gamepad_sensitivity * delta)
 	position.y = lerpf(position.y, _target_height, height_transition_speed * delta)
 
@@ -67,6 +69,17 @@ func update_bob(delta: float, speed_ratio: float, is_grounded: bool) -> void:
 		)
 	else:
 		_camera.position = _camera.position.lerp(Vector3.ZERO, bob_return_speed * delta)
+
+
+## Endereza la cabeza y la cámara, como al reaparecer.
+func reset_look() -> void:
+	rotation.x = 0.0
+	_camera.position = Vector3.ZERO
+
+
+## Dice si el ratón puede mover la mirada.
+func _can_look_with_mouse() -> bool:
+	return look_enabled and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
 
 
 ## Gira el cuerpo en horizontal y la cabeza en vertical, con límite de inclinación.

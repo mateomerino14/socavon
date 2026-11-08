@@ -10,15 +10,16 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 
 | Hecho | Pendiente |
 |---|---|
-| Movimiento en primera persona: caminar, correr y agacharse | Muerte y reaparición |
-| Aliento que se gasta al correr | Sonido |
-| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Modelos de Blender |
+| Movimiento en primera persona: caminar, correr y agacharse | Sonido |
+| Aliento que se gasta al correr | Modelos de Blender |
+| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Niveles 1 a 5 de la mina |
 | Pasos que emiten ruido para la futura IA | |
 | Túnel gris de prueba y HUD mínimo | |
 | Bolsa de objetos: carburo, coca, alcohol, cigarros y piedras | |
 | Altar que recibe ofrendas, sube el respeto del Tío y guarda la partida | |
 | Piedras que hacen ruido al caer y se pueden volver a recoger | |
 | El Tío: patrulla, sospecha, caza, búsqueda y calma; oye los ruidos y ve según la luz | |
+| Muerte: si el Tío te alcanza, fundido a negro y reapareces en el último altar | |
 
 ## Requisitos
 
@@ -53,8 +54,8 @@ src/core/      Bus de eventos y estado de la partida
 src/items/     Catálogo de objetos, objetos recogibles y zonas interactuables
 src/enemies/   El Tío, su oído y su vista
 src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, rayo de interacción)
-src/world/     Túnel de prueba, altar, soportes de madera y materiales
-src/ui/        HUD
+src/world/     Túnel de prueba, altar, reaparición, soportes de madera y materiales
+src/ui/        HUD y pantalla de muerte
 tests/         Pruebas automáticas
 assets/        Modelos, texturas y audio
 ```

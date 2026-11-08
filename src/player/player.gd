@@ -41,6 +41,7 @@ var move_state := MoveState.IDLE
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _capsule: CapsuleShape3D
 var _is_crouch_requested := false
+var _controls_enabled := true
 
 @onready var inventory: InventoryComponent = $InventoryComponent
 @onready var _collision: CollisionShape3D = $CollisionShape3D
@@ -63,6 +64,8 @@ func _ready() -> void:
 
 ## Atiende las acciones de una sola pulsación: usar, lámpara, lanzar y agacharse alterno.
 func _unhandled_input(event: InputEvent) -> void:
+	if not _controls_enabled:
+		return
 	if event.is_action_pressed("interact"):
 		_interactor.try_interact(self)
 	elif event.is_action_pressed("lamp_refill"):
@@ -81,10 +84,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Mueve al jugador y alimenta a la cabeza, la estamina y los pasos.
 func _physics_process(delta: float) -> void:
-	if not crouch_toggles:
-		_is_crouch_requested = Input.is_action_pressed("crouch")
-
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	var input_dir := Vector2.ZERO
+	if _controls_enabled:
+		input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+		if not crouch_toggles:
+			_is_crouch_requested = Input.is_action_pressed("crouch")
 	_update_crouch(delta)
 	_update_move_state(input_dir)
 	_stamina.set_draining(move_state == MoveState.SPRINT)
@@ -118,6 +122,23 @@ func throw_stone() -> void:
 		_stone_thrower.throw(get_parent(), velocity)
 	else:
 		EventBus.notice_requested.emit(NO_STONES_NOTICE)
+
+
+## Activa o desactiva la entrada del jugador, por ejemplo durante la muerte.
+func set_controls_enabled(enabled: bool) -> void:
+	_controls_enabled = enabled
+	_head.look_enabled = enabled
+
+
+## Lleva al jugador al punto indicado, de pie, quieto, con aliento lleno y la lámpara encendida.
+func respawn_at(spawn: Transform3D) -> void:
+	global_transform = spawn
+	velocity = Vector3.ZERO
+	_is_crouch_requested = false
+	_apply_height(stand_height)
+	_head.reset_look()
+	_stamina.refill()
+	_lamp.set_lit(true)
 
 
 ## Devuelve la posición de los ojos, que es lo que el Tío intenta ver.

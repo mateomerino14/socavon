@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/world/respawn/respawn_director.gd" id="1_director"]
+[ext_resource type="PackedScene" path="res://src/ui/death_screen/death_screen.tscn" id="2_death"]
+
+[node name="RespawnDirector" type="Node"]
+script = ExtResource("1_director")
+
+[node name="DeathScreen" parent="." instance=ExtResource("2_death")]
+
+[node name="HoldTimer" type="Timer" parent="."]
+one_shot = true

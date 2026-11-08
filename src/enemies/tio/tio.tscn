@@ -35,7 +35,7 @@ material = SubResource("StandardMaterial3D_eye")
 radius = 0.035
 height = 0.07
 
-[node name="Tio" type="CharacterBody3D"]
+[node name="Tio" type="CharacterBody3D" groups=["enemies"]]
 collision_layer = 8
 script = ExtResource("1_tio")
 

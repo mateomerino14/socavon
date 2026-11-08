@@ -177,6 +177,16 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | 4 | Enemigos (el Tío) |
 | 5 | Proyectiles (piedras lanzadas) |
 
+### Escenas obligatorias de cada nivel
+
+| Nodo | Para qué |
+|---|---|
+| `Player` | El jugador |
+| `Hud` | Barras, avisos y bolsa |
+| `RespawnDirector` | Muerte y reaparición en el último guardado |
+| `NavigationRegion3D` | Por dónde camina el Tío |
+| Script del nivel | Llama a `GameState.reset()` y guarda el inicio como primer punto |
+
 ### Navegación
 
 - Cada nivel tiene un `NavigationRegion3D` con su malla horneada en un `.tres` junto a la escena.
@@ -189,6 +199,7 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 |---|---|
 | `player` | Declarado en `player.tscn`; el Tío encuentra así al jugador |
 | `navigation_source` | Geometría que se hornea en la navegación |
+| `enemies` | Declarado en cada enemigo; `RespawnDirector` los reinicia al reaparecer el jugador |
 
 ---
 

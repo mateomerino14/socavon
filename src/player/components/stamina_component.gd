@@ -49,6 +49,14 @@ func set_draining(value: bool) -> void:
 		_regen_cooldown = regen_delay
 
 
+## Llena el aliento de golpe, como al reaparecer.
+func refill() -> void:
+	current = max_stamina
+	is_exhausted = false
+	_regen_cooldown = 0.0
+	changed.emit(current, max_stamina)
+
+
 ## Dice si queda aliento para correr.
 func can_sprint() -> bool:
 	return not is_exhausted and current > 0.0
