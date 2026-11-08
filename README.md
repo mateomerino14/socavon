@@ -10,7 +10,7 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 
 | Hecho | Pendiente |
 |---|---|
-| Movimiento en primera persona: caminar, correr y agacharse | Sonido |
+| Movimiento en primera persona: caminar, correr y agacharse | Voces y sonidos del Tío |
 | Aliento que se gasta al correr | Modelos de Blender |
 | Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Niveles 1 a 5 de la mina |
 | Pasos que emiten ruido para la futura IA | |
@@ -22,6 +22,7 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 | Muerte: si el Tío te alcanza, fundido a negro y reapareces en el último altar | |
 | Presentimiento: a menos de 10 m del Tío la llama tiembla y se encoge | |
 | Menú de pausa con sensibilidad del ratón, volumen y agacharse con una pulsación | |
+| Sonido provisional: pisadas, goteo, golpe de piedra y ambiente de mina | |
 
 ## Requisitos
 
@@ -59,7 +60,7 @@ src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, 
 src/world/     Túnel de prueba, altar, reaparición, soportes de madera y materiales
 src/ui/        HUD, pantalla de muerte y menú de pausa
 tests/         Pruebas automáticas
-tools/         Buscador de código sin uso
+tools/         Buscador de código sin uso y generador de sonidos provisionales
 assets/        Modelos, texturas y audio
 ```
 
@@ -95,5 +96,7 @@ gdformat --check src tests
 gdlint src tests
 python3 tools/find_unused.py src tests
 ```
+
+Los sonidos de `assets/audio/` se generan con `python3 tools/generate_sounds.py` (solo biblioteca estándar, siempre iguales) hasta tener grabaciones reales.
 
 `find_unused.py` busca funciones sin llamadas, señales sin oyentes y constantes o variables sin leer. GitHub Actions corre todas las comprobaciones en cada Pull Request.
