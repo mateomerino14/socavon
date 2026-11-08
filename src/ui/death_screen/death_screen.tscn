@@ -1,0 +1,37 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/death_screen/death_screen.gd" id="1_death"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_message"]
+font_size = 30
+font_color = Color(0.78, 0.18, 0.14, 1)
+
+[node name="DeathScreen" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_death")
+
+[node name="Curtain" type="ColorRect" parent="."]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Message" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -20.0
+offset_right = 400.0
+offset_bottom = 20.0
+mouse_filter = 2
+text = "El Tío te encontró"
+label_settings = SubResource("LabelSettings_message")
+horizontal_alignment = 1
