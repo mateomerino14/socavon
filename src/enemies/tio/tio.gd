@@ -11,6 +11,8 @@ const TURN_SPEED := 6.0
 const LOOK_AROUND_SPEED := 1.2
 const SEARCH_RADIUS := 6.0
 const RETARGET_DISTANCE := 0.5
+## Distancia desde la salida del escondite a la que alcanza a sacar al jugador.
+const SPOT_REACH := 1.2
 
 @export_group("Patrulla")
 @export var patrol_points: Array[Node3D] = []
@@ -30,6 +32,11 @@ const RETARGET_DISTANCE := 0.5
 @export var calm_seconds_low_respect := 12.0
 @export var calm_seconds_high_respect := 30.0
 
+@export_group("Escondites")
+## Probabilidad de revisar un escondite en cada punto de la búsqueda.
+@export_range(0.0, 1.0) var spot_check_chance := 0.4
+@export var spot_search_radius := 8.0
+
 @export_group("Oído según respeto")
 @export var hearing_low_respect := 1.3
 @export var hearing_high_respect := 0.8
@@ -47,6 +54,8 @@ var _has_caught := false
 var _last_known_position := Vector3.ZERO
 var _move_target := Vector3.ZERO
 var _move_speed := 0.0
+var _known_spot: HidingSpot
+var _checking_spot: HidingSpot
 
 @onready var _agent: NavigationAgent3D = $NavigationAgent3D
 @onready var _hearing: NoiseHearing = $NoiseHearing
@@ -60,6 +69,7 @@ func _ready() -> void:
 	_player = get_tree().get_first_node_in_group(Player.GROUP) as Player
 	_hearing.heard.connect(_on_heard)
 	EventBus.offering_made.connect(_on_offering_made)
+	EventBus.player_hid.connect(_on_player_hid)
 	GameState.respect_changed.connect(_on_respect_changed)
 	_on_respect_changed(GameState.respect)
 	_enter_state(State.PATROL)
@@ -142,6 +152,8 @@ func _update_hunt(delta: float) -> void:
 	if _sees_player():
 		_unseen_time = 0.0
 		_last_known_position = _player.global_position
+	elif _known_spot:
+		_last_known_position = _known_spot.get_exit_transform().origin
 	else:
 		_unseen_time += delta
 		if _unseen_time >= lose_sight_seconds:
@@ -159,7 +171,11 @@ func _update_search(delta: float) -> void:
 	if _state_timer <= 0.0:
 		_enter_state(State.PATROL)
 	elif _has_arrived():
-		_go_to(_random_point_near(_last_known_position), investigate_speed)
+		_checking_spot = _pick_spot_to_check()
+		if _checking_spot:
+			_go_to(_checking_spot.get_exit_transform().origin, investigate_speed)
+		else:
+			_go_to(_random_point_near(_last_known_position), investigate_speed)
 
 
 ## Se retira mientras dura la calma y luego vuelve a patrullar.
@@ -192,8 +208,10 @@ func _enter_state(new_state: State) -> void:
 			_go_to(_farthest_patrol_point_from_player(), patrol_speed)
 
 
-## Retoma la patrulla hacia el punto actual.
+## Retoma la patrulla hacia el punto actual y olvida los escondites.
 func _start_patrol() -> void:
+	_known_spot = null
+	_checking_spot = null
 	_is_waiting = false
 	_move_speed = 0.0
 	if not patrol_points.is_empty():
@@ -237,14 +255,44 @@ func _apply_gravity(delta: float) -> void:
 		velocity.y -= _gravity * delta
 
 
-## Avisa una sola vez si alcanzó al jugador mientras lo veía.
+## Avisa una sola vez si alcanzó al jugador; escondido, solo si sabe o revisa ese escondite.
 func _check_catch() -> void:
 	if _has_caught or state == State.CALM or _player == null:
 		return
+	if _player.hiding_spot:
+		_check_spot_catch(_player.hiding_spot)
+		return
 	var offset := (_player.global_position - global_position) * HORIZONTAL_PLANE
 	if offset.length() <= CATCH_DISTANCE:
-		_has_caught = true
-		EventBus.player_caught.emit()
+		_catch()
+
+
+## Saca al jugador del escondite si lo vio entrar o lo está revisando y llegó a su salida.
+func _check_spot_catch(spot: HidingSpot) -> void:
+	if spot != _known_spot and spot != _checking_spot:
+		return
+	var offset := (spot.get_exit_transform().origin - global_position) * HORIZONTAL_PLANE
+	if offset.length() <= SPOT_REACH:
+		_catch()
+
+
+## Marca la captura y la avisa.
+func _catch() -> void:
+	_has_caught = true
+	EventBus.player_caught.emit()
+
+
+## Elige al azar un escondite cercano a donde lo perdió, o ninguno.
+func _pick_spot_to_check() -> HidingSpot:
+	if randf() >= spot_check_chance:
+		return null
+	var nearby: Array[HidingSpot] = []
+	for spot: HidingSpot in get_tree().get_nodes_in_group(HidingSpot.GROUP):
+		if spot.global_position.distance_to(_last_known_position) <= spot_search_radius:
+			nearby.append(spot)
+	if nearby.is_empty():
+		return null
+	return nearby.pick_random()
 
 
 ## Dice si ve al jugador ahora.
@@ -284,6 +332,12 @@ func _on_heard(origin: Vector3, _strength: float) -> void:
 		State.HUNT, State.SEARCH:
 			_last_known_position = origin
 			_go_to(origin, investigate_speed)
+
+
+## Si está cazando y lo ve meterse en un escondite, recuerda cuál es.
+func _on_player_hid(spot: HidingSpot) -> void:
+	if state == State.HUNT and _sees_player():
+		_known_spot = spot
 
 
 ## Una ofrenda lo calma, salvo que ya haya atrapado al jugador.
