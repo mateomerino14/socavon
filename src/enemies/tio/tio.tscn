@@ -1,0 +1,84 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/enemies/tio/tio.gd" id="1_tio"]
+[ext_resource type="Script" path="res://src/enemies/tio/components/noise_hearing.gd" id="2_hearing"]
+[ext_resource type="Script" path="res://src/enemies/tio/components/player_sight.gd" id="3_sight"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tio"]
+radius = 0.4
+height = 2.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_clay"]
+albedo_color = Color(0.22, 0.1, 0.08, 1)
+roughness = 0.7
+metallic = 0.2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
+material = SubResource("StandardMaterial3D_clay")
+radius = 0.38
+height = 2.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_horn"]
+material = SubResource("StandardMaterial3D_clay")
+top_radius = 0.0
+bottom_radius = 0.06
+height = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eye"]
+albedo_color = Color(0.1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.75, 0.3, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_eye"]
+material = SubResource("StandardMaterial3D_eye")
+radius = 0.035
+height = 0.07
+
+[node name="Tio" type="CharacterBody3D"]
+collision_layer = 8
+script = ExtResource("1_tio")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+shape = SubResource("CapsuleShape3D_tio")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+mesh = SubResource("CapsuleMesh_body")
+
+[node name="HornLeft" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.94, 0.34, 0, -0.34, 0.94, 0, 0, 0, 1, -0.2, 2.15, 0)
+mesh = SubResource("CylinderMesh_horn")
+
+[node name="HornRight" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.94, -0.34, 0, 0.34, 0.94, 0, 0, 0, 1, 0.2, 2.15, 0)
+mesh = SubResource("CylinderMesh_horn")
+
+[node name="EyeLeft" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 1.9, -0.34)
+mesh = SubResource("SphereMesh_eye")
+
+[node name="EyeRight" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 1.9, -0.34)
+mesh = SubResource("SphereMesh_eye")
+
+[node name="EyeGlow" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, -0.45)
+light_color = Color(1, 0.55, 0.25, 1)
+light_energy = 0.25
+omni_range = 1.5
+
+[node name="Eyes" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, -0.2)
+script = ExtResource("3_sight")
+
+[node name="NoiseHearing" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+script = ExtResource("2_hearing")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.8
+target_desired_distance = 0.8
+radius = 0.5
+height = 2.2
