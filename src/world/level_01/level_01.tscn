@@ -21,6 +21,13 @@
 [ext_resource type="PackedScene" path="res://src/world/level_exit/level_exit.tscn" id="19_exit"]
 [ext_resource type="NavigationMesh" path="res://src/world/level_01/level_01_navmesh.tres" id="20_navmesh"]
 [ext_resource type="Material" path="res://src/world/materials/rock.tres" id="21_rock"]
+[ext_resource type="PackedScene" path="res://src/story/readable_note.tscn" id="30_note"]
+[ext_resource type="PackedScene" path="res://src/story/wall_inscription.tscn" id="31_wall"]
+[ext_resource type="Resource" path="res://src/story/notes/hoja_faustino.tres" id="32_faustino"]
+[ext_resource type="Resource" path="res://src/story/notes/carta_1974.tres" id="33_carta"]
+[ext_resource type="Resource" path="res://src/story/notes/recorte_1975.tres" id="34_recorte"]
+[ext_resource type="Resource" path="res://src/story/notes/inscripcion_siete.tres" id="35_inscripcion"]
+[ext_resource type="PackedScene" path="res://src/ui/note_viewer/note_viewer.tscn" id="36_viewer"]
 
 [node name="Level01" type="Node3D"]
 script = ExtResource("2_level")
@@ -223,3 +230,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.9)
 [node name="RespawnDirector" parent="." instance=ExtResource("17_respawn")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("18_pause")]
+
+[node name="Notes" type="Node3D" parent="."]
+
+[node name="FaustinoShift" parent="Notes" instance=ExtResource("30_note")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, -1.7)
+note = ExtResource("32_faustino")
+
+[node name="Letter1974" parent="Notes" instance=ExtResource("30_note")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.6, 0, -9.1)
+note = ExtResource("33_carta")
+
+[node name="Clipping1975" parent="Notes" instance=ExtResource("30_note")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0, -21.6)
+note = ExtResource("34_recorte")
+
+[node name="SevenInscription" parent="Notes" instance=ExtResource("31_wall")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.45, 1.5, -31.5)
+note = ExtResource("35_inscripcion")
+
+[node name="NoteViewer" parent="." instance=ExtResource("36_viewer")]
