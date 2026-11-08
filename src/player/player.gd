@@ -14,6 +14,8 @@ const LAMP_FULL_NOTICE := "La lámpara está llena"
 const NO_STONES_NOTICE := "No tienes piedras"
 ## Grupo declarado en player.tscn; así el Tío lo encuentra aunque esté antes en el árbol.
 const GROUP := &"player"
+## Distancia que se deja entre la cabeza y la pared al asomarse.
+const LEAN_WALL_MARGIN := 0.2
 
 @export_group("Velocidades (m/s)")
 @export var walk_speed := 2.4
@@ -51,6 +53,9 @@ var _controls_enabled := true
 @onready var _interactor: Interactor = $Head/Camera3D/Interactor
 @onready var _stone_thrower: StoneThrower = $Head/Camera3D/StoneThrower
 @onready var _dread_sense: DreadSense = $DreadSense
+@onready var _listen: ListenComponent = $ListenComponent
+@onready var _lean_check: RayCast3D = $LeanCheck
+@onready var _camera: Camera3D = $Head/Camera3D
 
 
 ## Prepara la cápsula, conecta los componentes y pone al jugador de pie.
@@ -86,10 +91,17 @@ func _unhandled_input(event: InputEvent) -> void:
 ## Mueve al jugador y alimenta a la cabeza, la estamina y los pasos.
 func _physics_process(delta: float) -> void:
 	var input_dir := Vector2.ZERO
+	var is_listening := false
+	var lean := 0.0
 	if _controls_enabled:
-		input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+		is_listening = Input.is_action_pressed("listen")
+		lean = Input.get_axis("lean_left", "lean_right")
+		if not is_listening:
+			input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 		if not crouch_toggles:
 			_is_crouch_requested = Input.is_action_pressed("crouch")
+	_listen.set_listening(is_listening)
+	_listen.update_listening(delta, _camera)
 	_update_crouch(delta)
 	_update_move_state(input_dir)
 	_stamina.set_draining(move_state == MoveState.SPRINT)
@@ -102,6 +114,9 @@ func _physics_process(delta: float) -> void:
 	var travelled := (global_position - previous_position) * HORIZONTAL_PLANE
 	_footsteps.register_movement(travelled.length(), move_state, global_position)
 	_head.update_bob(delta, _horizontal_speed() / walk_speed, is_on_floor())
+	if move_state == MoveState.SPRINT:
+		lean = 0.0
+	_head.update_lean(delta, lean, _free_space_to_side(lean))
 	_interactor.update_focus(self)
 	_lamp.set_dread(_dread_sense.update_dread())
 
@@ -226,6 +241,21 @@ func _apply_height(height: float) -> void:
 ## Devuelve la rapidez en el plano del suelo.
 func _horizontal_speed() -> float:
 	return Vector2(velocity.x, velocity.z).length()
+
+
+## Devuelve cuánto puede asomarse hacia ese lado antes de tocar la pared.
+func _free_space_to_side(direction: float) -> float:
+	if direction == 0.0:
+		return _head.lean_distance
+	_lean_check.position.y = _head.position.y
+	_lean_check.target_position = Vector3(
+		signf(direction) * (_head.lean_distance + LEAN_WALL_MARGIN), 0, 0
+	)
+	_lean_check.force_raycast_update()
+	if not _lean_check.is_colliding():
+		return _head.lean_distance
+	var distance := _lean_check.global_position.distance_to(_lean_check.get_collision_point())
+	return maxf(distance - LEAN_WALL_MARGIN, 0.0)
 
 
 ## Aplica los ajustes del jugador a la entrada y a la mirada.

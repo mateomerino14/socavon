@@ -20,6 +20,11 @@ const BOB_SIDE_AMPLITUDE_RATIO := 0.6
 @export_group("Altura")
 @export var height_transition_speed := 9.0
 
+@export_group("Asomarse")
+@export var lean_distance := 0.4
+@export var lean_angle_degrees := 9.0
+@export var lean_speed := 8.0
+
 var look_enabled := true
 var sensitivity_scale := 1.0
 
@@ -52,6 +57,14 @@ func _process(delta: float) -> void:
 	position.y = lerpf(position.y, _target_height, height_transition_speed * delta)
 
 
+## Inclina la cabeza hacia un lado (-1 izquierda, 1 derecha) sin pasar del espacio libre.
+func update_lean(delta: float, direction: float, free_space: float) -> void:
+	var offset := clampf(direction * lean_distance, -free_space, free_space)
+	position.x = lerpf(position.x, offset, lean_speed * delta)
+	var roll := -deg_to_rad(lean_angle_degrees) * offset / lean_distance
+	rotation.z = lerp_angle(rotation.z, roll, lean_speed * delta)
+
+
 ## Fija la altura de los ojos respecto al suelo.
 func set_target_height(height: float) -> void:
 	_target_height = height
@@ -73,6 +86,8 @@ func update_bob(delta: float, speed_ratio: float, is_grounded: bool) -> void:
 ## Endereza la cabeza y la cámara, como al reaparecer.
 func reset_look() -> void:
 	rotation.x = 0.0
+	rotation.z = 0.0
+	position.x = 0.0
 	_camera.position = Vector3.ZERO
 
 
