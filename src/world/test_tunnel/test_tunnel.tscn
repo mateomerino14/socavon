@@ -14,6 +14,9 @@
 [ext_resource type="PackedScene" path="res://src/ui/pause_menu/pause_menu.tscn" id="11_pause"]
 [ext_resource type="PackedScene" path="res://src/world/props/drip_emitter.tscn" id="12_drip"]
 [ext_resource type="AudioStream" path="res://assets/audio/mine_ambience_loop.wav" id="13_ambience"]
+[ext_resource type="PackedScene" path="res://src/story/readable_note.tscn" id="30_note"]
+[ext_resource type="Resource" path="res://src/story/notes/recorte_1975.tres" id="34_recorte"]
+[ext_resource type="PackedScene" path="res://src/ui/note_viewer/note_viewer.tscn" id="36_viewer"]
 
 [node name="TestTunnel" type="Node3D"]
 script = ExtResource("5_level")
@@ -163,3 +166,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.5)
 [node name="RespawnDirector" parent="." instance=ExtResource("10_respawn")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("11_pause")]
+
+[node name="Clipping1975" parent="." instance=ExtResource("30_note")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, -1.6)
+note = ExtResource("34_recorte")
+
+[node name="NoteViewer" parent="." instance=ExtResource("36_viewer")]

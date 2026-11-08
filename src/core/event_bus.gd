@@ -34,3 +34,6 @@ signal notice_requested(text: String)
 
 ## El Tío alcanzó al jugador.
 signal player_caught
+
+## El jugador abrió una nota para leerla.
+signal note_opened(note: NoteData)

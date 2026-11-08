@@ -26,6 +26,7 @@ Prototipo `0.1.0`: el nivel 1, El derrumbe, se juega de principio a fin, y el t�
 | Escuchar: el ambiente baja y los pasos del Tío se oyen más | |
 | Asomarse por esquinas sin atravesar la roca | |
 | Kit de piezas modulares de 4 m y nivel 1, El derrumbe | |
+| Notas que cuentan la historia: hoja de turno, carta de 1974, recorte de 1975 e inscripción en la roca | |
 
 ## Requisitos
 
@@ -61,9 +62,10 @@ Prototipo `0.1.0`: el nivel 1, El derrumbe, se juega de principio a fin, y el t�
 src/core/      Bus de eventos, estado de la partida y ajustes
 src/items/     Catálogo de objetos, objetos recogibles y zonas interactuables
 src/enemies/   El Tío, su oído y su vista
+src/story/     Notas de la historia y su lectura en el mundo
 src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, rayo de interacción)
 src/world/     Niveles, piezas modulares, altar, salida, reaparición, soportes y materiales
-src/ui/        HUD, pantalla de muerte y menú de pausa
+src/ui/        HUD, pantalla de muerte, menú de pausa y visor de notas
 tests/         Pruebas automáticas
 tools/         Buscador de código sin uso y generador de sonidos provisionales
 assets/        Modelos, texturas y audio
@@ -71,7 +73,7 @@ assets/        Modelos, texturas y audio
 
 ### Nivel 1: El derrumbe
 
-Despiertas tras el derrumbe y caminas hacia el norte hasta un cruce. El ramal oeste guarda coca, carburo y piedras; el este lleva por un pasillo con soportes hasta la cámara del primer altar, y de ahí a la salida. El Tío no puede alcanzarte en este nivel: camina por una galería sellada al este y solo se le oye a través de la roca.
+Despiertas tras el derrumbe y caminas hacia el norte hasta un cruce. El ramal oeste guarda coca, carburo y piedras; el este lleva por un pasillo con soportes hasta la cámara del primer altar, y de ahí a la salida. Por el camino hay cuatro textos que empiezan a contar qué pasó en ese nivel en los años 70. El Tío no puede alcanzarte en este nivel: camina por una galería sellada al este y solo se le oye a través de la roca.
 
 ### Cómo funciona el Tío
 
