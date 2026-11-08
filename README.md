@@ -6,18 +6,19 @@ Primera historia del universo del Manqha Pacha.
 
 ## Estado
 
-Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de carburo, recoge objetos y deja ofrendas al Tío.
+Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de carburo, recoge objetos, deja ofrendas y escapa del Tío.
 
 | Hecho | Pendiente |
 |---|---|
-| Movimiento en primera persona: caminar, correr y agacharse | El Tío y sus estados |
-| Aliento que se gasta al correr | Muerte y reaparición |
-| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Sonido |
+| Movimiento en primera persona: caminar, correr y agacharse | Muerte y reaparición |
+| Aliento que se gasta al correr | Sonido |
+| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Modelos de Blender |
 | Pasos que emiten ruido para la futura IA | |
 | Túnel gris de prueba y HUD mínimo | |
 | Bolsa de objetos: carburo, coca, alcohol, cigarros y piedras | |
 | Altar que recibe ofrendas, sube el respeto del Tío y guarda la partida | |
 | Piedras que hacen ruido al caer y se pueden volver a recoger | |
+| El Tío: patrulla, sospecha, caza, búsqueda y calma; oye los ruidos y ve según la luz | |
 
 ## Requisitos
 
@@ -50,12 +51,27 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 ```
 src/core/      Bus de eventos y estado de la partida
 src/items/     Catálogo de objetos, objetos recogibles y zonas interactuables
+src/enemies/   El Tío, su oído y su vista
 src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, rayo de interacción)
 src/world/     Túnel de prueba, altar, soportes de madera y materiales
 src/ui/        HUD
 tests/         Pruebas automáticas
 assets/        Modelos, texturas y audio
 ```
+
+### Cómo funciona el Tío
+
+| Estado | Qué hace | Sale cuando |
+|---|---|---|
+| Patrulla | Recorre sus puntos con una pausa en cada uno | Oye un ruido (sospecha) o ve al jugador (caza) |
+| Sospecha | Va al ruido y mira alrededor 2,5 s | Ve al jugador (caza) o no encuentra nada (patrulla) |
+| Caza | Persigue al jugador a 4,2 m/s; correr va a 4,6 m/s | Lo pierde de vista 2 s (búsqueda) o lo alcanza |
+| Búsqueda | Revisa puntos al azar cerca de donde lo perdió | Lo ve (caza) o se acaba el tiempo (patrulla) |
+| Calma | Tras una ofrenda se retira y no oye ni ve | Pasa el tiempo de calma (patrulla) |
+
+- **Oído:** un ruido de volumen 1 se oye a 18 m. Caminar suena 0,35, correr 1, agachado 0,08 y una piedra 0,9.
+- **Vista:** cono de 110°. Con la lámpara apagada ve a 3 m; con la llama al máximo, a 22 m. A 1,4 m te nota siempre.
+- **Respeto:** con más respeto oye menos, busca menos tiempo y la calma dura más.
 
 La arquitectura, los nombres y el flujo de ramas y commits están en [reglas.md](reglas.md).
 
