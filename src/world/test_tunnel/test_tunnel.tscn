@@ -10,6 +10,7 @@
 [ext_resource type="NavigationMesh" path="res://src/world/test_tunnel/test_tunnel_navmesh.tres" id="8_navmesh"]
 [ext_resource type="PackedScene" path="res://src/enemies/tio/tio.tscn" id="9_tio"]
 [ext_resource type="PackedScene" path="res://src/world/respawn/respawn_director.tscn" id="10_respawn"]
+[ext_resource type="PackedScene" path="res://src/ui/pause_menu/pause_menu.tscn" id="11_pause"]
 
 [sub_resource type="Environment" id="Environment_mine"]
 background_mode = 1
@@ -153,3 +154,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.5)
 [node name="Hud" parent="." instance=ExtResource("4_hud")]
 
 [node name="RespawnDirector" parent="." instance=ExtResource("10_respawn")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("11_pause")]

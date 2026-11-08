@@ -21,6 +21,7 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 | El Tío: patrulla, sospecha, caza, búsqueda y calma; oye los ruidos y ve según la luz | |
 | Muerte: si el Tío te alcanza, fundido a negro y reapareces en el último altar | |
 | Presentimiento: a menos de 10 m del Tío la llama tiembla y se encoge | |
+| Menú de pausa con sensibilidad del ratón, volumen y agacharse con una pulsación | |
 
 ## Requisitos
 
@@ -46,17 +47,17 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 | Recargar la lámpara con carburo | R | X / Cuadrado |
 | Recoger, ofrendar, usar | E | A / Equis |
 | Lanzar una piedra | Clic izquierdo | RT / R2 |
-| Soltar el ratón | Esc (un clic lo vuelve a capturar) | Start |
+| Pausa y opciones | Esc | Start |
 
 ## Estructura
 
 ```
-src/core/      Bus de eventos y estado de la partida
+src/core/      Bus de eventos, estado de la partida y ajustes
 src/items/     Catálogo de objetos, objetos recogibles y zonas interactuables
 src/enemies/   El Tío, su oído y su vista
 src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, rayo de interacción)
 src/world/     Túnel de prueba, altar, reaparición, soportes de madera y materiales
-src/ui/        HUD y pantalla de muerte
+src/ui/        HUD, pantalla de muerte y menú de pausa
 tests/         Pruebas automáticas
 tools/         Buscador de código sin uso
 assets/        Modelos, texturas y audio
