@@ -29,6 +29,7 @@ Prototipo `0.1.0`: el nivel 1, El derrumbe, se juega de principio a fin, y el t�
 | Notas que cuentan la historia: hoja de turno, carta de 1974, recorte de 1975 e inscripción en la roca | |
 | Escondites con animación: nichos en la roca y carros mineros | |
 | Voces con subtítulos: Mateo, Wilmer y el Tío (falta grabarlas, ver [guion](docs/guion_voces.md)) | |
+| Cinemática de inicio del derrumbe (se salta con Esc o E) | |
 
 ## Requisitos
 
@@ -75,7 +76,7 @@ assets/        Modelos, texturas y audio
 
 ### Nivel 1: El derrumbe
 
-Despiertas tras el derrumbe y caminas hacia el norte hasta un cruce. El ramal oeste guarda coca, carburo y piedras; el este lleva por un pasillo con soportes hasta la cámara del primer altar, y de ahí a la salida. Por el camino hay cuatro textos que empiezan a contar qué pasó en ese nivel en los años 70. El Tío no puede alcanzarte en este nivel: camina por una galería sellada al este y solo se le oye a través de la roca.
+Empieza con una cinemática: Don Faustino ordena entrar sin ch'alla, la mina tiembla, Rosendo grita y todo se derrumba. Despiertas entre las piedras y caminas hacia el norte hasta un cruce. El ramal oeste guarda coca, carburo y piedras; el este lleva por un pasillo con soportes hasta la cámara del primer altar, y de ahí a la salida. Por el camino hay cuatro textos que empiezan a contar qué pasó en ese nivel en los años 70. El Tío no puede alcanzarte en este nivel: camina por una galería sellada al este y solo se le oye a través de la roca.
 
 ### Cómo funciona el Tío
 
