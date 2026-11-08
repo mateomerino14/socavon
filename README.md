@@ -23,6 +23,8 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 | Presentimiento: a menos de 10 m del Tío la llama tiembla y se encoge | |
 | Menú de pausa con sensibilidad del ratón, volumen y agacharse con una pulsación | |
 | Sonido provisional: pisadas, goteo, golpe de piedra y ambiente de mina | |
+| Escuchar: el ambiente baja y los pasos del Tío se oyen más | |
+| Asomarse por esquinas sin atravesar la roca | |
 
 ## Requisitos
 
@@ -48,6 +50,8 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 | Recargar la lámpara con carburo | R | X / Cuadrado |
 | Recoger, ofrendar, usar | E | A / Equis |
 | Lanzar una piedra | Clic izquierdo | RT / R2 |
+| Escuchar (te quedas quieto) | Mantener clic derecho | LT / L2 |
+| Asomarse por esquinas | Q / Z | LB / RB |
 | Pausa y opciones | Esc | Start |
 
 ## Estructura
@@ -77,6 +81,7 @@ assets/        Modelos, texturas y audio
 - **Oído:** un ruido de volumen 1 se oye a 18 m. Caminar suena 0,35, correr 1, agachado 0,08 y una piedra 0,9.
 - **Vista:** cono de 110°. Con la lámpara apagada ve a 3 m; con la llama al máximo, a 22 m. A 1,4 m te nota siempre.
 - **Respeto:** con más respeto oye menos, busca menos tiempo y la calma dura más.
+- **Pasos:** sus pisadas suenan graves y más fuertes cuanto más rápido va; al escuchar se oyen mejor.
 - **Presentimiento:** a menos de 10 m la llama de la lámpara tiembla y se encoge; encima de ti casi se apaga.
 
 La arquitectura, los nombres y el flujo de ramas y commits están en [reglas.md](reglas.md).
