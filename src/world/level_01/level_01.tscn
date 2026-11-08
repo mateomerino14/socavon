@@ -255,7 +255,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0, -21.6)
 note = ExtResource("34_recorte")
 
 [node name="SevenInscription" parent="Notes" instance=ExtResource("31_wall")]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.45, 1.5, -31.5)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.4, 1.5, -32.8)
 note = ExtResource("35_inscripcion")
 
 [node name="NoteViewer" parent="." instance=ExtResource("36_viewer")]
