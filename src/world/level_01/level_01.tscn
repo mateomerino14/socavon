@@ -28,6 +28,7 @@
 [ext_resource type="Resource" path="res://src/story/notes/recorte_1975.tres" id="34_recorte"]
 [ext_resource type="Resource" path="res://src/story/notes/inscripcion_siete.tres" id="35_inscripcion"]
 [ext_resource type="PackedScene" path="res://src/ui/note_viewer/note_viewer.tscn" id="36_viewer"]
+[ext_resource type="PackedScene" path="res://src/world/hiding/mine_cart_hiding_spot.tscn" id="41_cart"]
 
 [node name="Level01" type="Node3D"]
 script = ExtResource("2_level")
@@ -250,3 +251,8 @@ transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.45, 1.5, -31.5)
 note = ExtResource("35_inscripcion")
 
 [node name="NoteViewer" parent="." instance=ExtResource("36_viewer")]
+
+[node name="HidingSpots" type="Node3D" parent="."]
+
+[node name="ChamberCart" parent="HidingSpots" instance=ExtResource("41_cart")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0, -21)

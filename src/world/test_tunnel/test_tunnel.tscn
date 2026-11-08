@@ -17,6 +17,8 @@
 [ext_resource type="PackedScene" path="res://src/story/readable_note.tscn" id="30_note"]
 [ext_resource type="Resource" path="res://src/story/notes/recorte_1975.tres" id="34_recorte"]
 [ext_resource type="PackedScene" path="res://src/ui/note_viewer/note_viewer.tscn" id="36_viewer"]
+[ext_resource type="PackedScene" path="res://src/world/hiding/niche_hiding_spot.tscn" id="40_niche"]
+[ext_resource type="PackedScene" path="res://src/world/hiding/mine_cart_hiding_spot.tscn" id="41_cart"]
 
 [node name="TestTunnel" type="Node3D"]
 script = ExtResource("5_level")
@@ -172,3 +174,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, -1.6)
 note = ExtResource("34_recorte")
 
 [node name="NoteViewer" parent="." instance=ExtResource("36_viewer")]
+
+[node name="HidingSpots" type="Node3D" parent="."]
+
+[node name="EntryNicheSpot" parent="HidingSpots" instance=ExtResource("40_niche")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0, -6)
+
+[node name="SideNicheSpot" parent="HidingSpots" instance=ExtResource("40_niche")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 8, 0, -20.1)
+
+[node name="SideCart" parent="HidingSpots" instance=ExtResource("41_cart")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 14, 0, -19)

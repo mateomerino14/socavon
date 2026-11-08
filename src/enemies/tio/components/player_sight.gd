@@ -11,6 +11,8 @@ const WORLD_MASK := 1
 @export var lit_range := 22.0
 ## A esta distancia lo nota siempre, aunque esté a oscuras y fuera del cono.
 @export var touch_range := 1.4
+## Escondido con la lámpara encendida, la luz lo delata hasta esta distancia.
+@export var hidden_lit_range := 4.0
 
 var enabled := true
 
@@ -28,6 +30,8 @@ func can_see(player: Player) -> bool:
 		return false
 	var target := player.get_eye_position()
 	var distance := global_position.distance_to(target)
+	if player.is_hidden:
+		return _sees_hidden(target, distance)
 	if distance <= touch_range:
 		return true
 	if distance > get_view_range():
@@ -35,6 +39,13 @@ func can_see(player: Player) -> bool:
 	if not _is_inside_cone(target):
 		return false
 	return _has_clear_line(target)
+
+
+## Escondido solo lo delata su lámpara encendida, de cerca, en el cono y sin roca en medio.
+func _sees_hidden(target: Vector3, distance: float) -> bool:
+	if _player_light <= 0.0 or distance > hidden_lit_range:
+		return false
+	return _is_inside_cone(target) and _has_clear_line(target)
 
 
 ## Devuelve la distancia a la que ve según la luz actual del jugador.

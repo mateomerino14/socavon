@@ -16,6 +16,8 @@ const NO_STONES_NOTICE := "No tienes piedras"
 const GROUP := &"player"
 ## Distancia que se deja entre la cabeza y la pared al asomarse.
 const LEAN_WALL_MARGIN := 0.2
+const HIDE_SECONDS := 0.7
+const LEAVE_HIDING_PROMPT := "Salir del escondite"
 
 @export_group("Velocidades (m/s)")
 @export var walk_speed := 2.4
@@ -37,11 +39,16 @@ const LEAN_WALL_MARGIN := 0.2
 var move_state := MoveState.IDLE
 ## Falso: hay que mantener la tecla. Verdadero: se alterna con cada pulsación. Viene de Settings.
 var crouch_toggles := false
+## Verdadero solo cuando ya terminó de meterse en el escondite.
+var is_hidden := false
+## Escondite donde está o al que está entrando; nulo si no se esconde.
+var hiding_spot: HidingSpot
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _capsule: CapsuleShape3D
 var _is_crouch_requested := false
 var _controls_enabled := true
+var _hiding_tween: Tween
 
 @onready var inventory: InventoryComponent = $InventoryComponent
 @onready var _collision: CollisionShape3D = $CollisionShape3D
@@ -72,11 +79,13 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not _controls_enabled:
 		return
-	if event.is_action_pressed("interact"):
+	if hiding_spot and event.is_action_pressed("interact"):
+		leave_hiding()
+	elif event.is_action_pressed("interact"):
 		_interactor.try_interact(self)
 	elif event.is_action_pressed("lamp_refill"):
 		refill_lamp()
-	elif event.is_action_pressed("throw") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	elif event.is_action_pressed("throw") and _can_throw():
 		throw_stone()
 	elif event.is_action_pressed("lamp_toggle"):
 		_lamp.toggle()
@@ -90,6 +99,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Mueve al jugador y alimenta a la cabeza, la estamina y los pasos.
 func _physics_process(delta: float) -> void:
+	if hiding_spot:
+		_update_while_hidden(delta)
+		return
 	var input_dir := Vector2.ZERO
 	var is_listening := false
 	var lean := 0.0
@@ -121,6 +133,37 @@ func _physics_process(delta: float) -> void:
 	_lamp.set_dread(_dread_sense.update_dread())
 
 
+## Se mete en el escondite con una animación; queda escondido al terminar.
+func hide_in(spot: HidingSpot) -> void:
+	if hiding_spot:
+		return
+	hiding_spot = spot
+	EventBus.player_hid.emit(spot)
+	velocity = Vector3.ZERO
+	_collision.disabled = true
+	_is_crouch_requested = true
+	_apply_height(crouch_height)
+	_head.set_target_height(crouch_height - eye_offset)
+	_hiding_tween = create_tween().set_trans(Tween.TRANS_SINE)
+	_hiding_tween.tween_property(self, "global_transform", spot.get_hide_transform(), HIDE_SECONDS)
+	await _hiding_tween.finished
+	is_hidden = true
+	EventBus.interaction_prompt_changed.emit(LEAVE_HIDING_PROMPT)
+
+
+## Sale del escondite con una animación.
+func leave_hiding() -> void:
+	if not is_hidden:
+		return
+	is_hidden = false
+	EventBus.interaction_prompt_changed.emit("")
+	_hiding_tween = create_tween().set_trans(Tween.TRANS_SINE)
+	var exit := hiding_spot.get_exit_transform()
+	_hiding_tween.tween_property(self, "global_transform", exit, HIDE_SECONDS)
+	await _hiding_tween.finished
+	_finish_hiding()
+
+
 ## Gasta un carburo de la bolsa para recargar la lámpara.
 func refill_lamp() -> void:
 	if _lamp.get_fuel_ratio() >= 1.0:
@@ -149,6 +192,9 @@ func set_controls_enabled(enabled: bool) -> void:
 
 ## Lleva al jugador al punto indicado, de pie, quieto, con aliento lleno y la lámpara encendida.
 func respawn_at(spawn: Transform3D) -> void:
+	if _hiding_tween:
+		_hiding_tween.kill()
+	_finish_hiding()
 	global_transform = spawn
 	velocity = Vector3.ZERO
 	_is_crouch_requested = false
@@ -241,6 +287,27 @@ func _apply_height(height: float) -> void:
 ## Devuelve la rapidez en el plano del suelo.
 func _horizontal_speed() -> float:
 	return Vector2(velocity.x, velocity.z).length()
+
+
+## Escondido solo escucha y siente al Tío; no se mueve ni hace ruido.
+func _update_while_hidden(delta: float) -> void:
+	_listen.set_listening(_controls_enabled and Input.is_action_pressed("listen"))
+	_listen.update_listening(delta, _camera)
+	_head.update_bob(delta, 0.0, true)
+	_lamp.set_dread(_dread_sense.update_dread())
+
+
+## Vuelve al estado normal: con colisión y sin escondite.
+func _finish_hiding() -> void:
+	is_hidden = false
+	hiding_spot = null
+	_collision.disabled = false
+	_is_crouch_requested = false
+
+
+## Dice si se puede lanzar: con el ratón capturado y fuera de un escondite.
+func _can_throw() -> bool:
+	return hiding_spot == null and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
 
 
 ## Devuelve cuánto puede asomarse hacia ese lado antes de tocar la pared.

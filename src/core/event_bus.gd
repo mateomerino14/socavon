@@ -35,5 +35,8 @@ signal notice_requested(text: String)
 ## El Tío alcanzó al jugador.
 signal player_caught
 
+## El jugador empezó a meterse en un escondite.
+signal player_hid(spot: HidingSpot)
+
 ## El jugador abrió una nota para leerla.
 signal note_opened(note: NoteData)

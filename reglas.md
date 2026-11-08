@@ -180,6 +180,12 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | 4 | Enemigos (el Tío) |
 | 5 | Proyectiles (piedras lanzadas) |
 
+### Escondites
+
+- Un escondite es un `HidingSpot` con su `Interactable`, un `HidePoint` (dónde queda la cámara y hacia dónde mira) y un `ExitPoint` (dónde sale el jugador).
+- Escenas listas: `niche_hiding_spot.tscn`, que se coloca en un nicho cuya boca mira al −X local, y `mine_cart_hiding_spot.tscn`.
+- Mientras el jugador está escondido no tiene colisión ni hace ruido, y solo puede escuchar, mirar y salir.
+
 ### Notas de la historia
 
 - Cada nota es un recurso `NoteData` en `src/story/notes/<id>.tres`, con `id` único, título, firma y texto.
@@ -232,6 +238,7 @@ Todo sonido nuevo se asigna a `Ambiente` o a `Efectos`, nunca directo a `Master`
 | `player` | Declarado en `player.tscn`; el Tío encuentra así al jugador |
 | `navigation_source` | Geometría que se hornea en la navegación |
 | `enemies` | Declarado en cada enemigo; `RespawnDirector` los reinicia al reaparecer el jugador |
+| `hiding_spots` | Declarado en cada escondite; el Tío los revisa al buscar |
 
 ---
 
