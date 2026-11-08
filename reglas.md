@@ -180,6 +180,12 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | 4 | Enemigos (el Tío) |
 | 5 | Proyectiles (piedras lanzadas) |
 
+### Notas de la historia
+
+- Cada nota es un recurso `NoteData` en `src/story/notes/<id>.tres`, con `id` único, título, firma y texto.
+- En el mundo se usa `readable_note.tscn` (papel en el suelo) o `wall_inscription.tscn` (texto pintado en la roca).
+- Los textos son parte de la historia del documento de diseño; uno nuevo se acuerda allí antes de escribirlo.
+
 ### Kit modular
 
 - Cuadrícula de 4 m; cada pieza se centra en su celda con el suelo en y = 0.
@@ -196,6 +202,7 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | `Hud` | Barras, avisos y bolsa |
 | `RespawnDirector` | Muerte y reaparición en el último guardado |
 | `PauseMenu` | Pausa con Escape y ajustes |
+| `NoteViewer` | Muestra las notas al leerlas |
 | `NavigationRegion3D` | Por dónde camina el Tío |
 | Raíz con `level.gd` | Llama a `GameState.reset()` y guarda el inicio como primer punto |
 | `WorldEnvironment` | Usa `materials/mine_environment.tres` |
