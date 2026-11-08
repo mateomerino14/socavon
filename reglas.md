@@ -186,6 +186,13 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 - Escenas listas: `niche_hiding_spot.tscn`, que se coloca en un nicho cuya boca mira al −X local, y `mine_cart_hiding_spot.tscn`.
 - Mientras el jugador está escondido no tiene colisión ni hace ruido, y solo puede escuchar, mirar y salir.
 
+### Voces
+
+- Cada línea hablada es un `VoiceLine` en `src/story/voices/<id>.tres` y figura en `docs/guion_voces.md`; una prueba verifica que no falte ninguna.
+- Se dicen con un `VoicePlayer` (desde su posición en el mundo) o con un `VoiceTrigger`, que habla una sola vez cuando entra el jugador.
+- Sin grabación se muestra solo el subtítulo, con una duración estimada por su largo; con grabación, dura lo que dura el audio.
+- Las grabaciones van en `assets/audio/voices/<id>.ogg`.
+
 ### Notas de la historia
 
 - Cada nota es un recurso `NoteData` en `src/story/notes/<id>.tres`, con `id` único, título, firma y texto.

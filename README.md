@@ -10,7 +10,7 @@ Prototipo `0.1.0`: el nivel 1, El derrumbe, se juega de principio a fin, y el t�
 
 | Hecho | Pendiente |
 |---|---|
-| Movimiento en primera persona: caminar, correr y agacharse | Voces y sonidos del Tío |
+| Movimiento en primera persona: caminar, correr y agacharse | Grabar las voces del guion |
 | Aliento que se gasta al correr | Modelos de Blender |
 | Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Niveles 2 a 5 de la mina |
 | Pasos que emiten ruido para la futura IA | |
@@ -28,6 +28,7 @@ Prototipo `0.1.0`: el nivel 1, El derrumbe, se juega de principio a fin, y el t�
 | Kit de piezas modulares de 4 m y nivel 1, El derrumbe | |
 | Notas que cuentan la historia: hoja de turno, carta de 1974, recorte de 1975 e inscripción en la roca | |
 | Escondites con animación: nichos en la roca y carros mineros | |
+| Voces con subtítulos: Mateo, Wilmer y el Tío (falta grabarlas, ver [guion](docs/guion_voces.md)) | |
 
 ## Requisitos
 
@@ -90,6 +91,7 @@ Despiertas tras el derrumbe y caminas hacia el norte hasta un cruce. El ramal oe
 - **Vista:** cono de 110°. Con la lámpara apagada ve a 3 m; con la llama al máximo, a 22 m. A 1,4 m te nota siempre.
 - **Respeto:** con más respeto oye menos, busca menos tiempo y la calma dura más.
 - **Escondites:** a oscuras dentro de un nicho o un carro no te ve. Con la lámpara encendida la luz te delata a 4 m. Si te vio entrar, te saca; al buscarte revisa los escondites cercanos (40 % en cada punto).
+- **Voz:** al sospechar, cazar, buscar o calmarse dice una frase (con subtítulo), como mucho una cada 6 s.
 - **Pasos:** sus pisadas suenan graves y más fuertes cuanto más rápido va; al escuchar se oyen mejor.
 - **Presentimiento:** a menos de 10 m la llama de la lámpara tiembla y se encoge; encima de ti casi se apaga.
 
