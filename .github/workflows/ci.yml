@@ -23,6 +23,8 @@ jobs:
         run: gdformat --check src tests
       - name: Lint
         run: gdlint src tests
+      - name: Código sin uso
+        run: python3 tools/find_unused.py src tests
 
   pruebas:
     name: Pruebas en Godot

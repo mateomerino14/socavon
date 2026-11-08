@@ -2,8 +2,6 @@ class_name Player
 extends CharacterBody3D
 ## Mateo: lee la entrada, ordena a sus componentes y publica eventos en EventBus.
 
-signal move_state_changed(state: MoveState)
-
 enum MoveState { IDLE, WALK, SPRINT, CROUCH }
 
 const HORIZONTAL_PLANE := Vector3(1.0, 0.0, 1.0)
@@ -173,9 +171,7 @@ func _update_move_state(input_dir: Vector2) -> void:
 		new_state = MoveState.CROUCH
 	elif Input.is_action_pressed("sprint") and input_dir.y < 0.0 and _stamina.can_sprint():
 		new_state = MoveState.SPRINT
-	if new_state != move_state:
-		move_state = new_state
-		move_state_changed.emit(move_state)
+	move_state = new_state
 
 
 ## Devuelve la velocidad máxima del estado actual.
@@ -228,7 +224,6 @@ func _horizontal_speed() -> float:
 	return Vector2(velocity.x, velocity.z).length()
 
 
-## Publica el estado de la lámpara y cuánto delata al jugador.
-func _on_lamp_state_changed(is_lit: bool, level: int) -> void:
-	EventBus.lamp_state_changed.emit(is_lit, level)
+## Publica cuánto delata la lámpara al jugador.
+func _on_lamp_state_changed(_is_lit: bool, _level: int) -> void:
 	EventBus.player_light_changed.emit(_lamp.get_light_intensity())

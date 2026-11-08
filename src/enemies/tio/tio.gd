@@ -2,8 +2,6 @@ class_name Tio
 extends CharacterBody3D
 ## El Tío: patrulla, sospecha de ruidos, caza al jugador que ve, lo busca y se calma con ofrendas.
 
-signal state_changed(state: State)
-
 enum State { PATROL, SUSPICION, HUNT, SEARCH, CALM }
 
 const HORIZONTAL_PLANE := Vector3(1.0, 0.0, 1.0)
@@ -188,8 +186,6 @@ func _enter_state(new_state: State) -> void:
 		State.CALM:
 			_state_timer = _respect_lerp(calm_seconds_low_respect, calm_seconds_high_respect)
 			_go_to(_farthest_patrol_point_from_player(), patrol_speed)
-	state_changed.emit(state)
-	EventBus.tio_state_changed.emit(state)
 
 
 ## Retoma la patrulla hacia el punto actual.

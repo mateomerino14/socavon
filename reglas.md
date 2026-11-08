@@ -90,7 +90,7 @@ func add_fuel(amount: float) -> void:
 
 ### Sintaxis
 
-El formato sigue la guía oficial de GDScript y se valida con gdtoolkit: `gdformat --check src tests` y `gdlint src tests`. Para corregir el formato: `gdformat src tests`.
+El formato sigue la guía oficial de GDScript y se valida con gdtoolkit: `gdformat --check src tests` y `gdlint src tests`. Para corregir el formato: `gdformat src tests`. El código sin uso (funciones sin llamadas, señales sin oyentes, constantes o variables sin leer) se busca con `python3 tools/find_unused.py src tests` y no debe quedar ninguno; una señal se declara cuando ya tiene quien la escuche.
 
 **Tipado estático siempre.** Una declaración sin tipo es un error del proyecto (`untyped_declaration`). Se usa `:=` cuando el tipo se deduce.
 
@@ -208,7 +208,7 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 - Las pruebas viven en `tests/`, con archivos `<nombre>_test.gd` que extienden `TestCase`; cada método `test_` es una prueba.
 - Se ejecutan sin abrir el editor: `godot --headless --path . --script res://tests/run_tests.gd`.
 - Cada componente con lógica tiene pruebas unitarias; los recorridos del jugador se prueban dentro de una escena real.
-- En cada Pull Request, GitHub Actions valida el formato, el lint, importa el proyecto y corre las pruebas.
+- En cada Pull Request, GitHub Actions valida el formato, el lint y el código sin uso, importa el proyecto y corre las pruebas.
 - Un módulo se considera terminado cuando sus pruebas pasan en GitHub Actions y el README está actualizado.
 
 ---
