@@ -36,6 +36,7 @@
 [ext_resource type="Resource" path="res://src/story/voices/wilmer_llamado.tres" id="54_wilmer_llamado"]
 [ext_resource type="Resource" path="res://src/story/voices/mateo_altar.tres" id="55_mateo_altar"]
 [ext_resource type="Resource" path="res://src/story/voices/mateo_siete.tres" id="56_mateo_siete"]
+[ext_resource type="PackedScene" path="res://src/story/cinematics/intro_cinematic.tscn" id="60_intro"]
 
 [node name="Level01" type="Node3D"]
 script = ExtResource("2_level")
@@ -285,3 +286,5 @@ lines = Array[ExtResource("52_voice_line")]([ExtResource("55_mateo_altar")])
 [node name="InscriptionTrigger" parent="Voices" instance=ExtResource("50_trigger")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -31)
 lines = Array[ExtResource("52_voice_line")]([ExtResource("56_mateo_siete")])
+
+[node name="IntroCinematic" parent="." instance=ExtResource("60_intro")]

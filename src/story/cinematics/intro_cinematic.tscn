@@ -1,0 +1,88 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/story/cinematics/intro_cinematic.gd" id="1_intro"]
+[ext_resource type="PackedScene" path="res://src/story/voice_player.tscn" id="2_voice"]
+[ext_resource type="AudioStream" path="res://assets/audio/collapse_rumble.wav" id="3_rumble"]
+[ext_resource type="Resource" path="res://src/story/voices/faustino_orden.tres" id="4_order"]
+[ext_resource type="Resource" path="res://src/story/voices/rosendo_derrumbe.tres" id="5_warning"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dust"]
+shading_mode = 0
+albedo_color = Color(0.55, 0.45, 0.35, 0.8)
+transparency = 1
+billboard_mode = 3
+
+[sub_resource type="QuadMesh" id="QuadMesh_dust"]
+material = SubResource("StandardMaterial3D_dust")
+size = Vector2(0.025, 0.025)
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 34
+font_color = Color(0.92, 0.82, 0.62, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 0.8)
+
+[node name="IntroCinematic" type="Node3D"]
+script = ExtResource("1_intro")
+order_line = ExtResource("4_order")
+warning_line = ExtResource("5_warning")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 0.97, 0.24, 0, 0.24, -0.97, 0.4, 1.7, -5.5)
+fov = 70.0
+
+[node name="CompanionLamp" type="OmniLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.3, 0.6)
+light_color = Color(1, 0.7, 0.4, 1)
+light_energy = 1.2
+shadow_enabled = true
+omni_range = 9.0
+
+[node name="Dust" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -2.5)
+emitting = false
+amount = 300
+lifetime = 2.5
+mesh = SubResource("QuadMesh_dust")
+emission_shape = 3
+emission_box_extents = Vector3(1.4, 0.1, 3)
+gravity = Vector3(0, -2.5, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.5
+
+[node name="Rumble" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_rumble")
+bus = &"Efectos"
+
+[node name="VoicePlayer" parent="." instance=ExtResource("2_voice")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -3)
+
+[node name="StepTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Screen" type="CanvasLayer" parent="."]
+layer = 9
+
+[node name="Curtain" type="ColorRect" parent="Screen"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="Screen"]
+unique_name_in_owner = true
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -140.0
+offset_right = 700.0
+offset_bottom = -90.0
+grow_vertical = 0
+mouse_filter = 2
+text = "Nivel 1 · El derrumbe"
+label_settings = SubResource("LabelSettings_title")

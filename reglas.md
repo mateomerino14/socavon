@@ -193,6 +193,12 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 - Sin grabación se muestra solo el subtítulo, con una duración estimada por su largo; con grabación, dura lo que dura el audio.
 - Las grabaciones van en `assets/audio/voices/<id>.ogg`.
 
+### Cinemáticas
+
+- Se hacen en el motor, con su propia cámara, tiempos exportados y temporizadores hijos, de modo que se pueden saltar y acelerar en las pruebas.
+- Una cinemática bloquea los controles del jugador mientras dura y siempre termina devolviéndolos, aunque se salte.
+- Cada una tiene `enabled`; las pruebas de un nivel la apagan para empezar a jugar de inmediato.
+
 ### Notas de la historia
 
 - Cada nota es un recurso `NoteData` en `src/story/notes/<id>.tres`, con `id` único, título, firma y texto.

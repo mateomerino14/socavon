@@ -12,6 +12,7 @@ var _viewer: NoteViewer
 ## Carga el nivel 1.
 func before_each() -> void:
 	_level = LEVEL_SCENE.instantiate()
+	_level.get_node("IntroCinematic").enabled = false
 	add_to_tree(_level)
 	_player = _level.get_node("Player")
 	_viewer = _level.get_node("NoteViewer")
