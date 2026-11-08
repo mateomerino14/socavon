@@ -6,13 +6,13 @@ Primera historia del universo del Manqha Pacha.
 
 ## Estado
 
-Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de carburo, recoge objetos, deja ofrendas y escapa del Tío.
+Prototipo `0.1.0`: el nivel 1, El derrumbe, se juega de principio a fin, y el túnel de prueba sirve para ensayar mecánicas con el Tío suelto.
 
 | Hecho | Pendiente |
 |---|---|
 | Movimiento en primera persona: caminar, correr y agacharse | Voces y sonidos del Tío |
 | Aliento que se gasta al correr | Modelos de Blender |
-| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Niveles 1 a 5 de la mina |
+| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Niveles 2 a 5 de la mina |
 | Pasos que emiten ruido para la futura IA | |
 | Túnel gris de prueba y HUD mínimo | |
 | Bolsa de objetos: carburo, coca, alcohol, cigarros y piedras | |
@@ -25,6 +25,7 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 | Sonido provisional: pisadas, goteo, golpe de piedra y ambiente de mina | |
 | Escuchar: el ambiente baja y los pasos del Tío se oyen más | |
 | Asomarse por esquinas sin atravesar la roca | |
+| Kit de piezas modulares de 4 m y nivel 1, El derrumbe | |
 
 ## Requisitos
 
@@ -35,7 +36,7 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 
 1. Clona el repositorio: `git clone https://github.com/mateomerino14/socavon.git`
 2. Abre Godot, pulsa **Importar** y elige el archivo `project.godot`.
-3. Pulsa **F5** para jugar el túnel de prueba.
+3. Pulsa **F5** para jugar el nivel 1. Para el túnel de prueba, abre `src/world/test_tunnel/test_tunnel.tscn` y pulsa **F6**.
 
 ## Controles
 
@@ -61,12 +62,16 @@ src/core/      Bus de eventos, estado de la partida y ajustes
 src/items/     Catálogo de objetos, objetos recogibles y zonas interactuables
 src/enemies/   El Tío, su oído y su vista
 src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, rayo de interacción)
-src/world/     Túnel de prueba, altar, reaparición, soportes de madera y materiales
+src/world/     Niveles, piezas modulares, altar, salida, reaparición, soportes y materiales
 src/ui/        HUD, pantalla de muerte y menú de pausa
 tests/         Pruebas automáticas
 tools/         Buscador de código sin uso y generador de sonidos provisionales
 assets/        Modelos, texturas y audio
 ```
+
+### Nivel 1: El derrumbe
+
+Despiertas tras el derrumbe y caminas hacia el norte hasta un cruce. El ramal oeste guarda coca, carburo y piedras; el este lleva por un pasillo con soportes hasta la cámara del primer altar, y de ahí a la salida. El Tío no puede alcanzarte en este nivel: camina por una galería sellada al este y solo se le oye a través de la roca.
 
 ### Cómo funciona el Tío
 

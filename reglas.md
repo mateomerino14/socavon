@@ -142,9 +142,11 @@ src/
 │   └── components/                  Piezas independientes (aliento, lámpara, pasos, bolsa, rayo)
 ├── enemies/          El Tío y amenazas, con sus sentidos en components/
 ├── world/            Niveles, piezas modulares y materiales
-│   ├── materials/
+│   ├── level.gd                     Raíz común de todos los niveles
+│   ├── pieces/                      Kit modular de la mina
+│   ├── materials/                   Roca, madera y ambiente compartido
 │   ├── props/
-│   └── <nivel>/
+│   └── <nivel>/                     Escena y malla de navegación de cada nivel
 └── ui/               HUD y menús
 assets/               Modelos (.glb desde Blender), texturas y audio (.ogg)
 tests/                Pruebas, en carpetas que reflejan src/
@@ -178,6 +180,14 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | 4 | Enemigos (el Tío) |
 | 5 | Proyectiles (piedras lanzadas) |
 
+### Kit modular
+
+- Cuadrícula de 4 m; cada pieza se centra en su celda con el suelo en y = 0.
+- Pasillos de 3 m de ancho y 2,6 m de alto. La cámara ocupa 3 × 3 celdas, con puertas en el centro de cada lado.
+- Piezas: `tunnel_straight`, `tunnel_corner`, `tunnel_t`, `tunnel_cross`, `tunnel_dead_end`, `chamber` y `tunnel_cap` para tapar una puerta.
+- Sin rotar, las aberturas son: recto norte-sur, esquina sur-este, T oeste-este-sur, fin sur.
+- Rotaciones en las escenas (la matriz se escribe por filas): 90° = `Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, …)` lleva el sur al este; 180° = `Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, …)`; 270° = `Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, …)` lleva el sur al oeste.
+
 ### Escenas obligatorias de cada nivel
 
 | Nodo | Para qué |
@@ -187,12 +197,15 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | `RespawnDirector` | Muerte y reaparición en el último guardado |
 | `PauseMenu` | Pausa con Escape y ajustes |
 | `NavigationRegion3D` | Por dónde camina el Tío |
-| Script del nivel | Llama a `GameState.reset()` y guarda el inicio como primer punto |
+| Raíz con `level.gd` | Llama a `GameState.reset()` y guarda el inicio como primer punto |
+| `WorldEnvironment` | Usa `materials/mine_environment.tres` |
+| `LevelExit` | Fin del nivel; carga el siguiente si `next_level_path` tiene valor |
 
 ### Navegación
 
 - Cada nivel tiene un `NavigationRegion3D` con su malla horneada en un `.tres` junto a la escena.
 - Solo se hornean los nodos del grupo `navigation_source` (roca, soportes, altares); los objetos sueltos no.
+- El filtro de horneado se limita a la altura del suelo para que no aparezca navegación sobre el techo de las piezas.
 - Al cambiar la geometría de un nivel, se vuelve a hornear: seleccionar `NavigationRegion3D` y pulsar **Bake NavigationMesh**.
 
 ### Buses de audio
