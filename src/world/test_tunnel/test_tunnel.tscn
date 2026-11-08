@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" path="res://src/world/props/timber_frame.tscn" id="2_frame"]
 [ext_resource type="PackedScene" path="res://src/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://src/ui/hud/hud.tscn" id="4_hud"]
+[ext_resource type="Script" path="res://src/world/test_tunnel/test_tunnel.gd" id="5_level"]
+[ext_resource type="PackedScene" path="res://src/world/altar/altar.tscn" id="6_altar"]
+[ext_resource type="PackedScene" path="res://src/items/pickup.tscn" id="7_pickup"]
 
 [sub_resource type="Environment" id="Environment_mine"]
 background_mode = 1
@@ -19,6 +22,7 @@ fog_light_color = Color(0.01, 0.01, 0.012, 1)
 fog_density = 0.035
 
 [node name="TestTunnel" type="Node3D"]
+script = ExtResource("5_level")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mine")
@@ -81,8 +85,46 @@ transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 12, 0, -18)
 [node name="ChamberLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 2.6, -18)
 light_color = Color(0.45, 0.55, 0.75, 1)
-light_energy = 0.6
+light_energy = 0.35
 omni_range = 6.0
+
+[node name="Altars" type="Node3D" parent="."]
+
+[node name="EntryAltar" parent="Altars" instance=ExtResource("6_altar")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.15, 0, -4)
+
+[node name="ChamberAltar" parent="Altars" instance=ExtResource("6_altar")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 21.6, 0, -18)
+
+[node name="Pickups" type="Node3D" parent="."]
+
+[node name="Stone1" parent="Pickups" instance=ExtResource("7_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, -2.8)
+item_type = 5
+
+[node name="Stone2" parent="Pickups" instance=ExtResource("7_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0, -3.3)
+item_type = 5
+
+[node name="Coca" parent="Pickups" instance=ExtResource("7_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0, 0, -6)
+item_type = 2
+
+[node name="Cigarette" parent="Pickups" instance=ExtResource("7_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0, 0, -12)
+item_type = 4
+
+[node name="Carbide" parent="Pickups" instance=ExtResource("7_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -17)
+item_type = 1
+
+[node name="Stone3" parent="Pickups" instance=ExtResource("7_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -17.2)
+item_type = 5
+
+[node name="Alcohol" parent="Pickups" instance=ExtResource("7_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -20.2)
+item_type = 3
 
 [node name="Player" parent="." instance=ExtResource("3_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.5)
