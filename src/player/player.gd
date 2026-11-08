@@ -31,10 +31,10 @@ const GROUP := &"player"
 ## Distancia desde los ojos hasta la coronilla.
 @export var eye_offset := 0.15
 @export var crouch_transition_speed := 9.0
-## Falso: hay que mantener la tecla. Verdadero: se alterna con cada pulsación.
-@export var crouch_toggles := false
 
 var move_state := MoveState.IDLE
+## Falso: hay que mantener la tecla. Verdadero: se alterna con cada pulsación. Viene de Settings.
+var crouch_toggles := false
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _capsule: CapsuleShape3D
@@ -57,6 +57,8 @@ var _controls_enabled := true
 func _ready() -> void:
 	_capsule = _collision.shape as CapsuleShape3D
 	_connect_components()
+	Settings.changed.connect(_apply_settings)
+	_apply_settings()
 	_apply_height(stand_height)
 	_head.position.y = stand_height - eye_offset
 
@@ -224,6 +226,12 @@ func _apply_height(height: float) -> void:
 ## Devuelve la rapidez en el plano del suelo.
 func _horizontal_speed() -> float:
 	return Vector2(velocity.x, velocity.z).length()
+
+
+## Aplica los ajustes del jugador a la entrada y a la mirada.
+func _apply_settings() -> void:
+	crouch_toggles = Settings.crouch_toggles
+	_head.sensitivity_scale = Settings.mouse_sensitivity
 
 
 ## Publica cuánto delata la lámpara al jugador.
