@@ -1,0 +1,24 @@
+extends Node
+## Bus de eventos global (autoload "EventBus").
+##
+## Conecta sistemas que no deben conocerse entre sí: el jugador emite
+## ruido y luz, y la IA del Tío, el HUD y el audio escuchan sin tener
+## referencias directas al jugador.
+##
+## Regla: solo eventos que cruzan sistemas. La comunicación dentro de
+## una misma escena usa señales locales.
+
+## Un sonido que el Tío puede oír. [param loudness] va de 0.0 a 1.0.
+signal noise_emitted(origin: Vector3, loudness: float)
+
+## La luz que delata al jugador cambió. [param intensity] va de 0.0 a 1.0.
+signal player_light_changed(intensity: float)
+
+## La estamina del jugador cambió.
+signal stamina_changed(current: float, maximum: float)
+
+## El combustible de la lámpara cambió.
+signal lamp_fuel_changed(current: float, maximum: float)
+
+## La lámpara se encendió, apagó o cambió de nivel de llama.
+signal lamp_state_changed(is_lit: bool, level: int)
