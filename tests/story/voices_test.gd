@@ -39,7 +39,7 @@ func test_line_without_audio_shows_subtitle() -> void:
 
 ## La zona del cruce habla una sola vez al entrar el jugador.
 func test_trigger_speaks_once() -> void:
-	var level: Level = add_to_tree(LEVEL_SCENE.instantiate())
+	var level: Level = add_to_tree(_level_without_intro())
 	var player: Player = level.get_node("Player")
 	var trigger: VoiceTrigger = level.get_node("Voices/JunctionTrigger")
 	await wait_physics_frames(SETTLE_FRAMES)
@@ -52,7 +52,7 @@ func test_trigger_speaks_once() -> void:
 
 ## El Tío dice una frase al empezar a cazar.
 func test_tio_speaks_when_hunting() -> void:
-	var level: Level = add_to_tree(LEVEL_SCENE.instantiate())
+	var level: Level = add_to_tree(_level_without_intro())
 	var tio: Tio = level.get_node("Tio")
 	tio.call("_enter_state", Tio.State.HUNT)
 	assert_true(_subtitles.size() == 1, "El Tío debe decir algo al cazar")
@@ -68,6 +68,13 @@ func test_every_line_is_in_the_script() -> void:
 		assert_false(line.speaker.is_empty(), "%s debe tener personaje" % file)
 		assert_false(line.text.is_empty(), "%s debe tener texto" % file)
 		assert_true(script_text.contains("`%s`" % line.id), "%s debe estar en el guion" % line.id)
+
+
+## Devuelve el nivel 1 sin la cinemática de inicio.
+func _level_without_intro() -> Level:
+	var level: Level = LEVEL_SCENE.instantiate()
+	level.get_node("IntroCinematic").enabled = false
+	return level
 
 
 ## Guarda cada subtítulo mostrado.
