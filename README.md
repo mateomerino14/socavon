@@ -10,13 +10,14 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 
 | Hecho | Pendiente |
 |---|---|
-| Movimiento en primera persona: caminar, correr y agacharse | Piedras para distraer |
-| Aliento que se gasta al correr | El Tío y sus estados |
-| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Muerte y reaparición |
-| Pasos que emiten ruido para la futura IA | Sonido |
+| Movimiento en primera persona: caminar, correr y agacharse | El Tío y sus estados |
+| Aliento que se gasta al correr | Muerte y reaparición |
+| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Sonido |
+| Pasos que emiten ruido para la futura IA | |
 | Túnel gris de prueba y HUD mínimo | |
 | Bolsa de objetos: carburo, coca, alcohol, cigarros y piedras | |
 | Altar que recibe ofrendas, sube el respeto del Tío y guarda la partida | |
+| Piedras que hacen ruido al caer y se pueden volver a recoger | |
 
 ## Requisitos
 
@@ -41,6 +42,7 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 | Subir o bajar la llama | Rueda del ratón | Cruceta arriba / abajo |
 | Recargar la lámpara con carburo | R | X / Cuadrado |
 | Recoger, ofrendar, usar | E | A / Equis |
+| Lanzar una piedra | Clic izquierdo | RT / R2 |
 | Soltar el ratón | Esc (un clic lo vuelve a capturar) | Start |
 
 ## Estructura

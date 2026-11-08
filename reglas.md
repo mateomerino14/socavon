@@ -174,6 +174,7 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | 1 | Mundo (roca, soportes, altares) |
 | 2 | Jugador |
 | 3 | Interactuables (objetos, altares) |
+| 5 | Proyectiles (piedras lanzadas) |
 
 ---
 
