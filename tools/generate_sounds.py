@@ -20,6 +20,7 @@ DRIP_VARIANTS = 3
 DRIP_SECONDS = 0.35
 STONE_HIT_SECONDS = 0.25
 AMBIENCE_SECONDS = 12.0
+RUMBLE_SECONDS = 5.0
 
 
 def write_wav(path, samples, loop=False):
@@ -107,6 +108,22 @@ def ambience(rng):
     return normalize(mixed[: count - fade], 0.5)
 
 
+def rumble(rng):
+    """Derrumbe: estruendo grave que crece, golpea y se apaga, con piedras sueltas."""
+    count = int(RUMBLE_SECONDS * SAMPLE_RATE)
+    noise = low_pass([rng.uniform(-1, 1) for _ in range(count)], 0.985)
+    samples = []
+    for i, value in enumerate(noise):
+        t = i / SAMPLE_RATE
+        swell = min(t / 1.5, 1.0) * math.exp(-max(t - 2.2, 0.0) * 1.4)
+        samples.append(value * swell)
+    for _ in range(40):
+        start = rng.randint(int(SAMPLE_RATE * 1.4), count - SAMPLE_RATE // 2)
+        for j in range(int(SAMPLE_RATE * 0.05)):
+            samples[start + j] += rng.uniform(-1, 1) * math.exp(-j / SAMPLE_RATE * 80) * 0.02
+    return normalize(samples, 0.95)
+
+
 def main():
     """Genera todos los sonidos en assets/audio/."""
     rng = random.Random(SEED)
@@ -117,6 +134,7 @@ def main():
         write_wav(OUTPUT_DIR / f"drip_{index}.wav", drip(rng))
     write_wav(OUTPUT_DIR / "stone_hit.wav", stone_hit(rng))
     write_wav(OUTPUT_DIR / "mine_ambience_loop.wav", ambience(rng), loop=True)
+    write_wav(OUTPUT_DIR / "collapse_rumble.wav", rumble(rng))
     print(f"Sonidos generados en {OUTPUT_DIR}")
 
 
