@@ -13,6 +13,7 @@ const CARBIDE_FUEL := 150.0
 const REFILLED_NOTICE := "Recargaste la lámpara"
 const NO_CARBIDE_NOTICE := "No tienes carburo"
 const LAMP_FULL_NOTICE := "La lámpara está llena"
+const NO_STONES_NOTICE := "No tienes piedras"
 
 @export_group("Velocidades (m/s)")
 @export var walk_speed := 2.4
@@ -47,6 +48,7 @@ var _is_crouch_requested := false
 @onready var _footsteps: FootstepComponent = $FootstepComponent
 @onready var _lamp: CarbideLamp = $Head/Camera3D/CarbideLamp
 @onready var _interactor: Interactor = $Head/Camera3D/Interactor
+@onready var _stone_thrower: StoneThrower = $Head/Camera3D/StoneThrower
 
 
 ## Prepara la cápsula, conecta los componentes y pone al jugador de pie.
@@ -57,12 +59,14 @@ func _ready() -> void:
 	_head.position.y = stand_height - eye_offset
 
 
-## Atiende las acciones de una sola pulsación: usar, lámpara y agacharse en modo alterno.
+## Atiende las acciones de una sola pulsación: usar, lámpara, lanzar y agacharse alterno.
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		_interactor.try_interact(self)
 	elif event.is_action_pressed("lamp_refill"):
 		refill_lamp()
+	elif event.is_action_pressed("throw") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		throw_stone()
 	elif event.is_action_pressed("lamp_toggle"):
 		_lamp.toggle()
 	elif event.is_action_pressed("lamp_increase"):
@@ -104,6 +108,14 @@ func refill_lamp() -> void:
 		EventBus.notice_requested.emit(REFILLED_NOTICE)
 	else:
 		EventBus.notice_requested.emit(NO_CARBIDE_NOTICE)
+
+
+## Lanza una piedra de la bolsa hacia donde mira.
+func throw_stone() -> void:
+	if inventory.remove(ItemCatalog.Type.STONE):
+		_stone_thrower.throw(get_parent(), velocity)
+	else:
+		EventBus.notice_requested.emit(NO_STONES_NOTICE)
 
 
 ## Dice si la cápsula está por debajo de la altura de pie.
