@@ -61,6 +61,7 @@ var _checking_spot: HidingSpot
 @onready var _hearing: NoiseHearing = $NoiseHearing
 @onready var _sight: PlayerSight = $Eyes
 @onready var _stride_audio: StrideAudio = $StrideAudio
+@onready var _voice: TioVoice = $Voice
 
 
 ## Busca al jugador, escucha el mundo y empieza a patrullar.
@@ -192,6 +193,7 @@ func _enter_state(new_state: State) -> void:
 	state = new_state
 	_hearing.enabled = state != State.CALM
 	_sight.enabled = state != State.CALM
+	_voice.react_to_state(state)
 	match state:
 		State.PATROL:
 			_start_patrol()

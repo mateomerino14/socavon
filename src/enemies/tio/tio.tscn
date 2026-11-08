@@ -8,6 +8,15 @@
 [ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_2.wav" id="6_step2"]
 [ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_3.wav" id="7_step3"]
 [ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_4.wav" id="8_step4"]
+[ext_resource type="Script" path="res://src/enemies/tio/components/tio_voice.gd" id="20_voice"]
+[ext_resource type="Script" path="res://src/story/voice_line.gd" id="28_voice_line"]
+[ext_resource type="Resource" path="res://src/story/voices/tio_sospecha_1.tres" id="21_tio_sospecha_1"]
+[ext_resource type="Resource" path="res://src/story/voices/tio_sospecha_2.tres" id="22_tio_sospecha_2"]
+[ext_resource type="Resource" path="res://src/story/voices/tio_caza_1.tres" id="23_tio_caza_1"]
+[ext_resource type="Resource" path="res://src/story/voices/tio_caza_2.tres" id="24_tio_caza_2"]
+[ext_resource type="Resource" path="res://src/story/voices/tio_busqueda_1.tres" id="25_tio_busqueda_1"]
+[ext_resource type="Resource" path="res://src/story/voices/tio_busqueda_2.tres" id="26_tio_busqueda_2"]
+[ext_resource type="Resource" path="res://src/story/voices/tio_calma_1.tres" id="27_tio_calma_1"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tio_steps"]
 random_pitch = 1.08
@@ -106,3 +115,19 @@ pitch_scale = 0.55
 unit_size = 6.0
 max_distance = 35.0
 bus = &"Efectos"
+
+[node name="Voice" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+script = ExtResource("20_voice")
+suspicion_lines = Array[ExtResource("28_voice_line")]([ExtResource("21_tio_sospecha_1"), ExtResource("22_tio_sospecha_2")])
+hunt_lines = Array[ExtResource("28_voice_line")]([ExtResource("23_tio_caza_1"), ExtResource("24_tio_caza_2")])
+search_lines = Array[ExtResource("28_voice_line")]([ExtResource("25_tio_busqueda_1"), ExtResource("26_tio_busqueda_2")])
+calm_lines = Array[ExtResource("28_voice_line")]([ExtResource("27_tio_calma_1")])
+
+[node name="Audio" type="AudioStreamPlayer3D" parent="Voice"]
+unit_size = 6.0
+max_distance = 40.0
+bus = &"Efectos"
+
+[node name="LineTimer" type="Timer" parent="Voice"]
+one_shot = true
