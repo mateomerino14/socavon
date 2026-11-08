@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "inscripcion_siete"
+title = "Escrito con carburo en la roca"
+signature = ""
+body = "NO ENTRES SIN PERMISO
+EL TÍO ESCUCHA
+SEVERINO SE FUE POR EL AGUA
+SOMOS SIETE"

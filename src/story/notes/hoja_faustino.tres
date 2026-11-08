@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "hoja_faustino"
+title = "Hoja de turno"
+signature = "Don Faustino, jefe de cuadrilla. Viernes de ch'alla"
+body = "Cuadrilla: Rosendo, Wilmer, el chango Mateo y yo.
+
+Entramos al nivel cerrado después del almuerzo. No hay tiempo para la ch'alla: el ingeniero quiere la veta antes del lunes.
+
+Si alguno pregunta, la ofrenda la hacemos a la salida. Que nadie les cuente a las palliris."
