@@ -41,5 +41,8 @@ signal player_hid(spot: HidingSpot)
 ## Alguien habla: el HUD muestra el subtítulo durante esos segundos.
 signal subtitle_requested(speaker: String, text: String, seconds: float)
 
+## Una cinemática pide ocultar o volver a mostrar el HUD.
+signal hud_visibility_requested(is_visible: bool)
+
 ## El jugador abrió una nota para leerla.
 signal note_opened(note: NoteData)
