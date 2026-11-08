@@ -6,15 +6,17 @@ Primera historia del universo del Manqha Pacha.
 
 ## Estado
 
-Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de carburo.
+Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de carburo, recoge objetos y deja ofrendas al Tío.
 
 | Hecho | Pendiente |
 |---|---|
-| Movimiento en primera persona: caminar, correr y agacharse | Altar con ofrendas y guardado |
-| Aliento que se gasta al correr | Piedras para distraer |
-| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | El Tío y sus estados |
-| Pasos que emiten ruido para la futura IA | Muerte y reaparición |
-| Túnel gris de prueba y HUD mínimo | Sonido |
+| Movimiento en primera persona: caminar, correr y agacharse | Piedras para distraer |
+| Aliento que se gasta al correr | El Tío y sus estados |
+| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Muerte y reaparición |
+| Pasos que emiten ruido para la futura IA | Sonido |
+| Túnel gris de prueba y HUD mínimo | |
+| Bolsa de objetos: carburo, coca, alcohol, cigarros y piedras | |
+| Altar que recibe ofrendas, sube el respeto del Tío y guarda la partida | |
 
 ## Requisitos
 
@@ -37,14 +39,17 @@ Prototipo `0.1.0`: el jugador recorre un túnel de prueba con su lámpara de car
 | Agacharse | Ctrl o C | B / Círculo |
 | Encender o apagar la lámpara | F | Y / Triángulo |
 | Subir o bajar la llama | Rueda del ratón | Cruceta arriba / abajo |
+| Recargar la lámpara con carburo | R | X / Cuadrado |
+| Recoger, ofrendar, usar | E | A / Equis |
 | Soltar el ratón | Esc (un clic lo vuelve a capturar) | Start |
 
 ## Estructura
 
 ```
-src/core/      Bus de eventos global
-src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos)
-src/world/     Túnel de prueba, soportes de madera y materiales
+src/core/      Bus de eventos y estado de la partida
+src/items/     Catálogo de objetos, objetos recogibles y zonas interactuables
+src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, rayo de interacción)
+src/world/     Túnel de prueba, altar, soportes de madera y materiales
 src/ui/        HUD
 tests/         Pruebas automáticas
 assets/        Modelos, texturas y audio

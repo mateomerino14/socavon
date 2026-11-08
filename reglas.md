@@ -134,11 +134,12 @@ const MAX_LEVEL := 3
 
 ```
 src/
-├── core/             Autoloads globales (EventBus)
+├── core/             Autoloads globales (EventBus, GameState)
+├── items/            Catálogo de objetos, objetos recogibles e Interactable
 ├── player/           Jugador
 │   ├── player.tscn / player.gd      Raíz: lee la entrada y coordina
 │   ├── first_person_camera.gd       Mirada y balanceo
-│   └── components/                  Piezas independientes (aliento, lámpara, pasos)
+│   └── components/                  Piezas independientes (aliento, lámpara, pasos, bolsa, rayo)
 ├── enemies/          El Tío y amenazas
 ├── world/            Niveles, piezas modulares y materiales
 │   ├── materials/
@@ -158,6 +159,8 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | Raíz de sistema (`Player`) | Leer la entrada, decidir el estado, llamar a sus componentes, publicar en `EventBus` | Contener la lógica interna de un componente |
 | Componente | Resolver una sola cosa y avisar con señales propias | Conocer a otros componentes o leer la entrada |
 | `EventBus` | Transportar eventos entre sistemas que no se conocen | Guardar estado |
+| `GameState` | Guardar el estado de la partida (respeto, punto de guardado) | Contener reglas de una mecánica |
+| `Interactable` | Avisar a su dueño que el jugador lo usó | Decidir qué pasa al usarlo |
 | HUD y audio | Escuchar `EventBus` y presentar | Cambiar el estado del juego |
 
 **Señales hacia arriba, llamadas hacia abajo:** un nodo llama métodos de sus hijos y escucha las señales de ellos; nunca busca a su padre ni a sus hermanos.
@@ -168,8 +171,9 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 
 | Capa | Uso |
 |---|---|
-| 1 | Mundo (roca, soportes) |
+| 1 | Mundo (roca, soportes, altares) |
 | 2 | Jugador |
+| 3 | Interactuables (objetos, altares) |
 
 ---
 
