@@ -5,6 +5,8 @@
 [ext_resource type="Script" path="res://src/player/components/stamina_component.gd" id="3_stamina"]
 [ext_resource type="Script" path="res://src/player/components/footstep_component.gd" id="4_footsteps"]
 [ext_resource type="PackedScene" path="res://src/player/components/carbide_lamp.tscn" id="5_lamp"]
+[ext_resource type="Script" path="res://src/player/components/interactor.gd" id="6_interactor"]
+[ext_resource type="Script" path="res://src/player/components/inventory_component.gd" id="7_inventory"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 resource_local_to_scene = true
@@ -39,8 +41,17 @@ near = 0.05
 [node name="CarbideLamp" parent="Head/Camera3D" instance=ExtResource("5_lamp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, 0.1, -0.05)
 
+[node name="Interactor" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -2.2)
+collision_mask = 5
+collide_with_areas = true
+script = ExtResource("6_interactor")
+
 [node name="StaminaComponent" type="Node" parent="."]
 script = ExtResource("3_stamina")
 
 [node name="FootstepComponent" type="Node" parent="."]
 script = ExtResource("4_footsteps")
+
+[node name="InventoryComponent" type="Node" parent="."]
+script = ExtResource("7_inventory")

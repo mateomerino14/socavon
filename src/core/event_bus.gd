@@ -22,3 +22,15 @@ signal lamp_fuel_changed(current: float, maximum: float)
 
 ## La lámpara se encendió, apagó o cambió de nivel de llama.
 signal lamp_state_changed(is_lit: bool, level: int)
+
+## Cambió lo que el jugador puede usar al frente; texto vacío si no hay nada.
+signal interaction_prompt_changed(prompt: String)
+
+## Cambió la cantidad de un objeto en la bolsa del jugador.
+signal inventory_changed(type: ItemCatalog.Type, count: int)
+
+## Se dejó una ofrenda en un altar.
+signal offering_made(origin: Vector3, type: ItemCatalog.Type)
+
+## Un aviso breve para el jugador, como "Partida guardada".
+signal notice_requested(text: String)
