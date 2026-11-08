@@ -1,5 +1,6 @@
+class_name Level
 extends Node3D
-## Túnel de prueba: arranca una partida nueva y guarda el inicio del jugador.
+## Raíz de cada nivel: arranca una partida nueva y guarda el inicio del jugador.
 
 @onready var _player: Player = $Player
 

@@ -4,6 +4,7 @@ extends TestCase
 const TUNNEL_SCENE := preload("res://src/world/test_tunnel/test_tunnel.tscn")
 const SETTLE_FRAMES := 10
 const PROMPT_FRAMES := 5
+const WALKABLE_TOLERANCE := 0.6
 
 var _tunnel: Node3D
 var _player: Player
@@ -71,6 +72,17 @@ func test_prompt_appears_when_looking_at_altar() -> void:
 		_last_prompt == Altar.ASK_PERMISSION_PROMPT,
 		"Debe pedir permiso al mirar el altar (texto: '%s')" % _last_prompt
 	)
+
+
+## Cada altar hace reaparecer en el pasillo, frente a él y no dentro de la roca.
+func test_respawn_points_are_walkable() -> void:
+	await wait_physics_frames(SETTLE_FRAMES)
+	var map := _tunnel.get_world_3d().navigation_map
+	for altar: Altar in _tunnel.get_node("Altars").get_children():
+		var spawn := altar.get_respawn_transform().origin
+		var closest := NavigationServer3D.map_get_closest_point(map, spawn)
+		var gap := Vector2(closest.x - spawn.x, closest.z - spawn.z).length()
+		assert_true(gap < WALKABLE_TOLERANCE, "%s debe reaparecer en el pasillo" % altar.name)
 
 
 ## Recargar la lámpara gasta un carburo y suma combustible.

@@ -1,10 +1,11 @@
 [gd_scene format=3]
 
 [ext_resource type="Material" path="res://src/world/materials/rock.tres" id="1_rock"]
+[ext_resource type="Environment" path="res://src/world/materials/mine_environment.tres" id="14_env"]
 [ext_resource type="PackedScene" path="res://src/world/props/timber_frame.tscn" id="2_frame"]
 [ext_resource type="PackedScene" path="res://src/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://src/ui/hud/hud.tscn" id="4_hud"]
-[ext_resource type="Script" path="res://src/world/test_tunnel/test_tunnel.gd" id="5_level"]
+[ext_resource type="Script" path="res://src/world/level.gd" id="5_level"]
 [ext_resource type="PackedScene" path="res://src/world/altar/altar.tscn" id="6_altar"]
 [ext_resource type="PackedScene" path="res://src/items/pickup.tscn" id="7_pickup"]
 [ext_resource type="NavigationMesh" path="res://src/world/test_tunnel/test_tunnel_navmesh.tres" id="8_navmesh"]
@@ -14,24 +15,11 @@
 [ext_resource type="PackedScene" path="res://src/world/props/drip_emitter.tscn" id="12_drip"]
 [ext_resource type="AudioStream" path="res://assets/audio/mine_ambience_loop.wav" id="13_ambience"]
 
-[sub_resource type="Environment" id="Environment_mine"]
-background_mode = 1
-background_color = Color(0, 0, 0, 1)
-ambient_light_source = 2
-ambient_light_color = Color(0.32, 0.36, 0.45, 1)
-ambient_light_energy = 0.04
-tonemap_mode = 2
-glow_enabled = true
-glow_intensity = 0.4
-fog_enabled = true
-fog_light_color = Color(0.01, 0.01, 0.012, 1)
-fog_density = 0.035
-
 [node name="TestTunnel" type="Node3D"]
 script = ExtResource("5_level")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_mine")
+environment = ExtResource("14_env")
 
 [node name="Tunnel" type="CSGCombiner3D" parent="." groups=["navigation_source"]]
 use_collision = true
@@ -114,10 +102,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 3.3, -16)
 [node name="Altars" type="Node3D" parent="." groups=["navigation_source"]]
 
 [node name="EntryAltar" parent="Altars" instance=ExtResource("6_altar")]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.15, 0, -4)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -1.15, 0, -4)
 
 [node name="ChamberAltar" parent="Altars" instance=ExtResource("6_altar")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 21.6, 0, -18)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 21.6, 0, -18)
 
 [node name="Pickups" type="Node3D" parent="."]
 
@@ -164,7 +152,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -18)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14)
 
 [node name="Tio" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("9_tio")]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 19, 0, -18)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 19, 0, -18)
 patrol_points = [NodePath("../PatrolPoints/Chamber"), NodePath("../PatrolPoints/SideCorridor"), NodePath("../PatrolPoints/EntryCorridor")]
 
 [node name="Player" parent="." instance=ExtResource("3_player")]

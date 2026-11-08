@@ -13,7 +13,7 @@ config_version=5
 config/name="Socavón"
 config/description="Juego de terror en primera persona en las minas del Cerro Rico de Potosí."
 config/version="0.1.0"
-run/main_scene="res://src/world/test_tunnel/test_tunnel.tscn"
+run/main_scene="res://src/world/level_01/level_01.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
