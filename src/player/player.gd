@@ -14,6 +14,8 @@ const REFILLED_NOTICE := "Recargaste la lámpara"
 const NO_CARBIDE_NOTICE := "No tienes carburo"
 const LAMP_FULL_NOTICE := "La lámpara está llena"
 const NO_STONES_NOTICE := "No tienes piedras"
+## Grupo declarado en player.tscn; así el Tío lo encuentra aunque esté antes en el árbol.
+const GROUP := &"player"
 
 @export_group("Velocidades (m/s)")
 @export var walk_speed := 2.4
@@ -116,6 +118,11 @@ func throw_stone() -> void:
 		_stone_thrower.throw(get_parent(), velocity)
 	else:
 		EventBus.notice_requested.emit(NO_STONES_NOTICE)
+
+
+## Devuelve la posición de los ojos, que es lo que el Tío intenta ver.
+func get_eye_position() -> Vector3:
+	return _head.global_position
 
 
 ## Dice si la cápsula está por debajo de la altura de pie.

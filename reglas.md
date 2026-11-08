@@ -140,7 +140,7 @@ src/
 │   ├── player.tscn / player.gd      Raíz: lee la entrada y coordina
 │   ├── first_person_camera.gd       Mirada y balanceo
 │   └── components/                  Piezas independientes (aliento, lámpara, pasos, bolsa, rayo)
-├── enemies/          El Tío y amenazas
+├── enemies/          El Tío y amenazas, con sus sentidos en components/
 ├── world/            Niveles, piezas modulares y materiales
 │   ├── materials/
 │   ├── props/
@@ -174,7 +174,21 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | 1 | Mundo (roca, soportes, altares) |
 | 2 | Jugador |
 | 3 | Interactuables (objetos, altares) |
+| 4 | Enemigos (el Tío) |
 | 5 | Proyectiles (piedras lanzadas) |
+
+### Navegación
+
+- Cada nivel tiene un `NavigationRegion3D` con su malla horneada en un `.tres` junto a la escena.
+- Solo se hornean los nodos del grupo `navigation_source` (roca, soportes, altares); los objetos sueltos no.
+- Al cambiar la geometría de un nivel, se vuelve a hornear: seleccionar `NavigationRegion3D` y pulsar **Bake NavigationMesh**.
+
+### Grupos
+
+| Grupo | Uso |
+|---|---|
+| `player` | Declarado en `player.tscn`; el Tío encuentra así al jugador |
+| `navigation_source` | Geometría que se hornea en la navegación |
 
 ---
 

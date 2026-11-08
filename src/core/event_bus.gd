@@ -34,3 +34,9 @@ signal offering_made(origin: Vector3, type: ItemCatalog.Type)
 
 ## Un aviso breve para el jugador, como "Partida guardada".
 signal notice_requested(text: String)
+
+## El Tío cambió de estado (patrulla, sospecha, caza, búsqueda o calma).
+signal tio_state_changed(state: Tio.State)
+
+## El Tío alcanzó al jugador.
+signal player_caught
