@@ -220,6 +220,8 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 
 - Los modelos se exportan desde Blender a `.glb` en `assets/models/`, con escala real en metros.
 - El audio se guarda en `.ogg`; los efectos cortos pueden ir en `.wav`.
+- Los sonidos provisionales los genera `tools/generate_sounds.py`; al reemplazar uno por una grabación real se mantiene el mismo nombre de archivo.
+- Un sonido que debe repetirse sin corte lleva sus puntos de bucle en el WAV o se marca con bucle al importarlo.
 - Los archivos fuente `.blend` se guardan fuera del repositorio o, si se suben, en `assets/source/`.
 
 ---

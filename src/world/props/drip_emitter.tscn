@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/world/props/drip_emitter.gd" id="1_drip"]
+[ext_resource type="AudioStream" path="res://assets/audio/drip_1.wav" id="2_drip1"]
+[ext_resource type="AudioStream" path="res://assets/audio/drip_2.wav" id="3_drip2"]
+[ext_resource type="AudioStream" path="res://assets/audio/drip_3.wav" id="4_drip3"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_drips"]
+random_pitch = 1.2
+random_volume_offset_db = 3.0
+streams_count = 3
+stream_0/stream = ExtResource("2_drip1")
+stream_1/stream = ExtResource("3_drip2")
+stream_2/stream = ExtResource("4_drip3")
+
+[node name="DripEmitter" type="AudioStreamPlayer3D"]
+stream = SubResource("AudioStreamRandomizer_drips")
+volume_db = -8.0
+unit_size = 4.0
+script = ExtResource("1_drip")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

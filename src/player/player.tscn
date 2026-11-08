@@ -9,11 +9,24 @@
 [ext_resource type="Script" path="res://src/player/components/inventory_component.gd" id="7_inventory"]
 [ext_resource type="Script" path="res://src/player/components/stone_thrower.gd" id="8_thrower"]
 [ext_resource type="Script" path="res://src/player/components/dread_sense.gd" id="9_dread"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_1.wav" id="10_step1"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_2.wav" id="11_step2"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_3.wav" id="12_step3"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_4.wav" id="13_step4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 resource_local_to_scene = true
 radius = 0.35
 height = 1.8
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_steps"]
+random_pitch = 1.12
+random_volume_offset_db = 2.0
+streams_count = 4
+stream_0/stream = ExtResource("10_step1")
+stream_1/stream = ExtResource("11_step2")
+stream_2/stream = ExtResource("12_step3")
+stream_3/stream = ExtResource("13_step4")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ceiling"]
 radius = 0.3
@@ -56,8 +69,13 @@ script = ExtResource("8_thrower")
 [node name="StaminaComponent" type="Node" parent="."]
 script = ExtResource("3_stamina")
 
-[node name="FootstepComponent" type="Node" parent="."]
+[node name="FootstepComponent" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 script = ExtResource("4_footsteps")
+
+[node name="Audio" type="AudioStreamPlayer3D" parent="FootstepComponent"]
+stream = SubResource("AudioStreamRandomizer_steps")
+max_polyphony = 2
 
 [node name="InventoryComponent" type="Node" parent="."]
 script = ExtResource("7_inventory")
