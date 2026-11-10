@@ -1,4 +1,4 @@
-"""Hornea el Tío de alta resolución a una malla de juego con texturas y exporta .glb.
+"""Hornea el Tío de alta resolución a una malla de juego con texturas y exporta glTF.
 
 Uso: python3 bake.py <pintado.blend> <carpeta_salida> <tamaño_textura>
 """
@@ -128,6 +128,6 @@ for o in high:
 bpy.ops.wm.save_as_mainfile(filepath=os.path.join(out_dir, "tio_game.blend"))
 bpy.ops.object.select_all(action="DESELECT")
 low.select_set(True)
-bpy.ops.export_scene.gltf(filepath=os.path.join(out_dir, "tio.glb"), use_selection=True,
-                          export_format="GLB", export_image_format="AUTO")
+bpy.ops.export_scene.gltf(filepath=os.path.join(out_dir, "tio.gltf"), use_selection=True,
+                          export_format="GLTF_SEPARATE", export_image_format="AUTO")
 print("exportado")

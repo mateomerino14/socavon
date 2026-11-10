@@ -18,7 +18,7 @@
 [ext_resource type="Resource" path="res://src/story/voices/tio_busqueda_2.tres" id="26_tio_busqueda_2"]
 [ext_resource type="Resource" path="res://src/story/voices/tio_calma_1.tres" id="27_tio_calma_1"]
 [ext_resource type="Script" path="res://src/enemies/tio/components/body_sway.gd" id="29_sway"]
-[ext_resource type="PackedScene" path="res://assets/models/tio/tio.glb" id="30_model"]
+[ext_resource type="PackedScene" path="res://assets/models/tio/tio.gltf" id="30_model"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tio_steps"]
 random_pitch = 1.08
