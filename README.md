@@ -6,13 +6,13 @@ Primera historia del universo del Manqha Pacha.
 
 ## Estado
 
-Prototipo `0.2.0`: los niveles 1, El derrumbe, y 2, Los rieles, se juegan de principio a fin, y el túnel de prueba sirve para ensayar mecánicas con el Tío suelto.
+Prototipo `0.3.0`: los cinco niveles de la mina se juegan de principio a fin, con dos finales. El túnel de prueba sirve para ensayar mecánicas con el Tío suelto.
 
 | Hecho | Pendiente |
 |---|---|
 | Movimiento en primera persona: caminar, correr y agacharse | Grabar las voces del guion |
 | Aliento que se gasta al correr | Modelos de Blender |
-| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Niveles 3 a 5 de la mina |
+| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Menú principal y guardar entre sesiones |
 | Pasos que emiten ruido para la futura IA | |
 | Túnel gris de prueba y HUD mínimo | |
 | Bolsa de objetos: carburo, coca, alcohol, cigarros y piedras | |
@@ -32,6 +32,9 @@ Prototipo `0.2.0`: los niveles 1, El derrumbe, y 2, Los rieles, se juegan de pri
 | Cinemática de inicio del derrumbe (se salta con Esc o E) | |
 | Nivel 2, Los rieles: rieles, galería inundada, segundo altar y el Tío suelto | |
 | Agua hasta el tobillo: caminas más lento y tus pasos chapotean más fuerte | |
+| Nivel 3, La veta: gateaderos donde el Tío no cabe y la veta de plata | |
+| Nivel 4, La cuadrilla: dos Tíos y la verdad sobre Don Faustino y Rosendo | |
+| Nivel 5, La bocamina: pagarle al Tío o huir, con dos finales | |
 
 ## Requisitos
 
@@ -83,6 +86,23 @@ Empieza con una cinemática: Don Faustino ordena entrar sin ch'alla, la mina tie
 ### Nivel 2: Los rieles
 
 Bajas por los rieles por donde sacaban el mineral. En el cruce, el ramal este lleva al segundo altar, con la lista de raya de los siete de 1975. El oeste está inundado: el agua te frena y cada paso chapotea fuerte, y desde el fondo te llama la voz de Wilmer. Allí está su nota, que advierte que esa voz ya no es suya. Al norte, en el buzón donde bajaban los carros, ronda el Tío. Esta vez anda suelto y te puede alcanzar; los carros sirven de escondite. La salida queda pasando el buzón, por donde entra aire de arriba.
+
+### Nivel 3: La veta
+
+Desde el cruce hay dos caminos a la cámara de la veta de plata. El oeste es un gateadero tan bajo que hay que pasarlo agachado, pero el Tío no cabe ahí; al salir está el altar. El este es un túnel largo y alto por donde ronda el Tío, y ahí están la coca, el alcohol y el carburo. En la veta, el casco de Justo Condori dice que lo que brilla no es plata. Desde el norte, la voz de Don Faustino pide ayuda.
+
+### Nivel 4: La cuadrilla
+
+Hay dos Tíos: uno en el cruce de los ramales y otro en la cámara del norte. En el ramal oeste está el pañuelo de Rosendo; en el este, la confesión de Don Faustino, que le ofreció al Tío uno de los suyos para salir él. Su voz te llama desde ahí. Rosendo deja la pista del final: "paga tú, con lo que tengas, pero paga. Coca, trago y cigarro".
+
+### Nivel 5: La bocamina
+
+El último altar no acepta ofrendas sueltas: el Tío cobra coca, alcohol y cigarro juntos. Están repartidos en los ramales que él vigila.
+
+- **Con permiso:** si pagas, el Tío te deja ir.
+- **Sin permiso:** si corres hacia la luz sin pagar, el Tío sale tras de ti y no se rinde aunque lo pierdas de vista.
+
+Al cruzar la bocamina se muestra tu final y el juego vuelve a empezar.
 
 ### Cómo funciona el Tío
 

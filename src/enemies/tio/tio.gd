@@ -42,6 +42,8 @@ const SPOT_REACH := 1.2
 @export var hearing_high_respect := 0.8
 
 var state := State.PATROL
+## En el final no se rinde: siempre sabe dónde está el jugador.
+var is_relentless := false
 
 var _player: Player
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -98,6 +100,7 @@ func reset() -> void:
 	global_transform = _spawn_transform
 	velocity = Vector3.ZERO
 	_has_caught = false
+	is_relentless = false
 	_animator.reset()
 	_patrol_index = 0
 	_enter_state(State.PATROL)
@@ -151,9 +154,9 @@ func _update_suspicion(delta: float) -> void:
 			_enter_state(State.PATROL)
 
 
-## Persigue al jugador; si lo pierde de vista un tiempo, pasa a buscarlo.
+## Persigue al jugador; si lo pierde de vista un tiempo, pasa a buscarlo (salvo que no se rinda).
 func _update_hunt(delta: float) -> void:
-	if _sees_player():
+	if is_relentless or _sees_player():
 		_unseen_time = 0.0
 		_last_known_position = _player.global_position
 	elif _known_spot:
@@ -281,6 +284,13 @@ func _check_spot_catch(spot: HidingSpot) -> void:
 		_catch()
 
 
+## Sale tras el jugador y no se rinde aunque lo pierda de vista; se usa al huir sin pagar.
+func start_chase() -> void:
+	is_relentless = true
+	_last_known_position = _player.global_position
+	_enter_state(State.HUNT)
+
+
 ## Posición de sus ojos, a donde mira el jugador al ser atrapado.
 func get_face_position() -> Vector3:
 	return _animator.get_face_position()
@@ -361,7 +371,7 @@ func _on_player_hid(spot: HidingSpot) -> void:
 
 ## Una ofrenda lo calma, salvo que ya haya atrapado al jugador.
 func _on_offering_made(_origin: Vector3, _type: ItemCatalog.Type) -> void:
-	if not _has_caught:
+	if not _has_caught and not is_relentless:
 		_enter_state(State.CALM)
 
 

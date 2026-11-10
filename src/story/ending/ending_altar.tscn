@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://src/world/altar/altar.tscn" id="1_altar"]
+[ext_resource type="Script" path="res://src/story/ending/ending_altar.gd" id="2_script"]
+
+[node name="EndingAltar" instance=ExtResource("1_altar")]
+script = ExtResource("2_script")

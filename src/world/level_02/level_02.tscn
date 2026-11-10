@@ -212,7 +212,7 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, -12)
 [node name="Altars" type="Node3D" parent="." groups=["navigation_source"]]
 
 [node name="RailsAltar" parent="Altars" instance=ExtResource("12_altar")]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 16.65, 0, -12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2, 0, -16.65)
 
 [node name="Pickups" type="Node3D" parent="."]
 
@@ -276,7 +276,7 @@ light_energy = 0.35
 omni_range = 6.0
 
 [node name="AltarGlow" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 1.2, -12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2, 1.2, -15.9)
 light_color = Color(1, 0.6, 0.3, 1)
 light_energy = 0.4
 omni_range = 4.0
@@ -304,7 +304,8 @@ patrol_points = [NodePath("../PatrolPoints/Chute"), NodePath("../PatrolPoints/Cr
 
 [node name="LevelExit" parent="." instance=ExtResource("21_exit")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -43.5)
-message = "Fin del nivel 2. Continuará..."
+message = "Bajando a La veta..."
+next_level_path = "res://src/world/level_03/level_03.tscn"
 
 [node name="Player" parent="." instance=ExtResource("17_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.9)

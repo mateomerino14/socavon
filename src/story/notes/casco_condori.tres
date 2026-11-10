@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "casco_condori"
+title = "Casco con el nombre raspado"
+signature = "J. CONDORI, 1975"
+body = "Por dentro, rayado con un clavo:
+
+No es plata lo que brilla en la veta. Son ojos.
+Cuando apagas la lámpara te siguen mirando."
