@@ -144,3 +144,18 @@ func test_steps_play_while_walking() -> void:
 		await tree.physics_frame
 		heard = heard or audio.playing or played[0]
 	assert_true(heard, "Los pasos del Tío deben sonar al caminar")
+
+
+## Quieto respira, al cazar corre y al atrapar embiste.
+func test_body_animation_follows_state() -> void:
+	var animator: TioAnimator = _tio.get_node("Model")
+	var animation_player: AnimationPlayer = (
+		_tio.find_children("*", "AnimationPlayer", true, false)[0]
+	)
+	await wait_physics_frames(SETTLE_FRAMES)
+	assert_true(animation_player.current_animation == TioAnimator.IDLE, "Quieto debe respirar")
+	animator.register_movement(_tio.hunt_speed)
+	assert_true(animation_player.current_animation == TioAnimator.RUN, "Cazando debe correr")
+	_player.global_position = _tio.global_position + CLOSE_OFFSET
+	await wait_physics_frames(SENSE_FRAMES)
+	assert_true(animation_player.current_animation == TioAnimator.CATCH, "Al atrapar debe embestir")

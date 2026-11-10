@@ -62,7 +62,7 @@ var _checking_spot: HidingSpot
 @onready var _sight: PlayerSight = $Eyes
 @onready var _stride_audio: StrideAudio = $StrideAudio
 @onready var _voice: TioVoice = $Voice
-@onready var _body_sway: BodySway = $Model
+@onready var _animator: TioAnimator = $Model
 
 
 ## Busca al jugador, escucha el mundo y empieza a patrullar.
@@ -89,7 +89,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	var travelled := (global_position - previous_position) * HORIZONTAL_PLANE
 	_stride_audio.register_movement(travelled.length(), travelled.length() / delta)
-	_body_sway.register_movement(travelled.length(), travelled.length() / delta, delta)
+	_animator.register_movement(travelled.length() / delta)
 	_check_catch()
 
 
@@ -98,6 +98,7 @@ func reset() -> void:
 	global_transform = _spawn_transform
 	velocity = Vector3.ZERO
 	_has_caught = false
+	_animator.reset()
 	_patrol_index = 0
 	_enter_state(State.PATROL)
 
@@ -283,6 +284,7 @@ func _check_spot_catch(spot: HidingSpot) -> void:
 ## Marca la captura y la avisa.
 func _catch() -> void:
 	_has_caught = true
+	_animator.play_catch()
 	EventBus.player_caught.emit()
 
 
