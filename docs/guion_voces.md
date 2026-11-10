@@ -27,3 +27,7 @@ Para el Tío sirve una voz grave y lenta; luego se le puede bajar el tono en Aud
 | `tio_busqueda_1` | El Tío | No te escondas... la mina es mía. | El Tío, buscándote | Susurro grave, cerca |
 | `tio_busqueda_2` | El Tío | Tu lámpara te va a traicionar. | El Tío, buscándote | Burlón, paciente |
 | `tio_calma_1` | El Tío | Eso... así se pide. | El Tío, tras una ofrenda | Satisfecho, casi paternal |
+
+## Voces provisionales
+
+Mientras no haya grabaciones, `tools/generate_voices.py` crea todas las líneas con la voz española de Piper y les da carácter con ffmpeg (tono, velocidad, eco de mina; el Tío lleva tres capas saturadas). Para cambiar una línea por una grabación real, guarda el archivo con el mismo nombre en `assets/audio/voices/`.
