@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="VoiceLine" format=3]
 
 [ext_resource type="Script" path="res://src/story/voice_line.gd" id="1_line"]
+[ext_resource type="AudioStream" path="res://assets/audio/voices/mateo_altar.ogg" id="2_audio"]
 
 [resource]
 script = ExtResource("1_line")
 id = "mateo_altar"
 speaker = "Mateo"
 text = "Un altar del Tío. Rosendo siempre decía que primero se pide permiso."
+audio = ExtResource("2_audio")
