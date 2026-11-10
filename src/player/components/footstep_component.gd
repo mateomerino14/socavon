@@ -16,9 +16,31 @@ const QUIETEST_STEP_DB := -24.0
 @export var sprint_loudness := 1.0
 @export var crouch_loudness := 0.08
 
+@export_group("En el agua")
+## Pisadas que suenan al caminar por agua.
+@export var wet_stream: AudioStream
+## Cuánto más fuerte (y audible para el Tío) es un paso en el agua.
+@export var wet_loudness_scale := 2.5
+
+var is_wet := false
+
 var _distance_since_step := 0.0
+var _dry_stream: AudioStream
 
 @onready var _audio: AudioStreamPlayer3D = $Audio
+
+
+## Recuerda el sonido de pisada en seco.
+func _ready() -> void:
+	_dry_stream = _audio.stream
+
+
+## Cambia a pisadas de agua o de vuelta a roca.
+func set_wet(wet: bool) -> void:
+	is_wet = wet
+	_audio.stream = _dry_stream
+	if wet:
+		_audio.stream = wet_stream
 
 
 ## Suma lo que avanzó el jugador y emite un paso al completar el tramo.
@@ -30,6 +52,8 @@ func register_movement(distance: float, state: Player.MoveState, origin: Vector3
 	if _distance_since_step >= _step_distance_for(state):
 		_distance_since_step = 0.0
 		var loudness := _loudness_for(state)
+		if is_wet:
+			loudness = minf(loudness * wet_loudness_scale, 1.0)
 		_audio.volume_db = lerpf(QUIETEST_STEP_DB, LOUDEST_STEP_DB, loudness)
 		_audio.play()
 		EventBus.noise_emitted.emit(origin, loudness)

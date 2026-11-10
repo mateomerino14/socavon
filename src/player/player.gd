@@ -24,6 +24,9 @@ const LEAVE_HIDING_PROMPT := "Salir del escondite"
 @export var sprint_speed := 4.6
 @export var crouch_speed := 1.2
 
+## Fracción de la velocidad que conserva al caminar por agua.
+@export_range(0.1, 1.0) var wading_speed_scale := 0.65
+
 @export_group("Aceleración")
 @export var acceleration := 10.0
 @export var deceleration := 14.0
@@ -49,6 +52,7 @@ var _capsule: CapsuleShape3D
 var _is_crouch_requested := false
 var _controls_enabled := true
 var _hiding_tween: Tween
+var _water_contacts := 0
 
 @onready var inventory: InventoryComponent = $InventoryComponent
 @onready var _collision: CollisionShape3D = $CollisionShape3D
@@ -241,15 +245,34 @@ func _update_move_state(input_dir: Vector2) -> void:
 	move_state = new_state
 
 
-## Devuelve la velocidad máxima del estado actual.
+## Entra a una zona de agua; las zonas pueden tocarse, por eso se cuentan.
+func enter_water() -> void:
+	_water_contacts += 1
+	_footsteps.set_wet(is_wading())
+
+
+## Sale de una zona de agua.
+func leave_water() -> void:
+	_water_contacts = maxi(_water_contacts - 1, 0)
+	_footsteps.set_wet(is_wading())
+
+
+## Dice si está con los pies en el agua: camina más lento y sus pasos chapotean.
+func is_wading() -> bool:
+	return _water_contacts > 0
+
+
+## Devuelve la velocidad máxima del estado actual, más lenta dentro del agua.
 func _speed_for_state() -> float:
+	var speed := walk_speed
 	match move_state:
 		MoveState.SPRINT:
-			return sprint_speed
+			speed = sprint_speed
 		MoveState.CROUCH:
-			return crouch_speed
-		_:
-			return walk_speed
+			speed = crouch_speed
+	if is_wading():
+		speed *= wading_speed_scale
+	return speed
 
 
 ## Aplica la gravedad mientras está en el aire.

@@ -22,6 +22,8 @@ STONE_HIT_SECONDS = 0.25
 AMBIENCE_SECONDS = 12.0
 RUMBLE_SECONDS = 5.0
 SCREAM_SECONDS = 1.6
+WADE_VARIANTS = 3
+WADE_SECONDS = 0.45
 
 
 def write_wav(path, samples, loop=False):
@@ -109,6 +111,29 @@ def ambience(rng):
     return normalize(mixed[: count - fade], 0.5)
 
 
+def wade(rng):
+    """Paso en agua hasta el tobillo: chapoteo grave, salpicadura y burbujas que se apagan."""
+    count = int(WADE_SECONDS * SAMPLE_RATE)
+    slosh = low_pass([rng.uniform(-1, 1) for _ in range(count)], 0.93)
+    splash = low_pass([rng.uniform(-1, 1) for _ in range(count)], 0.35)
+    samples = []
+    for i in range(count):
+        t = i / SAMPLE_RATE
+        body = slosh[i] * min(t / 0.03, 1.0) * math.exp(-t * 9.0) * 2.5
+        spray = splash[i] * math.exp(-t * 22.0) * 0.6
+        samples.append(body + spray)
+    for _ in range(rng.randint(4, 7)):
+        start = rng.uniform(0.05, WADE_SECONDS * 0.7)
+        freq = rng.uniform(500, 1400)
+        for j in range(int(SAMPLE_RATE * 0.04)):
+            t = j / SAMPLE_RATE
+            index = int(start * SAMPLE_RATE) + j
+            if index < count:
+                chirp = math.sin(2 * math.pi * freq * (1 + t * 12) * t)
+                samples[index] += chirp * math.exp(-t * 90) * 0.12
+    return normalize(samples, 0.7)
+
+
 def rumble(rng):
     """Derrumbe: estruendo grave que crece, golpea y se apaga, con piedras sueltas."""
     count = int(RUMBLE_SECONDS * SAMPLE_RATE)
@@ -159,6 +184,8 @@ def main():
     write_wav(OUTPUT_DIR / "mine_ambience_loop.wav", ambience(rng), loop=True)
     write_wav(OUTPUT_DIR / "collapse_rumble.wav", rumble(rng))
     write_wav(OUTPUT_DIR / "tio_roar.wav", scream(rng))
+    for index in range(1, WADE_VARIANTS + 1):
+        write_wav(OUTPUT_DIR / f"wade_{index}.wav", wade(rng))
     print(f"Sonidos generados en {OUTPUT_DIR}")
 
 

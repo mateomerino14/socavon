@@ -18,6 +18,11 @@ Para el Tío sirve una voz grave y lenta; luego se le puede bajar el tono en Aud
 | `mateo_altar` | Mateo | Un altar del Tío. Rosendo siempre decía que primero se pide permiso. | Nivel 1, al entrar a la cámara del altar | Bajo, con respeto; recordando a Rosendo |
 | `mateo_siete` | Mateo | Somos siete... ¿Siete qué? | Nivel 1, frente a la inscripción | Leyendo en voz baja, se le corta la voz |
 | `wilmer_llamado` | Wilmer | Mateo... por acá... sigue mi voz... | Nivel 1, ramal oeste, desde detrás de la roca | Lejano y apagado; casi amable, pero algo no suena bien |
+| `mateo_rieles` | Mateo | Rieles... por aquí sacaban el mineral. | Nivel 2, al empezar | Bajo, mirando alrededor |
+| `mateo_agua` | Mateo | Agua... Severino se fue por el agua. | Nivel 2, al llegar a la galería inundada | Se acuerda de la carta; se le enfría la voz |
+| `wilmer_agua` | Wilmer | Mateo... aquí abajo... ven... | Nivel 2, desde el fondo de la galería inundada | Lejano, mojado, insistente |
+| `mateo_lampara` | Mateo | Es la lámpara de Wilmer... Entonces, ¿quién me llama? | Nivel 2, junto a la nota de Wilmer | Empieza incrédulo y termina en pánico |
+| `mateo_salida` | Mateo | Aire... viene aire de arriba. | Nivel 2, cerca de la salida | Respirando, con un poco de esperanza |
 | `rosendo_derrumbe` | Rosendo | ¡Mateo! ¡Agárrate, chango, que se viene el techo! | Cinemática de inicio | Gritando por encima del estruendo |
 | `faustino_orden` | Don Faustino | Sin ch'alla nomás entramos. El Tío no paga mi sueldo. | Cinemática de inicio | Seco, mandón, con prisa |
 | `tio_sospecha_1` | El Tío | Mmm... huelo carburo. | El Tío, al oír un ruido | Grave, lento, olfateando |

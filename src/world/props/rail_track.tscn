@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://src/world/materials/wood.tres" id="1_wood"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_steel"]
+albedo_color = Color(0.22, 0.13, 0.08, 1)
+metallic = 0.85
+roughness = 0.55
+
+[sub_resource type="BoxMesh" id="BoxMesh_rail"]
+material = SubResource("StandardMaterial3D_steel")
+size = Vector3(0.07, 0.09, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sleeper"]
+material = ExtResource("1_wood")
+size = Vector3(1.5, 0.08, 0.2)
+
+[node name="RailTrack" type="Node3D"]
+
+[node name="LeftRail" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.125, 0)
+mesh = SubResource("BoxMesh_rail")
+
+[node name="RightRail" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.125, 0)
+mesh = SubResource("BoxMesh_rail")
+
+[node name="Sleeper1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, -1.6)
+mesh = SubResource("BoxMesh_sleeper")
+
+[node name="Sleeper2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, -0.8)
+mesh = SubResource("BoxMesh_sleeper")
+
+[node name="Sleeper3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0.0)
+mesh = SubResource("BoxMesh_sleeper")
+
+[node name="Sleeper4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0.8)
+mesh = SubResource("BoxMesh_sleeper")
+
+[node name="Sleeper5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 1.6)
+mesh = SubResource("BoxMesh_sleeper")
