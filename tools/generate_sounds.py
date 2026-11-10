@@ -126,7 +126,7 @@ def rumble(rng):
 
 
 def scream(rng):
-    """Grito del Tío al atrapar: rugido grave que tiembla y un chillido que sube, saturados."""
+    """Rugido del Tío, base del grito de captura: rugido grave que tiembla y un chillido que sube, saturados."""
     count = int(SCREAM_SECONDS * SAMPLE_RATE)
     rasp = low_pass([rng.uniform(-1, 1) for _ in range(count)], 0.6)
     samples = []
@@ -158,7 +158,7 @@ def main():
     write_wav(OUTPUT_DIR / "stone_hit.wav", stone_hit(rng))
     write_wav(OUTPUT_DIR / "mine_ambience_loop.wav", ambience(rng), loop=True)
     write_wav(OUTPUT_DIR / "collapse_rumble.wav", rumble(rng))
-    write_wav(OUTPUT_DIR / "tio_scream.wav", scream(rng))
+    write_wav(OUTPUT_DIR / "tio_roar.wav", scream(rng))
     print(f"Sonidos generados en {OUTPUT_DIR}")
 
 
