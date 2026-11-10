@@ -18,3 +18,13 @@ blender -b -P rig.py -- /ruta/salida/tio_game.blend /ruta/animado
 ```
 
 Exporta como glTF con texturas separadas (`tio.gltf`, `tio.bin` y los PNG) a `assets/models/tio/`. El modelo mira hacia +Y en Blender, que en Godot queda mirando a −Z (el frente).
+
+## Texturas de la mina
+
+`mine_textures.py` hornea texturas repetibles sin costuras (roca del Cerro Rico, suelo de barro con gravilla y madera de callapo): albedo, normales y ORM (oclusión, rugosidad). Las normales y la oclusión salen de la altura, calculadas con numpy.
+
+```bash
+blender -b -P mine_textures.py -- assets/textures/mine 1024
+```
+
+La roca y el suelo se combinan en `src/world/materials/mine_rock.gdshader`: proyección triplanar en paredes y techo, y suelo en las caras que miran hacia arriba.
