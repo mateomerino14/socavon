@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="VoiceLine" format=3]
+
+[ext_resource type="Script" path="res://src/story/voice_line.gd" id="1_line"]
+[ext_resource type="AudioStream" path="res://assets/audio/voices/faustino_llamado.ogg" id="2_audio"]
+
+[resource]
+script = ExtResource("1_line")
+id = "faustino_llamado"
+speaker = "Don Faustino"
+text = "Por aquí, chango, rápido... ya casi salimos."
+audio = ExtResource("2_audio")
