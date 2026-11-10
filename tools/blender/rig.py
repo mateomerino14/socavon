@@ -207,12 +207,12 @@ def catch(p):
         rot[f"upper_arm.{side}"] = (95 * ease, 0, -18 * s * ease)
         rot[f"forearm.{side}"] = (25 * ease, 0, 0)
         rot[f"hand.{side}"] = (-25 * ease, 0, 0)
-    rot["spine"] = (-20 * ease, 0, 0)
-    rot["chest"] = (-15 * ease + shake, 0, 0)
+    rot["spine"] = (-10 * ease, 0, 0)
+    rot["chest"] = (-8 * ease + shake, 0, 0)
     rot["neck"] = (20 * ease, 0, 0)
     rot["head"] = (10 * ease, 18 * ease + shake, shake)
     rot["jaw"] = (-35 * ease, 0, 0)
-    return rot, {"hips": (0, 0.25 * ease, -0.12 * ease)}
+    return rot, {"hips": (0, 0.06 * ease, -0.06 * ease)}
 
 
 make_action("idle", 90, 3, idle)

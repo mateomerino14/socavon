@@ -4,6 +4,8 @@ extends Node
 
 const ENEMY_GROUP := &"enemies"
 
+## Segundos de susto mirando al Tío antes de fundir a negro.
+@export var scare_seconds := 1.4
 ## Segundos en negro antes de reaparecer.
 @export var black_hold_seconds := 1.6
 
@@ -25,6 +27,8 @@ func _on_player_caught() -> void:
 	is_respawning = true
 	var player := get_tree().get_first_node_in_group(Player.GROUP) as Player
 	player.set_controls_enabled(false)
+	_hold_timer.start(scare_seconds)
+	await _hold_timer.timeout
 	await _death_screen.fade_out()
 	_hold_timer.start(black_hold_seconds)
 	await _hold_timer.timeout
