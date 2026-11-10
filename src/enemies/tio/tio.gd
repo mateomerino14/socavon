@@ -281,11 +281,24 @@ func _check_spot_catch(spot: HidingSpot) -> void:
 		_catch()
 
 
+## Posición de sus ojos, a donde mira el jugador al ser atrapado.
+func get_face_position() -> Vector3:
+	return _animator.get_face_position()
+
+
 ## Marca la captura y la avisa.
 func _catch() -> void:
 	_has_caught = true
+	_face_player()
 	_animator.play_catch()
 	EventBus.player_caught.emit()
+
+
+## Se gira de golpe hacia el jugador para embestirlo de frente.
+func _face_player() -> void:
+	var offset := (_player.global_position - global_position) * HORIZONTAL_PLANE
+	if offset != Vector3.ZERO:
+		rotation.y = atan2(-offset.x, -offset.z)
 
 
 ## Elige al azar un escondite cercano a donde lo perdió, o ninguno.

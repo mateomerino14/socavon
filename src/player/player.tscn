@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://src/player/components/stone_thrower.gd" id="8_thrower"]
 [ext_resource type="Script" path="res://src/player/components/dread_sense.gd" id="9_dread"]
 [ext_resource type="Script" path="res://src/player/components/listen_component.gd" id="14_listen"]
+[ext_resource type="Script" path="res://src/player/components/caught_reaction.gd" id="15_caught"]
+[ext_resource type="AudioStream" path="res://assets/audio/tio_scream.wav" id="16_scream"]
 [ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_1.wav" id="10_step1"]
 [ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_2.wav" id="11_step2"]
 [ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_3.wav" id="12_step3"]
@@ -93,3 +95,11 @@ script = ExtResource("14_listen")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 enabled = false
 target_position = Vector3(0.6, 0, 0)
+
+[node name="CaughtReaction" type="Node" parent="."]
+script = ExtResource("15_caught")
+
+[node name="Scream" type="AudioStreamPlayer" parent="CaughtReaction"]
+stream = ExtResource("16_scream")
+volume_db = -2.0
+bus = &"Efectos"

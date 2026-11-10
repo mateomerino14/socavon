@@ -63,6 +63,7 @@ var _hiding_tween: Tween
 @onready var _listen: ListenComponent = $ListenComponent
 @onready var _lean_check: RayCast3D = $LeanCheck
 @onready var _camera: Camera3D = $Head/Camera3D
+@onready var _caught_reaction: CaughtReaction = $CaughtReaction
 
 
 ## Prepara la cápsula, conecta los componentes y pone al jugador de pie.
@@ -195,6 +196,7 @@ func respawn_at(spawn: Transform3D) -> void:
 	if _hiding_tween:
 		_hiding_tween.kill()
 	_finish_hiding()
+	_caught_reaction.reset()
 	global_transform = spawn
 	velocity = Vector3.ZERO
 	_is_crouch_requested = false

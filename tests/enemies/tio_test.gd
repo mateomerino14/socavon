@@ -14,6 +14,9 @@ const FRAMES_PER_SECOND := 60
 const EXTRA_FRAMES := 30
 const PATROL_SECONDS := 5
 const MIN_PATROL_PROGRESS := 3.0
+const SCARE_FRAMES := 60
+## Coseno del ángulo máximo entre la mirada y la cara del Tío.
+const FACING_DOT := 0.95
 
 var _tunnel: Node3D
 var _tio: Tio
@@ -159,3 +162,18 @@ func test_body_animation_follows_state() -> void:
 	_player.global_position = _tio.global_position + CLOSE_OFFSET
 	await wait_physics_frames(SENSE_FRAMES)
 	assert_true(animation_player.current_animation == TioAnimator.CATCH, "Al atrapar debe embestir")
+
+
+## Al ser atrapado, el jugador termina mirando la cara del Tío.
+func test_caught_player_looks_at_tio_face() -> void:
+	var reaction: CaughtReaction = _player.get_node("CaughtReaction")
+	_player.global_position = _tio.global_position + CLOSE_OFFSET
+	_player.rotation.y = 0.0
+	await wait_physics_frames(SCARE_FRAMES)
+	assert_true(reaction.is_active, "El susto debe empezar al ser atrapado")
+	var camera: Camera3D = _player.get_node("Head/Camera3D")
+	var to_face := (_tio.get_face_position() - camera.global_position).normalized()
+	var looking := -camera.global_basis.z
+	assert_true(looking.dot(to_face) > FACING_DOT, "Debe mirar a la cara del Tío")
+	_player.respawn_at(_player.global_transform)
+	assert_false(reaction.is_active, "Al reaparecer el susto debe terminar")

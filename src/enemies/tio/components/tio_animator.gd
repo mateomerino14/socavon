@@ -8,6 +8,9 @@ const RUN := &"run"
 const CATCH := &"catch"
 const LOOPING: Array[StringName] = [IDLE, WALK, RUN]
 const NORMAL_SPEED := 1.0
+const HEAD_BONE := &"head"
+## Distancia desde la base del hueso de la cabeza hasta los ojos.
+const EYES_ALONG_HEAD := 0.12
 ## La embestida entra más rápido que los demás cambios.
 const CATCH_BLEND_RATIO := 0.5
 
@@ -23,12 +26,16 @@ const CATCH_BLEND_RATIO := 0.5
 @export var blend_seconds := 0.25
 
 var _player: AnimationPlayer
+var _skeleton: Skeleton3D
+var _head_bone := -1
 var _is_catching := false
 
 
 ## Busca el reproductor de animaciones del modelo y deja en bucle las que se repiten.
 func _ready() -> void:
 	_player = find_children("*", "AnimationPlayer", true, false).front() as AnimationPlayer
+	_skeleton = find_children("*", "Skeleton3D", true, false).front() as Skeleton3D
+	_head_bone = _skeleton.find_bone(HEAD_BONE)
 	for animation_name in LOOPING:
 		_player.get_animation(animation_name).loop_mode = Animation.LOOP_LINEAR
 	_player.play(IDLE)
@@ -44,6 +51,12 @@ func register_movement(speed: float) -> void:
 		_play(WALK, speed / _natural_speed(WALK, walk_stride))
 	else:
 		_play(RUN, speed / _natural_speed(RUN, run_stride))
+
+
+## Posición de los ojos en el mundo, siguiendo a la cabeza animada.
+func get_face_position() -> Vector3:
+	var head := _skeleton.global_transform * _skeleton.get_bone_global_pose(_head_bone)
+	return head.origin + head.basis.y.normalized() * EYES_ALONG_HEAD
 
 
 ## Lanza la embestida y se queda en ella hasta que lo reinicien.

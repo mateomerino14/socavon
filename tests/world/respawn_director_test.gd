@@ -21,6 +21,7 @@ func before_each() -> void:
 	_tio = _tunnel.get_node("Tio")
 	_director = _tunnel.get_node("RespawnDirector")
 	_director.black_hold_seconds = FAST_SECONDS
+	_director.scare_seconds = FAST_SECONDS
 	var death_screen: DeathScreen = _director.get_node("DeathScreen")
 	death_screen.fade_out_seconds = FAST_SECONDS
 	death_screen.fade_in_seconds = FAST_SECONDS

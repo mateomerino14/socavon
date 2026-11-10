@@ -21,6 +21,7 @@ DRIP_SECONDS = 0.35
 STONE_HIT_SECONDS = 0.25
 AMBIENCE_SECONDS = 12.0
 RUMBLE_SECONDS = 5.0
+SCREAM_SECONDS = 1.6
 
 
 def write_wav(path, samples, loop=False):
@@ -124,6 +125,28 @@ def rumble(rng):
     return normalize(samples, 0.95)
 
 
+def scream(rng):
+    """Grito del Tío al atrapar: rugido grave que tiembla y un chillido que sube, saturados."""
+    count = int(SCREAM_SECONDS * SAMPLE_RATE)
+    rasp = low_pass([rng.uniform(-1, 1) for _ in range(count)], 0.6)
+    samples = []
+    growl_phase = 0.0
+    screech_phase = 0.0
+    for i in range(count):
+        t = i / SAMPLE_RATE
+        attack = min(t / 0.04, 1.0)
+        release = math.exp(-max(t - 0.9, 0.0) * 5.0)
+        growl_freq = 62 + 14 * math.sin(t * 2 * math.pi * 7) + rng.uniform(-6, 6)
+        growl_phase += growl_freq / SAMPLE_RATE
+        growl = (growl_phase % 1.0) * 2.0 - 1.0
+        screech_freq = 700 + 900 * min(t / 0.5, 1.0) + 60 * math.sin(t * 2 * math.pi * 11)
+        screech_phase += screech_freq / SAMPLE_RATE
+        screech = math.sin(screech_phase * 2 * math.pi) * (0.5 + 0.5 * math.sin(t * 2 * math.pi * 23))
+        voice = growl * 0.8 + screech * 0.35 + rasp[i] * 0.6 * (0.5 + 0.5 * abs(growl))
+        samples.append(math.tanh(voice * 3.0) * attack * release)
+    return normalize(samples, 0.95)
+
+
 def main():
     """Genera todos los sonidos en assets/audio/."""
     rng = random.Random(SEED)
@@ -135,6 +158,7 @@ def main():
     write_wav(OUTPUT_DIR / "stone_hit.wav", stone_hit(rng))
     write_wav(OUTPUT_DIR / "mine_ambience_loop.wav", ambience(rng), loop=True)
     write_wav(OUTPUT_DIR / "collapse_rumble.wav", rumble(rng))
+    write_wav(OUTPUT_DIR / "tio_scream.wav", scream(rng))
     print(f"Sonidos generados en {OUTPUT_DIR}")
 
 
