@@ -229,7 +229,8 @@ patrol_points = [NodePath("../PatrolPoints/SealedNorth"), NodePath("../PatrolPoi
 
 [node name="LevelExit" parent="." instance=ExtResource("19_exit")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -35.5)
-message = "Fin del nivel 1. Continuará en Los rieles"
+message = "Bajando a Los rieles..."
+next_level_path = "res://src/world/level_02/level_02.tscn"
 
 [node name="Player" parent="." instance=ExtResource("15_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.9)

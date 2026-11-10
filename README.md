@@ -6,13 +6,13 @@ Primera historia del universo del Manqha Pacha.
 
 ## Estado
 
-Prototipo `0.1.0`: el nivel 1, El derrumbe, se juega de principio a fin, y el túnel de prueba sirve para ensayar mecánicas con el Tío suelto.
+Prototipo `0.2.0`: los niveles 1, El derrumbe, y 2, Los rieles, se juegan de principio a fin, y el túnel de prueba sirve para ensayar mecánicas con el Tío suelto.
 
 | Hecho | Pendiente |
 |---|---|
 | Movimiento en primera persona: caminar, correr y agacharse | Grabar las voces del guion |
 | Aliento que se gasta al correr | Modelos de Blender |
-| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Niveles 2 a 5 de la mina |
+| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Niveles 3 a 5 de la mina |
 | Pasos que emiten ruido para la futura IA | |
 | Túnel gris de prueba y HUD mínimo | |
 | Bolsa de objetos: carburo, coca, alcohol, cigarros y piedras | |
@@ -30,6 +30,8 @@ Prototipo `0.1.0`: el nivel 1, El derrumbe, se juega de principio a fin, y el t�
 | Escondites con animación: nichos en la roca y carros mineros | |
 | Voces con subtítulos: Mateo, Wilmer y el Tío (falta grabarlas, ver [guion](docs/guion_voces.md)) | |
 | Cinemática de inicio del derrumbe (se salta con Esc o E) | |
+| Nivel 2, Los rieles: rieles, galería inundada, segundo altar y el Tío suelto | |
+| Agua hasta el tobillo: caminas más lento y tus pasos chapotean más fuerte | |
 
 ## Requisitos
 
@@ -77,6 +79,10 @@ assets/        Modelos, texturas y audio
 ### Nivel 1: El derrumbe
 
 Empieza con una cinemática: Don Faustino ordena entrar sin ch'alla, la mina tiembla, Rosendo grita y todo se derrumba. Despiertas entre las piedras y caminas hacia el norte hasta un cruce. El ramal oeste guarda coca, carburo y piedras; el este lleva por un pasillo con soportes hasta la cámara del primer altar, y de ahí a la salida. Por el camino hay cuatro textos que empiezan a contar qué pasó en ese nivel en los años 70. El Tío no puede alcanzarte en este nivel: camina por una galería sellada al este y solo se le oye a través de la roca.
+
+### Nivel 2: Los rieles
+
+Bajas por los rieles por donde sacaban el mineral. En el cruce, el ramal este lleva al segundo altar, con la lista de raya de los siete de 1975. El oeste está inundado: el agua te frena y cada paso chapotea fuerte, y desde el fondo te llama la voz de Wilmer. Allí está su nota, que advierte que esa voz ya no es suya. Al norte, en el buzón donde bajaban los carros, ronda el Tío. Esta vez anda suelto y te puede alcanzar; los carros sirven de escondite. La salida queda pasando el buzón, por donde entra aire de arriba.
 
 ### Cómo funciona el Tío
 

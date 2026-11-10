@@ -12,6 +12,9 @@
 [ext_resource type="Script" path="res://src/player/components/listen_component.gd" id="14_listen"]
 [ext_resource type="Script" path="res://src/player/components/caught_reaction.gd" id="15_caught"]
 [ext_resource type="AudioStream" path="res://assets/audio/tio_scream.wav" id="16_scream"]
+[ext_resource type="AudioStream" path="res://assets/audio/wade_1.wav" id="17_wade1"]
+[ext_resource type="AudioStream" path="res://assets/audio/wade_2.wav" id="18_wade2"]
+[ext_resource type="AudioStream" path="res://assets/audio/wade_3.wav" id="19_wade3"]
 [ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_1.wav" id="10_step1"]
 [ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_2.wav" id="11_step2"]
 [ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_3.wav" id="12_step3"]
@@ -21,6 +24,14 @@
 resource_local_to_scene = true
 radius = 0.35
 height = 1.8
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wade"]
+random_pitch = 1.15
+random_volume_offset_db = 2.0
+streams_count = 3
+stream_0/stream = ExtResource("17_wade1")
+stream_1/stream = ExtResource("18_wade2")
+stream_2/stream = ExtResource("19_wade3")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_steps"]
 random_pitch = 1.12
@@ -75,6 +86,7 @@ script = ExtResource("3_stamina")
 [node name="FootstepComponent" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 script = ExtResource("4_footsteps")
+wet_stream = SubResource("AudioStreamRandomizer_wade")
 
 [node name="Audio" type="AudioStreamPlayer3D" parent="FootstepComponent"]
 stream = SubResource("AudioStreamRandomizer_steps")

@@ -11,6 +11,7 @@ const SEALED_GALLERY_MIN_X := 18.0
 const LOUD := 1.0
 const HUNT_SECONDS := 4
 const FRAMES_PER_SECOND := 60
+const NEXT_LEVEL_FILE := "level_02.tscn"
 
 var _level: Level
 var _player: Player
@@ -81,9 +82,11 @@ func test_tio_stays_sealed_after_noise() -> void:
 	assert_true(_tio.state != Tio.State.SUSPICION, "Debe rendirse al no poder llegar al ruido")
 
 
-## Al cruzar la salida aparece el aviso de fin del nivel.
+## Al cruzar la salida aparece el aviso y lleva al nivel 2.
 func test_exit_shows_end_message() -> void:
 	var exit: LevelExit = _level.get_node("LevelExit")
+	assert_true(exit.next_level_path.ends_with(NEXT_LEVEL_FILE), "Debe llevar al nivel 2")
+	exit.next_level_path = ""
 	_player.global_position = exit.global_position
 	await wait_physics_frames(SETTLE_FRAMES)
 	assert_true(exit.is_used, "La salida debe activarse")

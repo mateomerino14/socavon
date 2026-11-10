@@ -117,6 +117,12 @@ DIRECTION = {
                     ("Nadie contesta.", "fear_whisper")],
     "mateo_siete": [("Somos siete...", "uneasy"), ("<inhala>", ""), ("¿Siete qué?", "fear_whisper")],
     "wilmer_llamado": [("Mateo...", "ghost"), ("por acá...", "ghost"), ("sigue mi voz...", "ghost")],
+    "mateo_rieles": [("Rieles...", "uneasy"), ("por aquí sacaban el mineral.", "hushed")],
+    "mateo_agua": [("Agua...", "hushed"), ("<inhala>", ""), ("Severino se fue por el agua.", "fear_whisper")],
+    "wilmer_agua": [("Mateo...", "ghost"), ("aquí abajo...", "ghost"), ("ven...", "ghost")],
+    "mateo_lampara": [("Es la lámpara de Wilmer...", "uneasy"), ("<inhala>", ""),
+                      ("Entonces, ¿quién me llama?", "panic")],
+    "mateo_salida": [("<inhala>", ""), ("Aire...", "hushed"), ("viene aire de arriba.", "uneasy")],
     "tio_sospecha_1": [("<inhala>", ""), ("Mmm...", "growl_slow"), ("huelo carburo.", "whisper")],
     "tio_sospecha_2": [("¿Quién anda...", "whisper"), ("en mi casa?", "growl")],
     "tio_caza_1": [("<inhala>", ""), ("¡Entraste sin pedirme permiso!", "roar")],
@@ -134,7 +140,7 @@ MAX_MEAN_DB = -11.0
 MAX_ATTEMPTS = 6
 # Duración razonable de un tramo: segundos por letra según la lentitud, más un margen.
 SECONDS_PER_CHAR = 0.1
-MIN_SECONDS_PER_CHAR = 0.055
+MIN_SECONDS_PER_CHAR = 0.04
 EXTRA_SECONDS = 1.0
 BREATH_SECONDS = 0.55
 TIO_BREATH_SECONDS = 0.9
