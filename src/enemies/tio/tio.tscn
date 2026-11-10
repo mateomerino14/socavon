@@ -17,7 +17,7 @@
 [ext_resource type="Resource" path="res://src/story/voices/tio_busqueda_1.tres" id="25_tio_busqueda_1"]
 [ext_resource type="Resource" path="res://src/story/voices/tio_busqueda_2.tres" id="26_tio_busqueda_2"]
 [ext_resource type="Resource" path="res://src/story/voices/tio_calma_1.tres" id="27_tio_calma_1"]
-[ext_resource type="Script" path="res://src/enemies/tio/components/body_sway.gd" id="29_sway"]
+[ext_resource type="Script" path="res://src/enemies/tio/components/tio_animator.gd" id="29_animator"]
 [ext_resource type="PackedScene" path="res://assets/models/tio/tio.gltf" id="30_model"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tio_steps"]
@@ -41,7 +41,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
 shape = SubResource("CapsuleShape3D_tio")
 
 [node name="Model" type="Node3D" parent="."]
-script = ExtResource("29_sway")
+script = ExtResource("29_animator")
 
 [node name="Clay" parent="Model" instance=ExtResource("30_model")]
 
