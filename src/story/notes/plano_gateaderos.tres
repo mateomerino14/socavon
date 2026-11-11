@@ -7,8 +7,8 @@ script = ExtResource("1_note")
 id = "plano_gateaderos"
 title = "Plano a lápiz"
 signature = "Ing. R. Salinas"
-body = "Galería de la veta. Ventilación por el norte.
+body = "Galería de la veta, con ventilación por el norte.
 
-Los gateaderos del oeste son demasiado bajos para los carros. Los obreros dicen que también para \"él\", y por eso se meten ahí a descansar.
+Los gateaderos del oeste son demasiado bajos para los carros, y según los obreros también para «él», así que se meten ahí a descansar cuando sienten que los sigue.
 
-Pasar agachado. No llevar nada que haga ruido."
+Hay que pasar agachado y sin llevar nada que haga ruido."

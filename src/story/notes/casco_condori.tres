@@ -7,7 +7,6 @@ script = ExtResource("1_note")
 id = "casco_condori"
 title = "Casco con el nombre raspado"
 signature = "J. CONDORI, 1975"
-body = "Por dentro, rayado con un clavo:
+body = "Alguien rayó con un clavo, por dentro del casco:
 
-No es plata lo que brilla en la veta. Son ojos.
-Cuando apagas la lámpara te siguen mirando."
+Lo que brilla en la veta no es plata, son ojos, y cuando apagas la lámpara te siguen mirando desde la roca."

@@ -37,7 +37,7 @@
 
 [node name="Level05" type="Node3D"]
 script = ExtResource("1_level")
-title = "Nivel 5: La bocamina"
+title = "Nivel 5 · La bocamina"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_mine_environment")
@@ -194,9 +194,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -35.5)
 ending_screen = NodePath("../EndingScreen")
 restart_scene_path = "res://src/world/level_01/level_01.tscn"
 paid_title = "Con permiso"
-paid_body = "Pagaste lo que se debía. Al salir, el sol de Potosí te quema los ojos.\n\nDetrás, en la oscuridad del socavón, alguien sopla el humo de tu cigarro. Esta vez el Tío te dejó ir.\n\nNunca más entres sin ch'alla."
+paid_body = "Le pagaste lo que se le debía y, al salir, el sol de Potosí te quema los ojos como si fuera la primera vez que lo ves.
+
+Detrás de ti, en la oscuridad del socavón, alguien sopla despacio el humo de tu cigarro. Esta vez el Tío te dejó ir, pero ya sabes que nunca más hay que entrar sin ch'alla."
 unpaid_title = "Sin permiso"
-unpaid_body = "Saliste sin pagar. Arriba nadie te reconoce: dicen que el chango Mateo nunca volvió del nivel cerrado.\n\nEsa noche, en la bocamina, los mineros oyen golpes en la roca y una voz joven que llama desde abajo.\n\nLa cuadrilla del Tío ya está completa."
+unpaid_body = "Saliste sin pagar, y arriba nadie te reconoce. En la cooperativa cuentan que el chango Mateo nunca volvió del nivel cerrado.
+
+Esa noche, los mineros del turno oyen golpes en la roca y una voz joven que los llama por su nombre desde abajo. La cuadrilla del Tío, por fin, está completa."
 
 [node name="Player" parent="." instance=ExtResource("20_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.9)
