@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://src/world/hiding/hiding_spot.gd" id="1_spot"]
 [ext_resource type="Script" path="res://src/items/interactable.gd" id="2_interactable"]
+[ext_resource type="ArrayMesh" path="res://assets/models/props/mine_cart.obj" id="10_cart_mesh"]
+[ext_resource type="Material" path="res://src/world/materials/iron.tres" id="11_iron"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iron"]
-albedo_color = Color(0.3, 0.22, 0.16, 1)
-metallic = 0.6
-roughness = 0.75
+[sub_resource type="BoxShape3D" id="BoxShape3D_cart_body"]
+size = Vector3(1.1, 0.95, 1.7)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cart"]
 size = Vector3(1.5, 1.4, 2.0)
@@ -14,43 +14,15 @@ size = Vector3(1.5, 1.4, 2.0)
 [node name="MineCartHidingSpot" type="Node3D" groups=["hiding_spots"]]
 script = ExtResource("1_spot")
 
-[node name="Cart" type="CSGCombiner3D" parent="." groups=["navigation_source"]]
-use_collision = true
+[node name="Cart" type="StaticBody3D" parent="." groups=["navigation_source"]]
 
-[node name="Body" type="CSGBox3D" parent="Cart"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
-size = Vector3(1.0, 0.8, 1.6)
-material = SubResource("StandardMaterial3D_iron")
+[node name="Mesh" type="MeshInstance3D" parent="Cart"]
+mesh = ExtResource("10_cart_mesh")
+surface_material_override/0 = ExtResource("11_iron")
 
-[node name="Hollow" type="CSGBox3D" parent="Cart"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
-operation = 2
-size = Vector3(0.86, 0.8, 1.46)
-material = SubResource("StandardMaterial3D_iron")
-
-[node name="WheelFrontLeft" type="CSGCylinder3D" parent="Cart"]
-transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.52, 0.16, -0.5)
-radius = 0.16
-height = 0.08
-material = SubResource("StandardMaterial3D_iron")
-
-[node name="WheelFrontRight" type="CSGCylinder3D" parent="Cart"]
-transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.52, 0.16, -0.5)
-radius = 0.16
-height = 0.08
-material = SubResource("StandardMaterial3D_iron")
-
-[node name="WheelBackLeft" type="CSGCylinder3D" parent="Cart"]
-transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.52, 0.16, 0.5)
-radius = 0.16
-height = 0.08
-material = SubResource("StandardMaterial3D_iron")
-
-[node name="WheelBackRight" type="CSGCylinder3D" parent="Cart"]
-transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.52, 0.16, 0.5)
-radius = 0.16
-height = 0.08
-material = SubResource("StandardMaterial3D_iron")
+[node name="Shape" type="CollisionShape3D" parent="Cart"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_cart_body")
 
 [node name="Interactable" type="Area3D" parent="."]
 collision_layer = 4

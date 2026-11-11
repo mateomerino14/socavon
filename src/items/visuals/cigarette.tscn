@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/models/props/cigarette_pack.obj" id="1_cigarette_pack"]
+[ext_resource type="ArrayMesh" path="res://assets/models/props/cigarettes.obj" id="2_cigarettes"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pack"]
+albedo_color = Color(0.82, 0.72, 0.2, 1)
+roughness = 0.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_paper"]
+albedo_color = Color(0.95, 0.93, 0.88, 1)
+roughness = 0.8
+
+[node name="CigaretteVisual" type="Node3D"]
+
+[node name="CigarettePack" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_cigarette_pack")
+surface_material_override/0 = SubResource("StandardMaterial3D_pack")
+
+[node name="Cigarettes" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_cigarettes")
+surface_material_override/0 = SubResource("StandardMaterial3D_paper")

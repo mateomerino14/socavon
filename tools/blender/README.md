@@ -28,3 +28,11 @@ blender -b -P mine_textures.py -- assets/textures/mine 1024
 ```
 
 La roca y el suelo se combinan en `src/world/materials/mine_rock.gdshader`: proyección triplanar en paredes y techo, y suelo en las caras que miran hacia arriba.
+
+## Objetos de la mina
+
+`props.py` modela el carro minero, el cuadro de callapos, el altar (piedra, aguayo y velas), las ofrendas (coca, botella, cigarros, carburo y piedra) y la veta de plata. Exporta un OBJ por material a `assets/models/props/`, sin UV, porque en Godot usan materiales triplanares (`iron.tres`, `wood.tres`, `carved_stone.tres`, `aguayo.tres`).
+
+```bash
+blender -b -P props.py -- assets/models/props
+```

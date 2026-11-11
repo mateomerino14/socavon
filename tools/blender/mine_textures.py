@@ -1,4 +1,4 @@
-"""Genera texturas repetibles de la mina: roca del Cerro Rico, suelo de barro y gravilla, y madera vieja.
+"""Genera texturas repetibles de la mina: roca del Cerro Rico, barro con gravilla, madera vieja y hierro oxidado.
 
 Hornea materiales procedurales de Blender sobre un plano usando ruido 4D en un toro, así que
 los bordes empalman sin costura. Las normales y la oclusión se calculan de la altura con numpy.
@@ -218,6 +218,23 @@ def wood():
     return g, height, color, rough
 
 
+def iron():
+    """Hierro de carro minero: pintura vieja casi perdida, óxido en capas y golpes."""
+    g = Graph("Iron")
+    rust_noise = g.noise(4.0, 9.0, 0.65, offset=31.0)
+    pits = g.voronoi(30.0, "F1", offset=37.0)
+    dents = g.noise(1.6, 3.0, 0.5, offset=41.0)
+    paint_left = g.remap(g.noise(2.2, 6.0, 0.6, offset=43.0), 0.58, 0.64)
+    height = g.math("ADD", g.math("MULTIPLY", rust_noise, 0.4), g.math("MULTIPLY", dents, 0.4))
+    height = g.math("SUBTRACT", height, g.math("MULTIPLY", g.remap(pits, 0.12, 0.0), 0.25))
+    rust = g.ramp(rust_noise, [(0.3, (0.06, 0.025, 0.012, 1)), (0.5, (0.2, 0.07, 0.02, 1)),
+                               (0.7, (0.32, 0.13, 0.04, 1))])
+    color = g.mix(rust, (0.05, 0.06, 0.05, 1), g.math("MULTIPLY", paint_left, 0.85))
+    color = g.mix(color, (0.02, 0.015, 0.01, 1), g.remap(pits, 0.1, 0.0))
+    rough = g.math("SUBTRACT", 0.92, g.math("MULTIPLY", paint_left, 0.35))
+    return g, height, color, rough
+
+
 def wrap_gradient(h, axis):
     return (np.roll(h, -1, axis) - np.roll(h, 1, axis)) * 0.5
 
@@ -260,7 +277,7 @@ def save(name, rgb, is_color):
     print("textura", name)
 
 
-for name, builder, strength in (("rock", rock, 6.0), ("ground", ground, 6.0), ("wood", wood, 4.0)):
+for name, builder, strength in (("rock", rock, 6.0), ("ground", ground, 6.0), ("wood", wood, 4.0), ("iron", iron, 5.0)):
     graph, height_s, color_s, rough_s = builder()
     height = graph.bake(height_s, name + "_h", False)[:, :, 0]
     color = graph.bake(color_s, name + "_c", True)

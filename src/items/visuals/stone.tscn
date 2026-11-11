@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/models/props/stone.obj" id="1_stone"]
+[ext_resource type="Material" path="res://src/world/materials/carved_stone.tres" id="9_stone"]
+
+[node name="StoneVisual" type="Node3D"]
+
+[node name="Stone" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_stone")
+surface_material_override/0 = ExtResource("9_stone")
