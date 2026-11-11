@@ -99,12 +99,10 @@ func _stop_collapse() -> void:
 
 ## Mateo despierta mirando el techo caído y baja la vista mientras se aclara la pantalla.
 func _wake_up() -> void:
-	var head: FirstPersonCamera = _player.get_node("Head")
-	_player.get_node("Head/Camera3D").make_current()
-	head.rotation.x = deg_to_rad(WAKE_PITCH_DEGREES)
+	_player.take_view(deg_to_rad(WAKE_PITCH_DEGREES))
+	_player.level_view(wake_seconds)
 	var tween := create_tween().set_parallel()
 	tween.tween_property(_curtain, "modulate:a", CLEAR, wake_seconds)
-	tween.tween_property(head, "rotation:x", 0.0, wake_seconds).set_trans(Tween.TRANS_SINE)
 	tween.tween_property(_title, "modulate:a", OPAQUE, fade_seconds)
 	await tween.finished
 	if await _wait(title_seconds):
@@ -117,8 +115,7 @@ func _finish() -> void:
 	_rumble.stop()
 	_curtain.modulate.a = CLEAR
 	_title.modulate.a = CLEAR
-	_player.get_node("Head").rotation.x = 0.0
-	_player.get_node("Head/Camera3D").make_current()
+	_player.take_view(0.0)
 	_player.set_controls_enabled(true)
 	EventBus.hud_visibility_requested.emit(true)
 	is_playing = false

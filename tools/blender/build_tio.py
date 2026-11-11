@@ -312,7 +312,6 @@ def build_horns():
         steps = 40
         for i in range(steps + 1):
             t = i / steps
-            ang = t * math.radians(200)
             out = 0.26 * math.sin(min(t * 1.4, 1.0) * math.pi / 2)
             pts.append(base + Vector((
                 s * (0.02 + out - 0.06 * t * t),

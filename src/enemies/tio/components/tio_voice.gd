@@ -2,6 +2,8 @@ class_name TioVoice
 extends VoicePlayer
 ## Voz del Tío: dice una línea al azar al cambiar de estado, sin repetirse demasiado seguido.
 
+const MSEC_PER_SECOND := 1000.0
+
 @export var suspicion_lines: Array[VoiceLine] = []
 @export var hunt_lines: Array[VoiceLine] = []
 @export var search_lines: Array[VoiceLine] = []
@@ -41,4 +43,4 @@ func _lines_for(state: Tio.State) -> Array[VoiceLine]:
 func _cooldown_passed() -> bool:
 	if _last_spoken_msec < 0:
 		return true
-	return Time.get_ticks_msec() - _last_spoken_msec >= cooldown * 1000.0
+	return Time.get_ticks_msec() - _last_spoken_msec >= cooldown * MSEC_PER_SECOND

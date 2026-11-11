@@ -8,7 +8,7 @@ import addon_utils
 import math
 import os
 import sys
-from mathutils import Euler, Matrix, Vector
+from mathutils import Euler, Vector
 
 src, out_dir = sys.argv[-2], sys.argv[-1]
 addon_utils.enable("io_scene_gltf2", default_set=True)

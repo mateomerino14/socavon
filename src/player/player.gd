@@ -245,6 +245,27 @@ func _update_move_state(input_dir: Vector2) -> void:
 	move_state = new_state
 
 
+## Vuelve a mirar por los ojos de Mateo con la cabeza inclinada; lo usan las cinemáticas.
+func take_view(pitch: float) -> void:
+	_camera.make_current()
+	_head.rotation.x = pitch
+
+
+## Endereza la mirada en el tiempo dado; cero la endereza de inmediato.
+func level_view(seconds: float) -> Tween:
+	var tween := create_tween()
+	tween.tween_property(_head, "rotation:x", 0.0, seconds).set_trans(Tween.TRANS_SINE)
+	return tween
+
+
+## Gira el cuerpo media vuelta y endereza la mirada en el tiempo dado; lo usa la escena final.
+func turn_around(seconds: float) -> Tween:
+	var tween := create_tween().set_parallel()
+	tween.tween_property(self, "rotation:y", rotation.y + PI, seconds)
+	tween.tween_property(_head, "rotation:x", 0.0, seconds)
+	return tween
+
+
 ## Entra a una zona de agua; las zonas pueden tocarse, por eso se cuentan.
 func enter_water() -> void:
 	_water_contacts += 1

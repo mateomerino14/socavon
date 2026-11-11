@@ -89,11 +89,7 @@ func _ambush(player: Player) -> void:
 	var behind := player.global_position + player.global_basis.z * ambush_distance
 	tio.stage_ambush(behind, player.global_position)
 	_scream.play()
-	var head: Node3D = player.get_node("Head")
-	var turn := create_tween().set_parallel()
-	turn.tween_property(player, "rotation:y", player.rotation.y + PI, turn_seconds)
-	turn.tween_property(head, "rotation:x", 0.0, turn_seconds)
-	await turn.finished
+	await player.turn_around(turn_seconds).finished
 	await create_tween().tween_interval(ambush_hold_seconds).finished
 
 
