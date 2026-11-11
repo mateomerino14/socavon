@@ -3,7 +3,6 @@
 /android/
 
 # Exportaciones y presets (pueden contener credenciales)
-export_presets.cfg
 /build/
 
 # Archivos temporales y de respaldo
