@@ -108,8 +108,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 enabled = false
 target_position = Vector3(0.6, 0, 0)
 
-[node name="CaughtReaction" type="Node" parent="."]
+[node name="CaughtReaction" type="Node" parent="." node_paths=PackedStringArray("body", "head", "camera")]
 script = ExtResource("15_caught")
+body = NodePath("..")
+head = NodePath("../Head")
+camera = NodePath("../Head/Camera3D")
 
 [node name="Scream" type="AudioStreamPlayer" parent="CaughtReaction"]
 stream = ExtResource("16_scream")
