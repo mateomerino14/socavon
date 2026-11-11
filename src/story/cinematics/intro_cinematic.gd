@@ -38,11 +38,11 @@ var _skip_requested := false
 @onready var _step_timer: Timer = $StepTimer
 
 
-## Empieza sola al cargar el nivel, si está activada.
+## Empieza sola al cargar el nivel, si está activada y no se viene de continuar una partida.
 func _ready() -> void:
 	_curtain.modulate.a = CLEAR
 	_title.modulate.a = CLEAR
-	if enabled:
+	if enabled and not SaveGame.has_pending():
 		play.call_deferred()
 
 

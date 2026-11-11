@@ -197,7 +197,7 @@ patrol_points = [NodePath("../PatrolPoints/TioWestArm"), NodePath("../PatrolPoin
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
 ending_screen = NodePath("../EndingScreen")
 daylight = NodePath("../Daylight")
-restart_scene_path = "res://src/world/level_01/level_01.tscn"
+restart_scene_path = "res://src/ui/main_menu/main_menu.tscn"
 paid_title = "Con permiso"
 paid_body = "Le pagaste lo que se le debía y, al salir, el sol de Potosí te quema los ojos como si fuera la primera vez que lo ves.
 

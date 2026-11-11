@@ -6,13 +6,13 @@ Primera historia del universo del Manqha Pacha.
 
 ## Estado
 
-Prototipo `0.3.0`: los cinco niveles de la mina se juegan de principio a fin, con dos finales. El túnel de prueba sirve para ensayar mecánicas con el Tío suelto.
+Versión `0.4.0`: el juego completo, con menú principal, cinco niveles, dos finales y partida guardada. El túnel de prueba sirve para ensayar mecánicas con el Tío suelto.
 
 | Hecho | Pendiente |
 |---|---|
 | Movimiento en primera persona: caminar, correr y agacharse | Grabar las voces del guion |
 | Aliento que se gasta al correr | Modelos de Blender |
-| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Menú principal y guardar entre sesiones |
+| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Exportar ejecutable para Windows |
 | Pasos que emiten ruido para la futura IA | |
 | Túnel gris de prueba y HUD mínimo | |
 | Bolsa de objetos: carburo, coca, alcohol, cigarros y piedras | |
@@ -35,6 +35,8 @@ Prototipo `0.3.0`: los cinco niveles de la mina se juegan de principio a fin, co
 | Nivel 3, La veta: gateaderos donde el Tío no cabe y la veta de plata | |
 | Nivel 4, La cuadrilla: dos Tíos y la verdad sobre Don Faustino y Rosendo | |
 | Nivel 5, La bocamina: pagarle al Tío o huir, con dos finales | |
+| Menú principal con la mina de fondo, opciones y créditos | |
+| Partida guardada al empezar cada nivel y en cada altar; Continuar la retoma | |
 
 ## Requisitos
 
