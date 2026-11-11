@@ -6,6 +6,8 @@ const TEST_SUFFIX := "_test.gd"
 const TEST_PREFIX := "test_"
 const EXIT_OK := 0
 const EXIT_FAILED := 1
+## Las pruebas guardan partidas aparte para no pisar la del jugador.
+const TEST_SAVE_PATH := "user://partida_pruebas.cfg"
 
 
 ## Arranca la ejecución de las pruebas cuando el árbol está listo.
@@ -15,12 +17,15 @@ func _initialize() -> void:
 
 ## Corre cada archivo de prueba y muestra el resumen.
 func _run_all() -> void:
+	var save_game: Node = root.get_node("SaveGame")
+	save_game.save_path = TEST_SAVE_PATH
 	var passed := 0
 	var failed := 0
 	for path in _find_test_files(TESTS_DIR):
 		var results := await _run_file(path)
 		passed += results.x
 		failed += results.y
+	save_game.clear()
 	print("\n%d pruebas correctas, %d con fallos" % [passed, failed])
 	if failed > 0:
 		quit(EXIT_FAILED)

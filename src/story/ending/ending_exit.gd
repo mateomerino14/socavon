@@ -10,7 +10,7 @@ const ENEMY_GROUP := &"enemies"
 @export var ending_screen: EndingScreen
 ## La luz de afuera, que crece mientras Mateo se acerca.
 @export var daylight: OmniLight3D
-## Escena que se carga cuando termina el final.
+## Escena que se carga cuando termina el final; la partida guardada se borra.
 @export_file("*.tscn") var restart_scene_path := ""
 
 @export_group("Final pagado")
@@ -61,6 +61,7 @@ func _on_body_entered(body: Node3D) -> void:
 		ending_screen.cut_to_black()
 		ending_screen.show_ending(unpaid_title, unpaid_body)
 	await ending_screen.finished
+	SaveGame.clear()
 	if not restart_scene_path.is_empty():
 		get_tree().change_scene_to_file(restart_scene_path)
 

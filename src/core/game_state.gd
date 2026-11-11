@@ -2,6 +2,8 @@ extends Node
 ## Estado de la partida (autoload "GameState"): respeto, guardado, notas leídas y pago al Tío.
 
 signal respect_changed(value: float)
+## Se guardó un punto de reaparición; la partida en disco se actualiza.
+signal checkpoint_saved
 
 const MIN_RESPECT := 0.0
 const MAX_RESPECT := 100.0
@@ -28,6 +30,7 @@ func get_respect_ratio() -> float:
 ## Guarda el lugar donde reaparecerá el jugador.
 func save_checkpoint(new_checkpoint: Transform3D) -> void:
 	checkpoint = new_checkpoint
+	checkpoint_saved.emit()
 
 
 ## Recuerda que el jugador leyó una nota.

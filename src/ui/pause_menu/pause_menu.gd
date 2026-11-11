@@ -1,27 +1,22 @@
 class_name PauseMenu
 extends CanvasLayer
-## Menú de pausa: detiene el juego con Escape y deja cambiar los ajustes.
+## Menú de pausa: detiene el juego con Escape, deja cambiar los ajustes o volver al menú principal.
+
+const MAIN_MENU_SCENE := "res://src/ui/main_menu/main_menu.tscn"
 
 var is_open := false
 
 @onready var _main_panel: Control = %MainPanel
-@onready var _options_panel: Control = %OptionsPanel
-@onready var _sensitivity_slider: HSlider = %SensitivitySlider
-@onready var _crouch_toggle: CheckButton = %CrouchToggle
-@onready var _volume_slider: HSlider = %VolumeSlider
+@onready var _options_panel: OptionsPanel = %OptionsPanel
 
 
 ## Conecta los botones y arranca oculto.
 func _ready() -> void:
 	%ResumeButton.pressed.connect(close)
 	%OptionsButton.pressed.connect(_show_options)
+	%MenuButton.pressed.connect(_go_to_main_menu)
 	%QuitButton.pressed.connect(get_tree().quit)
-	%BackButton.pressed.connect(_show_main)
-	_sensitivity_slider.min_value = Settings.MIN_SENSITIVITY
-	_sensitivity_slider.max_value = Settings.MAX_SENSITIVITY
-	_sensitivity_slider.value_changed.connect(Settings.set_mouse_sensitivity)
-	_crouch_toggle.toggled.connect(Settings.set_crouch_toggles)
-	_volume_slider.value_changed.connect(Settings.set_master_volume)
+	_options_panel.back_requested.connect(_show_main)
 	visible = false
 
 
@@ -61,9 +56,12 @@ func _show_main() -> void:
 
 ## Muestra los ajustes con sus valores actuales.
 func _show_options() -> void:
-	_sensitivity_slider.set_value_no_signal(Settings.mouse_sensitivity)
-	_crouch_toggle.set_pressed_no_signal(Settings.crouch_toggles)
-	_volume_slider.set_value_no_signal(Settings.master_volume)
 	_main_panel.visible = false
 	_options_panel.visible = true
-	_sensitivity_slider.grab_focus()
+	_options_panel.refresh()
+
+
+## Quita la pausa y vuelve al menú principal; la partida queda en el último guardado.
+func _go_to_main_menu() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file(MAIN_MENU_SCENE)

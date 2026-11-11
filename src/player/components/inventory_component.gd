@@ -43,3 +43,8 @@ func first_offering() -> ItemCatalog.Type:
 		if count(type) > 0:
 			return type
 	return ItemCatalog.Type.NONE
+
+
+## Copia de cuánto hay de cada objeto, para guardar la partida.
+func get_counts() -> Dictionary:
+	return _counts.duplicate()
