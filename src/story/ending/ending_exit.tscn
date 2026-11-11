@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/story/ending/ending_exit.gd" id="1_ending"]
+[ext_resource type="AudioStream" path="res://assets/audio/tio_scream.wav" id="2_scream"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ending"]
+size = Vector3(3, 2.6, 1.5)
+
+[node name="EndingExit" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_ending")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+shape = SubResource("BoxShape3D_ending")
+
+[node name="Scream" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_scream")
+bus = &"Efectos"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "informe_ingeniero"
+title = "Informe técnico"
+signature = "Ing. R. Salinas, para la gerencia"
+body = "La veta de plata continúa hacia el norte, por debajo de la galería inundada, y es sin duda la más rica que he visto en todo el cerro.
+
+Recomiendo reabrir el nivel cerrado y bombear el agua cuanto antes. Los trabajadores insisten en hacer una ch'alla antes de entrar, pero ese gasto no figura en el presupuesto y, sinceramente, no veo por qué debería figurar.
+
+Adjunto el plano de los rieles hasta el buzón."

@@ -1,0 +1,48 @@
+extends Node
+## Bus de eventos global (autoload "EventBus").
+##
+## Conecta sistemas que no deben conocerse entre sí: el jugador emite
+## ruido y luz, y la IA del Tío, el HUD y el audio escuchan sin tener
+## referencias directas al jugador.
+##
+## Regla: solo eventos que cruzan sistemas. La comunicación dentro de
+## una misma escena usa señales locales.
+
+## Un sonido que el Tío puede oír. [param loudness] va de 0.0 a 1.0.
+signal noise_emitted(origin: Vector3, loudness: float)
+
+## La luz que delata al jugador cambió. [param intensity] va de 0.0 a 1.0.
+signal player_light_changed(intensity: float)
+
+## La estamina del jugador cambió.
+signal stamina_changed(current: float, maximum: float)
+
+## El combustible de la lámpara cambió.
+signal lamp_fuel_changed(current: float, maximum: float)
+
+## Cambió lo que el jugador puede usar al frente; texto vacío si no hay nada.
+signal interaction_prompt_changed(prompt: String)
+
+## Cambió la cantidad de un objeto en la bolsa del jugador.
+signal inventory_changed(type: ItemCatalog.Type, count: int)
+
+## Se dejó una ofrenda en un altar.
+signal offering_made(origin: Vector3, type: ItemCatalog.Type)
+
+## Un aviso breve para el jugador, como "Partida guardada".
+signal notice_requested(text: String)
+
+## El Tío alcanzó al jugador.
+signal player_caught
+
+## El jugador empezó a meterse en un escondite.
+signal player_hid(spot: HidingSpot)
+
+## Alguien habla: el HUD muestra el subtítulo durante esos segundos.
+signal subtitle_requested(speaker: String, text: String, seconds: float)
+
+## Una cinemática pide ocultar o volver a mostrar el HUD.
+signal hud_visibility_requested(is_visible: bool)
+
+## El jugador abrió una nota para leerla.
+signal note_opened(note: NoteData)

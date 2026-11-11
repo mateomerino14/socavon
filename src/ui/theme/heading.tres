@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/IMFellEnglishSC-Regular.ttf" id="1_fell"]
+
+[resource]
+font = ExtResource("1_fell")
+font_size = 40
+font_color = Color(0.92, 0.66, 0.36, 1)

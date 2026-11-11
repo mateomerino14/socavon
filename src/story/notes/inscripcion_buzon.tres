@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "inscripcion_buzon"
+title = "Rayado en la madera del buzón"
+signature = ""
+body = "LOS CARROS BAJABAN LLENOS
+SUBÍAN VACÍOS
+NOSOTROS NO SUBIMOS"

@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [develop, main]
+
+env:
+  GODOT_VERSION: 4.7.2-stable
+
+jobs:
+  calidad:
+    name: Formato y lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instala gdtoolkit y pyflakes
+        run: pip install "gdtoolkit==4.*" pyflakes
+      - name: Formato
+        run: gdformat --check src tests
+      - name: Lint
+        run: gdlint src tests
+      - name: Código sin uso
+        run: python3 tools/find_unused.py src tests
+      - name: Herramientas en Python
+        run: python3 -m pyflakes tools
+
+  pruebas:
+    name: Pruebas en Godot
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descarga Godot
+        run: |
+          curl -sSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip"
+          unzip -q godot.zip
+          mv "Godot_v${GODOT_VERSION}_linux.x86_64" godot
+      - name: Importa el proyecto
+        run: ./godot --headless --path . --import
+      - name: Pruebas
+        run: |
+          set +e
+          ./godot --headless --path . --script res://tests/run_tests.gd 2>&1 | tee pruebas.log
+          status=${PIPESTATUS[0]}
+          if grep -qE "SCRIPT ERROR|Parse Error" pruebas.log; then
+            echo "Hay errores de script"
+            exit 1
+          fi
+          exit $status

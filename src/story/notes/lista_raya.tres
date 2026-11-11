@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "lista_raya"
+title = "Lista de raya"
+signature = "Cooperativa Cerro Rico, quincena de marzo de 1975"
+body = "Cuadrilla del nivel cerrado:
+
+Severino Mamani ..... no cobró
+Justo Condori ....... no cobró
+Efraín Choque ....... no cobró
+Teodoro Quispe ...... no cobró
+Nicanor Flores ...... no cobró
+Basilio Huanca ...... no cobró
+Agustín Copa ........ no cobró
+
+Guardar los sobres en la caja fuerte hasta que alguno venga a reclamarlos, si es que alguien viene."

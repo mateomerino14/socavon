@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/world/water/water_zone.gd" id="1_zone"]
+[ext_resource type="Material" path="res://src/world/materials/water.tres" id="2_water"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_water"]
+resource_local_to_scene = true
+size = Vector3(3, 0.8, 4)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_water"]
+resource_local_to_scene = true
+size = Vector2(3, 4)
+subdivide_width = 8
+subdivide_depth = 8
+
+[node name="WaterZone" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_zone")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("BoxShape3D_water")
+
+[node name="Surface" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 0)
+mesh = SubResource("PlaneMesh_water")
+surface_material_override/0 = ExtResource("2_water")

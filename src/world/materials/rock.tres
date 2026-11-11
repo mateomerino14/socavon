@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://src/world/materials/mine_rock.gdshader" id="1_shader"]
+[ext_resource type="Texture2D" path="res://assets/textures/mine/rock_albedo.png" id="2_rock_albedo"]
+[ext_resource type="Texture2D" path="res://assets/textures/mine/rock_normal.png" id="3_rock_normal"]
+[ext_resource type="Texture2D" path="res://assets/textures/mine/rock_orm.png" id="4_rock_orm"]
+[ext_resource type="Texture2D" path="res://assets/textures/mine/ground_albedo.png" id="5_ground_albedo"]
+[ext_resource type="Texture2D" path="res://assets/textures/mine/ground_normal.png" id="6_ground_normal"]
+[ext_resource type="Texture2D" path="res://assets/textures/mine/ground_orm.png" id="7_ground_orm"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/rock_albedo = ExtResource("2_rock_albedo")
+shader_parameter/rock_normal = ExtResource("3_rock_normal")
+shader_parameter/rock_orm = ExtResource("4_rock_orm")
+shader_parameter/ground_albedo = ExtResource("5_ground_albedo")
+shader_parameter/ground_normal = ExtResource("6_ground_normal")
+shader_parameter/ground_orm = ExtResource("7_ground_orm")

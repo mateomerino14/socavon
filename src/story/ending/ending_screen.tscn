@@ -1,0 +1,74 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/story/ending/ending_screen.gd" id="1_screen"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 44
+font_color = Color(0.86, 0.72, 0.5, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_body"]
+font_size = 22
+font_color = Color(0.82, 0.8, 0.76, 1)
+line_spacing = 6.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_end"]
+font_size = 18
+font_color = Color(0.5, 0.48, 0.45, 1)
+
+[node name="EndingScreen" type="CanvasLayer"]
+layer = 20
+script = ExtResource("1_screen")
+
+[node name="White" type="ColorRect" parent="."]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.97, 0.9, 1)
+
+[node name="Curtain" type="ColorRect" parent="."]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextBox" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -180.0
+offset_right = 380.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+theme_override_constants/separation = 28
+
+[node name="Title" type="Label" parent="TextBox"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="Body" type="Label" parent="TextBox"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_body")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="End" type="Label" parent="TextBox"]
+layout_mode = 2
+text = "Fin"
+label_settings = SubResource("LabelSettings_end")
+horizontal_alignment = 1

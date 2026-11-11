@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/models/props/coca_bag.obj" id="1_coca_bag"]
+[ext_resource type="ArrayMesh" path="res://assets/models/props/coca_leaves.obj" id="2_coca_leaves"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bag"]
+albedo_color = Color(0.42, 0.28, 0.16, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leaves"]
+albedo_color = Color(0.12, 0.3, 0.07, 1)
+roughness = 0.7
+
+[node name="CocaVisual" type="Node3D"]
+
+[node name="CocaBag" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_coca_bag")
+surface_material_override/0 = SubResource("StandardMaterial3D_bag")
+
+[node name="CocaLeaves" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_coca_leaves")
+surface_material_override/0 = SubResource("StandardMaterial3D_leaves")

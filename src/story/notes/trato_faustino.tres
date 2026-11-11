@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "trato_faustino"
+title = "Hoja de turno, al reverso"
+signature = "Don Faustino"
+body = "Veinte años sin ch'alla, y hoy me lo cobró todo junto.
+
+Me dijo que su cuadrilla está incompleta y que me deja salir si le dejo a uno de los míos. Le dije que sí, que Dios me perdone.
+
+Lo siento, Mateo. Eres el más joven, y él dice que los jóvenes le duran más."

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "nota_wilmer"
+title = "Papel mojado junto a una lámpara"
+signature = "W."
+body = "Mateo, si lees esto, no sigas mi voz.
+
+Hace rato que ya no hablo. Lo que te llama usa mi voz porque se la di cuando me alcanzó en el agua, y ahora la lleva puesta como si fuera suya.
+
+Los de antes eran siete, y él dice que su cuadrilla sigue incompleta porque nosotros entramos sin pedirle permiso.
+
+Sal por los rieles y no corras en el agua, que te oye."

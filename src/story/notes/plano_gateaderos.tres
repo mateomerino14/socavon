@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "plano_gateaderos"
+title = "Plano a lápiz"
+signature = "Ing. R. Salinas"
+body = "Galería de la veta, con ventilación por el norte.
+
+Los gateaderos del oeste son demasiado bajos para los carros, y según los obreros también para «él», así que se meten ahí a descansar cuando sienten que los sigue.
+
+Hay que pasar agachado y sin llevar nada que haga ruido."

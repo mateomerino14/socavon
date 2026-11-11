@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "recorte_1975"
+title = "Recorte de periódico"
+signature = "La Voz del Cerro, Potosí, marzo de 1975"
+body = "DERRUMBE EN EL CERRO RICO: SIETE MINEROS SIN RASTRO
+
+La cooperativa suspendió la búsqueda en el nivel cerrado después de doce días. Sus compañeros aseguran que durante toda una semana oyeron golpes y voces detrás de la roca.
+
+La empresa tapió el acceso y las familias hicieron una ch'alla en la entrada, pidiendo que nadie vuelva a abrirlo jamás."

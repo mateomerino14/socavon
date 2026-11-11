@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/models/props/silver_vein.obj" id="1_mesh"]
+[ext_resource type="Material" path="res://src/world/materials/silver.tres" id="2_silver"]
+
+[node name="SilverVein" type="MeshInstance3D"]
+mesh = ExtResource("1_mesh")
+surface_material_override/0 = ExtResource("2_silver")

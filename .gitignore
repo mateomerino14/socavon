@@ -15,3 +15,5 @@ export_presets.cfg
 .DS_Store
 Thumbs.db
 desktop.ini
+__pycache__/
+build/

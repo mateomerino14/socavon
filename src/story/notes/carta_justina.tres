@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "carta_justina"
+title = "Carta guardada en una lata"
+signature = "Justina, carnaval de 1975"
+body = "Severino:
+
+Hice la ch'alla por ti en la bocamina, con coca, trago y cigarro, como nos enseñó tu papá. El Tío recibió todo, porque el humo subió derechito y nadie tosió.
+
+Dicen que el que paga sale, así que aquí arriba te sigo esperando, aunque ya nadie me crea."

@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/options_panel/options_panel.gd" id="1_options"]
+[ext_resource type="LabelSettings" path="res://src/ui/theme/heading.tres" id="2_heading"]
+
+[node name="OptionsPanel" type="VBoxContainer"]
+custom_minimum_size = Vector2(420, 0)
+theme_override_constants/separation = 12
+script = ExtResource("1_options")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 2
+text = "Opciones"
+label_settings = ExtResource("2_heading")
+horizontal_alignment = 1
+
+[node name="SensitivityLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Sensibilidad del ratón"
+
+[node name="SensitivitySlider" type="HSlider" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+step = 0.05
+value = 1.0
+
+[node name="VolumeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Volumen general"
+
+[node name="VolumeSlider" type="HSlider" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="CrouchToggle" type="CheckButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Agacharse con una pulsación"
+
+[node name="BackButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Volver"

@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/models/props/bottle_glass.obj" id="1_bottle_glass"]
+[ext_resource type="ArrayMesh" path="res://assets/models/props/bottle_label.obj" id="2_bottle_label"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass"]
+transparency = 1
+albedo_color = Color(0.8, 0.88, 0.85, 0.45)
+metallic_specular = 0.9
+roughness = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_label"]
+albedo_color = Color(0.75, 0.08, 0.08, 1)
+roughness = 0.8
+
+[node name="AlcoholVisual" type="Node3D"]
+
+[node name="BottleGlass" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_bottle_glass")
+surface_material_override/0 = SubResource("StandardMaterial3D_glass")
+
+[node name="BottleLabel" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_bottle_label")
+surface_material_override/0 = SubResource("StandardMaterial3D_label")

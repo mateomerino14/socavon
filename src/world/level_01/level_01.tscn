@@ -1,0 +1,291 @@
+[gd_scene format=3]
+
+[ext_resource type="Environment" path="res://src/world/materials/mine_environment.tres" id="1_env"]
+[ext_resource type="Script" path="res://src/world/level.gd" id="2_level"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_straight.tscn" id="3_straight"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_corner.tscn" id="4_corner"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_t.tscn" id="5_t"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_dead_end.tscn" id="6_dead_end"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/chamber.tscn" id="7_chamber"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_cap.tscn" id="8_cap"]
+[ext_resource type="PackedScene" path="res://src/world/props/timber_frame.tscn" id="9_frame"]
+[ext_resource type="PackedScene" path="res://src/world/altar/altar.tscn" id="10_altar"]
+[ext_resource type="PackedScene" path="res://src/items/pickup.tscn" id="11_pickup"]
+[ext_resource type="PackedScene" path="res://src/world/props/drip_emitter.tscn" id="12_drip"]
+[ext_resource type="AudioStream" path="res://assets/audio/mine_ambience_loop.wav" id="13_ambience"]
+[ext_resource type="PackedScene" path="res://src/enemies/tio/tio.tscn" id="14_tio"]
+[ext_resource type="PackedScene" path="res://src/player/player.tscn" id="15_player"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/hud.tscn" id="16_hud"]
+[ext_resource type="PackedScene" path="res://src/world/respawn/respawn_director.tscn" id="17_respawn"]
+[ext_resource type="PackedScene" path="res://src/ui/pause_menu/pause_menu.tscn" id="18_pause"]
+[ext_resource type="PackedScene" path="res://src/world/level_exit/level_exit.tscn" id="19_exit"]
+[ext_resource type="NavigationMesh" path="res://src/world/level_01/level_01_navmesh.tres" id="20_navmesh"]
+[ext_resource type="Material" path="res://src/world/materials/rock.tres" id="21_rock"]
+[ext_resource type="PackedScene" path="res://src/story/readable_note.tscn" id="30_note"]
+[ext_resource type="PackedScene" path="res://src/story/wall_inscription.tscn" id="31_wall"]
+[ext_resource type="Resource" path="res://src/story/notes/hoja_faustino.tres" id="32_faustino"]
+[ext_resource type="Resource" path="res://src/story/notes/carta_1974.tres" id="33_carta"]
+[ext_resource type="Resource" path="res://src/story/notes/recorte_1975.tres" id="34_recorte"]
+[ext_resource type="Resource" path="res://src/story/notes/inscripcion_siete.tres" id="35_inscripcion"]
+[ext_resource type="PackedScene" path="res://src/ui/note_viewer/note_viewer.tscn" id="36_viewer"]
+[ext_resource type="PackedScene" path="res://src/world/hiding/mine_cart_hiding_spot.tscn" id="41_cart"]
+[ext_resource type="PackedScene" path="res://src/story/voice_trigger.tscn" id="50_trigger"]
+[ext_resource type="PackedScene" path="res://src/story/voice_player.tscn" id="51_voice"]
+[ext_resource type="Script" path="res://src/story/voice_line.gd" id="52_voice_line"]
+[ext_resource type="Resource" path="res://src/story/voices/mateo_cruce.tres" id="53_mateo_cruce"]
+[ext_resource type="Resource" path="res://src/story/voices/wilmer_llamado.tres" id="54_wilmer_llamado"]
+[ext_resource type="Resource" path="res://src/story/voices/mateo_altar.tres" id="55_mateo_altar"]
+[ext_resource type="Resource" path="res://src/story/voices/mateo_siete.tres" id="56_mateo_siete"]
+[ext_resource type="PackedScene" path="res://src/story/cinematics/intro_cinematic.tscn" id="60_intro"]
+
+[node name="Level01" type="Node3D"]
+script = ExtResource("2_level")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_env")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_ambience")
+volume_db = -12.0
+autoplay = true
+bus = &"Ambiente"
+
+[node name="Mine" type="Node3D" parent="."]
+
+[node name="StartDeadEnd" parent="Mine" instance=ExtResource("6_dead_end")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
+
+[node name="EntryStraight" parent="Mine" instance=ExtResource("3_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="Junction" parent="Mine" instance=ExtResource("5_t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+
+[node name="WestStraight" parent="Mine" instance=ExtResource("3_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -4, 0, -8)
+
+[node name="WestDeadEnd" parent="Mine" instance=ExtResource("6_dead_end")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8, 0, -8)
+
+[node name="EastStraight" parent="Mine" instance=ExtResource("3_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, -8)
+
+[node name="EastCorner" parent="Mine" instance=ExtResource("4_corner")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 8, 0, -8)
+
+[node name="NorthStraight1" parent="Mine" instance=ExtResource("3_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -12)
+
+[node name="NorthStraight2" parent="Mine" instance=ExtResource("3_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -16)
+
+[node name="AltarChamber" parent="Mine" instance=ExtResource("7_chamber")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -24)
+
+[node name="ChamberCapEast" parent="Mine" instance=ExtResource("8_cap")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 13.5, 0, -24)
+
+[node name="ChamberCapWest" parent="Mine" instance=ExtResource("8_cap")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 2.5, 0, -24)
+
+[node name="ExitStraight" parent="Mine" instance=ExtResource("3_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -32)
+
+[node name="ExitDeadEnd" parent="Mine" instance=ExtResource("6_dead_end")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -36)
+
+[node name="Rubble" type="CSGCombiner3D" parent="." groups=["navigation_source"]]
+use_collision = true
+
+[node name="Rock1" type="CSGBox3D" parent="Rubble"]
+transform = Transform3D(0.955, 0, -0.296, 0, 1, 0, 0.296, 0, 0.955, -0.8, 0.45, 0.6)
+size = Vector3(1.4, 0.9, 1.0)
+material = ExtResource("21_rock")
+
+[node name="Rock2" type="CSGBox3D" parent="Rubble"]
+transform = Transform3D(0.921, 0, 0.389, 0, 1, 0, -0.389, 0, 0.921, 0.7, 0.35, 0.7)
+size = Vector3(1.1, 0.7, 0.9)
+material = ExtResource("21_rock")
+
+[node name="Rock3" type="CSGBox3D" parent="Rubble"]
+transform = Transform3D(0.622, 0, -0.783, 0, 1, 0, 0.783, 0, 0.622, 0.0, 1.0, 0.85)
+size = Vector3(1.2, 0.8, 0.7)
+material = ExtResource("21_rock")
+
+[node name="Rock4" type="CSGBox3D" parent="Rubble"]
+transform = Transform3D(0.17, 0, -0.985, 0, 1, 0, 0.985, 0, 0.17, -0.2, 0.25, 0.1)
+size = Vector3(0.6, 0.5, 0.5)
+material = ExtResource("21_rock")
+
+[node name="Supports" type="Node3D" parent="." groups=["navigation_source"]]
+
+[node name="Frame1" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="Frame2" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.5)
+
+[node name="Frame3" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -5, 0, -8)
+
+[node name="Frame4" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, -8)
+
+[node name="Frame5" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -11)
+
+[node name="Frame6" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -15.5)
+
+[node name="Frame7" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -31)
+
+[node name="Altars" type="Node3D" parent="." groups=["navigation_source"]]
+
+[node name="FirstAltar" parent="Altars" instance=ExtResource("10_altar")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 3.35, 0, -24)
+
+[node name="Pickups" type="Node3D" parent="."]
+
+[node name="Stone1" parent="Pickups" instance=ExtResource("11_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, -4.5)
+item_type = 5
+
+[node name="Coca" parent="Pickups" instance=ExtResource("11_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, -8.6)
+item_type = 2
+
+[node name="Carbide" parent="Pickups" instance=ExtResource("11_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8, 0, -7.4)
+item_type = 1
+
+[node name="Stone2" parent="Pickups" instance=ExtResource("11_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6, 0, -8.9)
+item_type = 5
+
+[node name="Stone3" parent="Pickups" instance=ExtResource("11_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 0, -13)
+item_type = 5
+
+[node name="Cigarette" parent="Pickups" instance=ExtResource("11_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0, -27.5)
+item_type = 4
+
+[node name="Alcohol" parent="Pickups" instance=ExtResource("11_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2, 0, -20.5)
+item_type = 3
+
+[node name="Drips" type="Node3D" parent="."]
+
+[node name="Drip1" parent="Drips" instance=ExtResource("12_drip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 2.5, -2)
+
+[node name="Drip2" parent="Drips" instance=ExtResource("12_drip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 2.5, -8.5)
+
+[node name="Drip3" parent="Drips" instance=ExtResource("12_drip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 2.5, -14)
+
+[node name="Drip4" parent="Drips" instance=ExtResource("12_drip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.3, -27)
+
+[node name="ChamberGlow" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, -28)
+light_color = Color(0.45, 0.55, 0.75, 1)
+light_energy = 0.25
+omni_range = 7.0
+
+[node name="SealedGallery" type="Node3D" parent="."]
+
+[node name="SealedNorthEnd" parent="SealedGallery" instance=ExtResource("6_dead_end")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -24)
+
+[node name="Sealed1" parent="SealedGallery" instance=ExtResource("3_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -20)
+
+[node name="Sealed2" parent="SealedGallery" instance=ExtResource("3_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -16)
+
+[node name="Sealed3" parent="SealedGallery" instance=ExtResource("3_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -12)
+
+[node name="SealedSouthEnd" parent="SealedGallery" instance=ExtResource("6_dead_end")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 20, 0, -8)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = ExtResource("20_navmesh")
+
+[node name="PatrolPoints" type="Node3D" parent="."]
+
+[node name="SealedNorth" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -23)
+
+[node name="SealedSouth" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -9)
+
+[node name="Tio" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("14_tio")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -22)
+patrol_points = [NodePath("../PatrolPoints/SealedNorth"), NodePath("../PatrolPoints/SealedSouth")]
+
+[node name="LevelExit" parent="." instance=ExtResource("19_exit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -35.5)
+message = "Bajando a Los rieles..."
+next_level_path = "res://src/world/level_02/level_02.tscn"
+
+[node name="Player" parent="." instance=ExtResource("15_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.9)
+
+[node name="Hud" parent="." instance=ExtResource("16_hud")]
+
+[node name="RespawnDirector" parent="." instance=ExtResource("17_respawn")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("18_pause")]
+
+[node name="Notes" type="Node3D" parent="."]
+
+[node name="FaustinoShift" parent="Notes" instance=ExtResource("30_note")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, -1.7)
+note = ExtResource("32_faustino")
+
+[node name="Letter1974" parent="Notes" instance=ExtResource("30_note")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.6, 0, -9.1)
+note = ExtResource("33_carta")
+
+[node name="Clipping1975" parent="Notes" instance=ExtResource("30_note")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0, -21.6)
+note = ExtResource("34_recorte")
+
+[node name="SevenInscription" parent="Notes" instance=ExtResource("31_wall")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.4, 1.5, -32.8)
+note = ExtResource("35_inscripcion")
+
+[node name="NoteViewer" parent="." instance=ExtResource("36_viewer")]
+
+[node name="HidingSpots" type="Node3D" parent="."]
+
+[node name="ChamberCart" parent="HidingSpots" instance=ExtResource("41_cart")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0, -21)
+
+[node name="Voices" type="Node3D" parent="."]
+
+[node name="WilmerVoice" parent="Voices" instance=ExtResource("51_voice")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 1.5, -8)
+
+[node name="JunctionTrigger" parent="Voices" instance=ExtResource("50_trigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.5)
+lines = Array[ExtResource("52_voice_line")]([ExtResource("53_mateo_cruce")])
+
+[node name="WestBranchTrigger" parent="Voices" node_paths=PackedStringArray("voice") instance=ExtResource("50_trigger")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3.5, 0, -8)
+lines = Array[ExtResource("52_voice_line")]([ExtResource("54_wilmer_llamado")])
+voice = NodePath("../WilmerVoice")
+
+[node name="ChamberTrigger" parent="Voices" instance=ExtResource("50_trigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -19)
+lines = Array[ExtResource("52_voice_line")]([ExtResource("55_mateo_altar")])
+
+[node name="InscriptionTrigger" parent="Voices" instance=ExtResource("50_trigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -31)
+lines = Array[ExtResource("52_voice_line")]([ExtResource("56_mateo_siete")])
+
+[node name="IntroCinematic" parent="." instance=ExtResource("60_intro")]

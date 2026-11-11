@@ -1,0 +1,92 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/note_viewer/note_viewer.gd" id="1_viewer"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_paper"]
+bg_color = Color(0.84, 0.77, 0.62, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.45, 0.32, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+content_margin_left = 40.0
+content_margin_top = 32.0
+content_margin_right = 40.0
+content_margin_bottom = 28.0
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 26
+font_color = Color(0.22, 0.14, 0.08, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_signature"]
+font_size = 15
+font_color = Color(0.4, 0.3, 0.2, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_body"]
+font_size = 18
+line_spacing = 6.0
+font_color = Color(0.18, 0.12, 0.08, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hint"]
+font_size = 15
+font_color = Color(0.45, 0.35, 0.25, 1)
+
+[node name="NoteViewer" type="CanvasLayer"]
+process_mode = 3
+layer = 8
+script = ExtResource("1_viewer")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="Center" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Paper" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(620, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_paper")
+
+[node name="Content" type="VBoxContainer" parent="Center/Paper"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Center/Paper/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_title")
+autowrap_mode = 3
+
+[node name="Signature" type="Label" parent="Center/Paper/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_signature")
+autowrap_mode = 3
+
+[node name="Body" type="Label" parent="Center/Paper/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(540, 0)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_body")
+autowrap_mode = 3
+
+[node name="Hint" type="Label" parent="Center/Paper/Content"]
+layout_mode = 2
+text = "[E] Cerrar"
+label_settings = SubResource("LabelSettings_hint")
+horizontal_alignment = 2

@@ -1,0 +1,120 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/player/player.gd" id="1_player"]
+[ext_resource type="Script" path="res://src/player/first_person_camera.gd" id="2_camera"]
+[ext_resource type="Script" path="res://src/player/components/stamina_component.gd" id="3_stamina"]
+[ext_resource type="Script" path="res://src/player/components/footstep_component.gd" id="4_footsteps"]
+[ext_resource type="PackedScene" path="res://src/player/components/carbide_lamp.tscn" id="5_lamp"]
+[ext_resource type="Script" path="res://src/player/components/interactor.gd" id="6_interactor"]
+[ext_resource type="Script" path="res://src/player/components/inventory_component.gd" id="7_inventory"]
+[ext_resource type="Script" path="res://src/player/components/stone_thrower.gd" id="8_thrower"]
+[ext_resource type="Script" path="res://src/player/components/dread_sense.gd" id="9_dread"]
+[ext_resource type="Script" path="res://src/player/components/listen_component.gd" id="14_listen"]
+[ext_resource type="Script" path="res://src/player/components/caught_reaction.gd" id="15_caught"]
+[ext_resource type="AudioStream" path="res://assets/audio/tio_scream.wav" id="16_scream"]
+[ext_resource type="AudioStream" path="res://assets/audio/wade_1.wav" id="17_wade1"]
+[ext_resource type="AudioStream" path="res://assets/audio/wade_2.wav" id="18_wade2"]
+[ext_resource type="AudioStream" path="res://assets/audio/wade_3.wav" id="19_wade3"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_1.wav" id="10_step1"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_2.wav" id="11_step2"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_3.wav" id="12_step3"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_4.wav" id="13_step4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+resource_local_to_scene = true
+radius = 0.35
+height = 1.8
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wade"]
+random_pitch = 1.15
+random_volume_offset_db = 2.0
+streams_count = 3
+stream_0/stream = ExtResource("17_wade1")
+stream_1/stream = ExtResource("18_wade2")
+stream_2/stream = ExtResource("19_wade3")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_steps"]
+random_pitch = 1.12
+random_volume_offset_db = 2.0
+streams_count = 4
+stream_0/stream = ExtResource("10_step1")
+stream_1/stream = ExtResource("11_step2")
+stream_2/stream = ExtResource("12_step3")
+stream_3/stream = ExtResource("13_step4")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ceiling"]
+radius = 0.3
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 2
+script = ExtResource("1_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="CeilingCheck" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("SphereShape3D_ceiling")
+target_position = Vector3(0, 0.7, 0)
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+script = ExtResource("2_camera")
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+current = true
+fov = 75.0
+near = 0.05
+
+[node name="CarbideLamp" parent="Head/Camera3D" instance=ExtResource("5_lamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, 0.1, -0.05)
+
+[node name="Interactor" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -2.2)
+collision_mask = 5
+collide_with_areas = true
+script = ExtResource("6_interactor")
+
+[node name="StoneThrower" type="Marker3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -0.1, -0.45)
+script = ExtResource("8_thrower")
+
+[node name="StaminaComponent" type="Node" parent="."]
+script = ExtResource("3_stamina")
+
+[node name="FootstepComponent" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+script = ExtResource("4_footsteps")
+wet_stream = SubResource("AudioStreamRandomizer_wade")
+
+[node name="Audio" type="AudioStreamPlayer3D" parent="FootstepComponent"]
+stream = SubResource("AudioStreamRandomizer_steps")
+max_polyphony = 2
+bus = &"Efectos"
+
+[node name="InventoryComponent" type="Node" parent="."]
+script = ExtResource("7_inventory")
+
+[node name="DreadSense" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("9_dread")
+
+[node name="ListenComponent" type="Node" parent="."]
+script = ExtResource("14_listen")
+
+[node name="LeanCheck" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+enabled = false
+target_position = Vector3(0.6, 0, 0)
+
+[node name="CaughtReaction" type="Node" parent="." node_paths=PackedStringArray("body", "head", "camera")]
+script = ExtResource("15_caught")
+body = NodePath("..")
+head = NodePath("../Head")
+camera = NodePath("../Head/Camera3D")
+
+[node name="Scream" type="AudioStreamPlayer" parent="CaughtReaction"]
+stream = ExtResource("16_scream")
+volume_db = -2.0
+bus = &"Efectos"

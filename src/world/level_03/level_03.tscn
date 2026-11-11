@@ -1,0 +1,309 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/world/level.gd" id="1_level"]
+[ext_resource type="Environment" path="res://src/world/materials/mine_environment.tres" id="2_mine_environment"]
+[ext_resource type="AudioStream" path="res://assets/audio/mine_ambience_loop.wav" id="3_mine_ambience_loop"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_dead_end.tscn" id="4_tunnel_dead_end"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_straight.tscn" id="5_tunnel_straight"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_t.tscn" id="6_tunnel_t"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_crawl.tscn" id="7_tunnel_crawl"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_corner.tscn" id="8_tunnel_corner"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/chamber.tscn" id="9_chamber"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_cap.tscn" id="10_tunnel_cap"]
+[ext_resource type="PackedScene" path="res://src/world/props/silver_vein.tscn" id="11_silver_vein"]
+[ext_resource type="PackedScene" path="res://src/world/props/timber_frame.tscn" id="12_timber_frame"]
+[ext_resource type="PackedScene" path="res://src/world/altar/altar.tscn" id="13_altar"]
+[ext_resource type="PackedScene" path="res://src/items/pickup.tscn" id="14_pickup"]
+[ext_resource type="PackedScene" path="res://src/world/props/drip_emitter.tscn" id="15_drip_emitter"]
+[ext_resource type="NavigationMesh" path="res://src/world/level_03/level_03_navmesh.tres" id="16_level_03_navmesh"]
+[ext_resource type="PackedScene" path="res://src/enemies/tio/tio.tscn" id="17_tio"]
+[ext_resource type="PackedScene" path="res://src/world/level_exit/level_exit.tscn" id="18_level_exit"]
+[ext_resource type="PackedScene" path="res://src/player/player.tscn" id="19_player"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/hud.tscn" id="20_hud"]
+[ext_resource type="PackedScene" path="res://src/world/respawn/respawn_director.tscn" id="21_respawn_director"]
+[ext_resource type="PackedScene" path="res://src/ui/pause_menu/pause_menu.tscn" id="22_pause_menu"]
+[ext_resource type="PackedScene" path="res://src/ui/note_viewer/note_viewer.tscn" id="23_note_viewer"]
+[ext_resource type="Resource" path="res://src/story/notes/casco_condori.tres" id="24_casco_condori"]
+[ext_resource type="PackedScene" path="res://src/story/readable_note.tscn" id="25_readable_note"]
+[ext_resource type="Resource" path="res://src/story/notes/plano_gateaderos.tres" id="26_plano_gateaderos"]
+[ext_resource type="Resource" path="res://src/story/notes/inscripcion_veta.tres" id="27_inscripcion_veta"]
+[ext_resource type="PackedScene" path="res://src/story/wall_inscription.tscn" id="28_wall_inscription"]
+[ext_resource type="PackedScene" path="res://src/world/hiding/mine_cart_hiding_spot.tscn" id="29_mine_cart_hiding_spot"]
+[ext_resource type="PackedScene" path="res://src/story/voice_player.tscn" id="30_voice_player"]
+[ext_resource type="Resource" path="res://src/story/voices/mateo_gatear.tres" id="31_mateo_gatear"]
+[ext_resource type="Script" path="res://src/story/voice_line.gd" id="32_voice_line"]
+[ext_resource type="PackedScene" path="res://src/story/voice_trigger.tscn" id="33_voice_trigger"]
+[ext_resource type="Resource" path="res://src/story/voices/mateo_veta.tres" id="34_mateo_veta"]
+[ext_resource type="Resource" path="res://src/story/voices/faustino_eco.tres" id="35_faustino_eco"]
+
+[node name="Level03" type="Node3D"]
+script = ExtResource("1_level")
+title = "Nivel 3 · La veta"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_mine_environment")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_mine_ambience_loop")
+volume_db = -12.0
+autoplay = true
+bus = &"Ambiente"
+
+[node name="Mine" type="Node3D" parent="."]
+
+[node name="StartDeadEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
+
+[node name="Straight1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="Junction" parent="Mine" instance=ExtResource("6_tunnel_t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+
+[node name="Crawl1" parent="Mine" instance=ExtResource("7_tunnel_crawl")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -4, 0, -8)
+
+[node name="Crawl2" parent="Mine" instance=ExtResource("7_tunnel_crawl")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8, 0, -8)
+
+[node name="Crawl3" parent="Mine" instance=ExtResource("7_tunnel_crawl")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -12, 0, -8)
+
+[node name="WestCorner" parent="Mine" instance=ExtResource("8_tunnel_corner")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -16, 0, -8)
+
+[node name="WestStraight1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -12)
+
+[node name="WestStraight2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -16)
+
+[node name="VeinChamber" parent="Mine" instance=ExtResource("9_chamber")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -24)
+
+[node name="VeinCapWest" parent="Mine" instance=ExtResource("10_tunnel_cap")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -21.5, 0, -24)
+
+[node name="ExitStraight" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -32)
+
+[node name="ExitDeadEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -36)
+
+[node name="East1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, -8)
+
+[node name="East2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 8, 0, -8)
+
+[node name="EastCorner1" parent="Mine" instance=ExtResource("8_tunnel_corner")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 12, 0, -8)
+
+[node name="East3" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -12)
+
+[node name="East4" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -16)
+
+[node name="East5" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -20)
+
+[node name="EastCorner2" parent="Mine" instance=ExtResource("8_tunnel_corner")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 12, 0, -24)
+
+[node name="Back1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 8, 0, -24)
+
+[node name="Back2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, -24)
+
+[node name="Back3" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, -24)
+
+[node name="Back4" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -4, 0, -24)
+
+[node name="Back5" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8, 0, -24)
+
+[node name="Veins" type="Node3D" parent="."]
+
+[node name="Vein1" parent="Veins" instance=ExtResource("11_silver_vein")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.98, 1.4, -22)
+
+[node name="Vein2" parent="Veins" instance=ExtResource("11_silver_vein")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -11.02, 1.6, -26)
+
+[node name="Vein3" parent="Veins" instance=ExtResource("11_silver_vein")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -14, 1.5, -28.98)
+
+[node name="Vein4" parent="Veins" instance=ExtResource("11_silver_vein")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 13.48, 1.2, -12)
+
+[node name="Vein5" parent="Veins" instance=ExtResource("11_silver_vein")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -18, 1.7, -19.02)
+
+[node name="Vein6" parent="Veins" instance=ExtResource("11_silver_vein")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.52, 1.0, -18)
+
+[node name="Supports" type="Node3D" parent="." groups=["navigation_source"]]
+
+[node name="Frame1" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, -3)
+
+[node name="Frame2" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 6, 0.0, -8)
+
+[node name="Frame3" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.0, -14)
+
+[node name="Frame4" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -2, 0.0, -24)
+
+[node name="Frame5" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0.0, -31)
+
+[node name="Frame6" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.0, -20.5)
+
+[node name="Altars" type="Node3D" parent="." groups=["navigation_source"]]
+
+[node name="CrawlAltar" parent="Altars" instance=ExtResource("13_altar")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -16.85, 0, -13)
+
+[node name="Pickups" type="Node3D" parent="."]
+
+[node name="Stone1" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, -5)
+item_type = 5
+
+[node name="Stone2" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -7.6)
+item_type = 5
+
+[node name="Stone3" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -24.8)
+item_type = 5
+
+[node name="Coca" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6, 0, -13)
+item_type = 2
+
+[node name="Alcohol" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -23.3)
+item_type = 3
+
+[node name="Carbide" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4, 0, -21.5)
+item_type = 1
+
+[node name="Carbide2" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, -29)
+item_type = 1
+
+[node name="Cigarette" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6, 0, -9)
+item_type = 4
+
+[node name="Drips" type="Node3D" parent="."]
+
+[node name="Drip1" parent="Drips" instance=ExtResource("15_drip_emitter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.5, -4)
+
+[node name="Drip2" parent="Drips" instance=ExtResource("15_drip_emitter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 3.3, -25)
+
+[node name="Drip3" parent="Drips" instance=ExtResource("15_drip_emitter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.5, -18)
+
+[node name="Drip4" parent="Drips" instance=ExtResource("15_drip_emitter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.2, -7.6)
+
+[node name="VeinGlow" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 2.8, -24)
+light_color = Color(0.55, 0.62, 0.8, 1)
+light_energy = 0.25
+omni_range = 9.0
+
+[node name="AltarGlow" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2, 1.2, -13)
+light_color = Color(1, 0.6, 0.3, 1)
+light_energy = 0.35
+omni_range = 4.0
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = ExtResource("16_level_03_navmesh")
+
+[node name="PatrolPoints" type="Node3D" parent="."]
+
+[node name="TioChamber" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -26)
+
+[node name="TioEastLoop" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -13)
+
+[node name="TioBackTunnel" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24)
+
+[node name="TioChamberEast" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -22)
+
+[node name="Tio" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("17_tio")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -16)
+patrol_points = [NodePath("../PatrolPoints/TioChamber"), NodePath("../PatrolPoints/TioEastLoop"), NodePath("../PatrolPoints/TioBackTunnel"), NodePath("../PatrolPoints/TioChamberEast")]
+
+[node name="LevelExit" parent="." instance=ExtResource("18_level_exit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -35.5)
+message = "Bajando a La cuadrilla..."
+next_level_path = "res://src/world/level_04/level_04.tscn"
+
+[node name="Player" parent="." instance=ExtResource("19_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.9)
+
+[node name="Hud" parent="." instance=ExtResource("20_hud")]
+
+[node name="RespawnDirector" parent="." instance=ExtResource("21_respawn_director")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("22_pause_menu")]
+
+[node name="NoteViewer" parent="." instance=ExtResource("23_note_viewer")]
+
+[node name="Notes" type="Node3D" parent="."]
+
+[node name="HelmetNote" parent="Notes" instance=ExtResource("25_readable_note")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -21)
+note = ExtResource("24_casco_condori")
+
+[node name="CrawlPlan" parent="Notes" instance=ExtResource("25_readable_note")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0, 0, -6)
+note = ExtResource("26_plano_gateaderos")
+
+[node name="VeinInscription" parent="Notes" instance=ExtResource("28_wall_inscription")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -20.9, 1.5, -25.5)
+note = ExtResource("27_inscripcion_veta")
+
+[node name="HidingSpots" type="Node3D" parent="."]
+
+[node name="ChamberCart" parent="HidingSpots" instance=ExtResource("29_mine_cart_hiding_spot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0.0, -28)
+
+[node name="LoopCart" parent="HidingSpots" instance=ExtResource("29_mine_cart_hiding_spot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9, 0.0, -18)
+
+[node name="Voices" type="Node3D" parent="."]
+
+[node name="FaustinoVoice" parent="Voices" instance=ExtResource("30_voice_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1.5, -35.5)
+
+[node name="CrawlTrigger" parent="Voices" instance=ExtResource("33_voice_trigger")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -2.5, 0, -8)
+lines = Array[ExtResource("32_voice_line")]([ExtResource("31_mateo_gatear")])
+
+[node name="VeinTrigger" parent="Voices" instance=ExtResource("33_voice_trigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -17.5)
+lines = Array[ExtResource("32_voice_line")]([ExtResource("34_mateo_veta")])
+
+[node name="FaustinoTrigger" parent="Voices" node_paths=PackedStringArray("voice") instance=ExtResource("33_voice_trigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -14.5)
+lines = Array[ExtResource("32_voice_line")]([ExtResource("35_faustino_eco")])
+voice = NodePath("../FaustinoVoice")

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="VoiceLine" format=3]
+
+[ext_resource type="Script" path="res://src/story/voice_line.gd" id="1_line"]
+[ext_resource type="AudioStream" path="res://assets/audio/voices/wilmer_llamado.ogg" id="2_audio"]
+
+[resource]
+script = ExtResource("1_line")
+id = "wilmer_llamado"
+speaker = "Wilmer"
+text = "Mateo... por acá... sigue mi voz..."
+audio = ExtResource("2_audio")

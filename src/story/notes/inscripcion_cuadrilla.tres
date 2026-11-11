@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "inscripcion_cuadrilla"
+title = "Escrito con carburo en la pared"
+signature = ""
+body = "EL TÍO NO ES UNO
+ES TODOS LOS QUE
+SE QUEDARON ABAJO"

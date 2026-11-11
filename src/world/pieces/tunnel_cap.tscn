@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://src/world/materials/rock.tres" id="1_rock"]
+
+[node name="TunnelCap" type="CSGCombiner3D" groups=["navigation_source"]]
+use_collision = true
+
+[node name="Plug" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+size = Vector3(3.2, 2.8, 0.6)
+material = ExtResource("1_rock")

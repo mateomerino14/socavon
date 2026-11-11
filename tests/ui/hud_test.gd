@@ -1,0 +1,26 @@
+extends TestCase
+## Pruebas del HUD: la bolsa se escribe con mayúscula solo al inicio de cada nombre.
+
+const HUD_SCENE := preload("res://src/ui/hud/hud.tscn")
+
+var _hud: Hud
+
+
+## Crea el HUD.
+func before_each() -> void:
+	_hud = HUD_SCENE.instantiate()
+	add_to_tree(_hud)
+
+
+## Libera el HUD.
+func after_each() -> void:
+	_hud.free()
+
+
+## "Hojas de coca", no "Hojas De Coca".
+func test_inventory_uses_sentence_case() -> void:
+	EventBus.inventory_changed.emit(ItemCatalog.Type.COCA, 1)
+	var label: Label = _hud.get_node("%InventoryLabel")
+	assert_true(
+		label.text == "Hojas de coca 1", "Debe decir 'Hojas de coca 1' (dice '%s')" % label.text
+	)
