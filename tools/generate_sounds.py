@@ -12,6 +12,8 @@ from pathlib import Path
 SAMPLE_RATE = 44100
 MAX_AMPLITUDE = 32767
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "assets" / "audio"
+# El rugido no entra al juego: es materia prima para el grito que arma generate_voices.py.
+SOURCES_DIR = Path(__file__).resolve().parent / "audio_sources"
 SEED = 1545
 
 FOOTSTEP_VARIANTS = 4
@@ -183,7 +185,7 @@ def main():
     write_wav(OUTPUT_DIR / "stone_hit.wav", stone_hit(rng))
     write_wav(OUTPUT_DIR / "mine_ambience_loop.wav", ambience(rng), loop=True)
     write_wav(OUTPUT_DIR / "collapse_rumble.wav", rumble(rng))
-    write_wav(OUTPUT_DIR / "tio_roar.wav", scream(rng))
+    write_wav(SOURCES_DIR / "tio_roar.wav", scream(rng))
     for index in range(1, WADE_VARIANTS + 1):
         write_wav(OUTPUT_DIR / f"wade_{index}.wav", wade(rng))
     print(f"Sonidos generados en {OUTPUT_DIR}")

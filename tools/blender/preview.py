@@ -1,6 +1,5 @@
 """Renderiza vistas de revisión del Tío: python3 preview.py <archivo.blend> <prefijo_salida> [muestras]"""
 
-import math
 import sys
 
 import bpy
@@ -91,4 +90,3 @@ for name, (loc, target) in views.items():
     scene.render.filepath = f"{prefix}_{name}.png"
     bpy.ops.render.render(write_still=True)
     print("render", name)
-del math

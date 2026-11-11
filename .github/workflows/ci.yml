@@ -17,14 +17,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Instala gdtoolkit
-        run: pip install "gdtoolkit==4.*"
+      - name: Instala gdtoolkit y pyflakes
+        run: pip install "gdtoolkit==4.*" pyflakes
       - name: Formato
         run: gdformat --check src tests
       - name: Lint
         run: gdlint src tests
       - name: Código sin uso
         run: python3 tools/find_unused.py src tests
+      - name: Herramientas en Python
+        run: python3 -m pyflakes tools
 
   pruebas:
     name: Pruebas en Godot

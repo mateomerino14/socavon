@@ -23,7 +23,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 LINES_DIR = ROOT / "src" / "story" / "voices"
 OUTPUT_DIR = ROOT / "assets" / "audio" / "voices"
-ROAR_PATH = ROOT / "assets" / "audio" / "tio_roar.wav"
+ROAR_PATH = ROOT / "tools" / "audio_sources" / "tio_roar.wav"
 SCREAM_PATH = ROOT / "assets" / "audio" / "tio_scream.wav"
 MODEL_NAME = "es-carlfm-x-low.onnx"
 SAMPLE_RATE = 16000
