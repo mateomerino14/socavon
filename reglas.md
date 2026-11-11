@@ -134,22 +134,25 @@ const MAX_LEVEL := 3
 
 ```
 src/
-├── core/             Autoloads globales (EventBus, GameState, Settings)
-├── items/            Catálogo de objetos, objetos recogibles e Interactable
+├── core/             Autoloads globales (EventBus, GameState, Settings, SaveGame)
+├── items/            Catálogo de objetos, objetos recogibles (con su modelo en visuals/) e Interactable
 ├── player/           Jugador
 │   ├── player.tscn / player.gd      Raíz: lee la entrada y coordina
 │   ├── first_person_camera.gd       Mirada y balanceo
-│   └── components/                  Piezas independientes (aliento, lámpara, pasos, bolsa, rayo)
-├── enemies/          El Tío y amenazas, con sus sentidos en components/
-├── world/            Niveles, piezas modulares y materiales
-│   ├── level.gd                     Raíz común de todos los niveles
-│   ├── pieces/                      Kit modular de la mina
-│   ├── materials/                   Roca, madera y ambiente compartido
-│   ├── props/
-│   └── <nivel>/                     Escena y malla de navegación de cada nivel
-└── ui/               HUD y menús
-assets/               Modelos (.glb desde Blender), texturas y audio (.ogg)
+│   └── components/                  Piezas independientes (aliento, lámpara, pasos, bolsa, escucha, susto)
+├── enemies/          El Tío, con sus sentidos, voz, pasos y animación en components/
+├── story/            Notas, voces, cinemáticas y el final (ending/)
+├── world/            Niveles, piezas modulares, materiales y utilería
+│   ├── level.gd                     Raíz común: inicia o restaura la partida y la guarda
+│   ├── pieces/                      Kit modular de la mina (tramos de 4 m, cámaras, tapas, gateadero)
+│   ├── materials/                   Roca, barro, madera, hierro, aguayo, agua y ambiente
+│   ├── props/                       Vigas, rieles, vetas, bocamina
+│   ├── water/                       Zonas de agua
+│   └── level_0N/                    Escena y malla de navegación de cada nivel
+└── ui/               Menú principal, HUD, pausa, opciones, visor de notas, efectos de cámara y tema
+assets/               Modelos (.gltf del Tío, .obj de objetos), texturas, audio (.ogg/.wav) y fuentes
 tests/                Pruebas, en carpetas que reflejan src/
+tools/                Generadores de arte, sonido, voces y navegación; nada de aquí entra al juego
 ```
 
 Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.gd`).
@@ -164,6 +167,8 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | `GameState` | Guardar el estado de la partida (respeto, punto de guardado) | Contener reglas de una mecánica |
 | `Interactable` | Avisar a su dueño que el jugador lo usó | Decidir qué pasa al usarlo |
 | `Settings` | Guardar los ajustes del jugador en `user://ajustes.cfg` y avisar cambios | Aplicarlos: cada sistema los lee al recibir `changed` |
+| `SaveGame` | Escribir y leer la partida en `user://partida.cfg` y dejarla pendiente para el próximo nivel | Mover al jugador: lo hace `Level` al restaurar |
+| `Level` | Iniciar o restaurar la partida y guardarla cada vez que `GameState` avisa un punto nuevo | Conocer la lógica de altares o del Tío |
 | HUD y audio | Escuchar `EventBus` y presentar | Cambiar el estado del juego |
 
 **Señales hacia arriba, llamadas hacia abajo:** un nodo llama métodos de sus hijos y escucha las señales de ellos; nunca busca a su padre ni a sus hermanos.
@@ -193,11 +198,23 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 - Sin grabación se muestra solo el subtítulo, con una duración estimada por su largo; con grabación, dura lo que dura el audio.
 - Las grabaciones van en `assets/audio/voices/<id>.ogg`.
 
+### Final
+
+- `EndingAltar` hereda de `Altar` y cobra coca, alcohol y cigarro juntos; al cobrar marca `GameState.has_paid`.
+- `ChaseTrigger` suelta a los Tíos sin descanso (`Tio.start_chase`) si el jugador huye sin pagar.
+- `EndingExit` juega la escena de la bocamina: con el pago, la luz ciega; sin él, el Tío aparece detrás (`Tio.stage_ambush`). Después `EndingScreen` muestra el texto, se borra la partida y se vuelve al menú.
+
+### Arte y sonido generados
+
+- El Tío, los objetos y las texturas salen de scripts de Blender en `tools/blender/`; los sonidos y las voces, de `tools/generate_sounds.py` y `tools/generate_voices.py`. Para cambiar un recurso se cambia su script y se vuelve a generar, en vez de retocar el archivo a mano.
+- Los objetos no llevan UV: usan materiales triplanares, así la textura se adapta a cualquier forma.
+
 ### Cinemáticas
 
 - Se hacen en el motor, con su propia cámara, tiempos exportados y temporizadores hijos, de modo que se pueden saltar y acelerar en las pruebas.
 - Una cinemática bloquea los controles del jugador mientras dura y siempre termina devolviéndolos, aunque se salte.
 - Cada una tiene `enabled`; las pruebas de un nivel la apagan para empezar a jugar de inmediato.
+- Cuando necesitan mover la mirada de Mateo usan métodos del `Player` (`take_view`, `level_view`, `turn_around`), nunca sus nodos internos.
 
 ### Notas de la historia
 
