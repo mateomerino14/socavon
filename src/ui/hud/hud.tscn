@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/ui/hud/hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" path="res://src/ui/film_effects/film_effects.tscn" id="2_film"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_track"]
 bg_color = Color(0.08, 0.07, 0.06, 0.6)
@@ -56,6 +57,8 @@ outline_color = Color(0, 0, 0, 0.85)
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_hud")
+
+[node name="FilmEffects" parent="." instance=ExtResource("2_film")]
 
 [node name="Bars" type="VBoxContainer" parent="."]
 anchors_preset = 2
