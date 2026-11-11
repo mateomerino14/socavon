@@ -14,6 +14,7 @@ const CLEAR := 0.0
 
 var is_showing := false
 
+@onready var _white: ColorRect = %White
 @onready var _curtain: ColorRect = %Curtain
 @onready var _text_box: Control = %TextBox
 @onready var _title: Label = %Title
@@ -22,11 +23,24 @@ var is_showing := false
 
 ## Arranca invisible.
 func _ready() -> void:
+	_white.modulate.a = CLEAR
 	_curtain.modulate.a = CLEAR
 	_text_box.modulate.a = CLEAR
 
 
-## Muestra un final con su título y su texto.
+## Llena la pantalla de luz blanca, como al salir del socavón al sol.
+func flash_white(seconds: float) -> void:
+	var tween := create_tween()
+	tween.tween_property(_white, "modulate:a", OPAQUE, seconds).set_ease(Tween.EASE_IN)
+	await tween.finished
+
+
+## Corta a negro de golpe.
+func cut_to_black() -> void:
+	_curtain.modulate.a = OPAQUE
+
+
+## Muestra un final con su título y su texto; si ya está en negro, solo aparece el texto.
 func show_ending(title: String, body: String) -> void:
 	is_showing = true
 	_title.text = title

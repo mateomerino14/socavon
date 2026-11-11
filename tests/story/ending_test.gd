@@ -6,6 +6,9 @@ const SETTLE_FRAMES := 20
 const SENSE_FRAMES := 5
 const FAST_SECONDS := 0.05
 const SCREEN_FRAMES := 30
+const AMBUSH_REACH := 2.5
+## Coseno del ángulo máximo entre la mirada de Mateo y el Tío.
+const FACING_DOT := 0.7
 
 var _level: Level
 var _player: Player
@@ -69,9 +72,7 @@ func test_paid_player_is_not_chased() -> void:
 func test_exit_shows_matching_ending() -> void:
 	var exit: EndingExit = _level.get_node("EndingExit")
 	var screen: EndingScreen = _level.get_node("EndingScreen")
-	exit.restart_scene_path = ""
-	screen.fade_seconds = FAST_SECONDS
-	screen.hold_seconds = FAST_SECONDS
+	_speed_up(exit, screen)
 	GameState.has_paid = true
 	_tio.global_position = _player.global_position + Vector3.FORWARD * 30.0
 	_player.global_position = exit.global_position
@@ -79,3 +80,31 @@ func test_exit_shows_matching_ending() -> void:
 	assert_true(exit.is_used, "La bocamina debe activarse")
 	assert_true(screen.is_showing, "Debe mostrarse el final")
 	assert_true(screen.get_node("%Title").text == exit.paid_title, "Debe ser el final con permiso")
+
+
+## Si huye sin pagar, el Tío aparece a su espalda, Mateo se da la vuelta y se ve el otro final.
+func test_unpaid_exit_stages_ambush() -> void:
+	var exit: EndingExit = _level.get_node("EndingExit")
+	var screen: EndingScreen = _level.get_node("EndingScreen")
+	_speed_up(exit, screen)
+	_player.global_position = exit.global_position
+	await wait_physics_frames(SCREEN_FRAMES)
+	var to_tio := _tio.global_position - _player.global_position
+	var looking := -_player.global_basis.z
+	assert_true(to_tio.length() < AMBUSH_REACH, "El Tío debe aparecer pegado a Mateo")
+	assert_true(looking.dot(to_tio.normalized()) > FACING_DOT, "Mateo debe darse la vuelta y verlo")
+	assert_true(
+		screen.get_node("%Title").text == exit.unpaid_title, "Debe ser el final sin permiso"
+	)
+
+
+## Acorta la escena final para que la prueba no espere.
+func _speed_up(exit: EndingExit, screen: EndingScreen) -> void:
+	exit.restart_scene_path = ""
+	exit.walk_seconds = FAST_SECONDS
+	exit.whiteout_seconds = FAST_SECONDS
+	exit.ambush_after_seconds = FAST_SECONDS
+	exit.turn_seconds = FAST_SECONDS
+	exit.ambush_hold_seconds = FAST_SECONDS
+	screen.fade_seconds = FAST_SECONDS
+	screen.hold_seconds = FAST_SECONDS
