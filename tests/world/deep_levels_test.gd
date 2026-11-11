@@ -111,11 +111,14 @@ func _load(scene: PackedScene) -> void:
 	await wait_physics_frames(SETTLE_FRAMES)
 
 
-## Comprueba que hay camino desde el inicio hasta cada nodo indicado.
+## Comprueba que hay camino desde el inicio hasta cada nodo; a un altar se llega por su frente.
 func _assert_reachable(paths: Array[String]) -> void:
 	var map := _level.get_world_3d().navigation_map
 	for path in paths:
-		var target := (_level.get_node(path) as Node3D).global_position
+		var node := _level.get_node(path) as Node3D
+		var target := node.global_position
+		if node is Altar:
+			target = (node as Altar).get_respawn_transform().origin
 		var route := NavigationServer3D.map_get_path(map, _player.global_position, target, true)
 		var end := _player.global_position
 		if not route.is_empty():

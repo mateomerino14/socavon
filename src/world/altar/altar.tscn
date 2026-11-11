@@ -2,16 +2,29 @@
 
 [ext_resource type="Script" path="res://src/world/altar/altar.gd" id="1_altar"]
 [ext_resource type="Script" path="res://src/items/interactable.gd" id="2_interactable"]
-[ext_resource type="Material" path="res://src/world/materials/rock.tres" id="3_rock"]
+[ext_resource type="Material" path="res://src/world/materials/carved_stone.tres" id="3_stone"]
+[ext_resource type="ArrayMesh" path="res://assets/models/props/altar_stone.obj" id="4_stone"]
+[ext_resource type="ArrayMesh" path="res://assets/models/props/altar_cloth.obj" id="5_cloth"]
+[ext_resource type="Material" path="res://src/world/materials/aguayo.tres" id="6_aguayo"]
+[ext_resource type="ArrayMesh" path="res://assets/models/props/altar_candles.obj" id="7_candles"]
+[ext_resource type="Material" path="res://src/world/materials/wax.tres" id="8_wax"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wax"]
-albedo_color = Color(0.92, 0.88, 0.76, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_flame"]
+shading_mode = 0
+albedo_color = Color(1, 0.7, 0.3, 1)
 emission_enabled = true
-emission = Color(1, 0.6, 0.25, 1)
-emission_energy_multiplier = 0.15
+emission = Color(1, 0.55, 0.15, 1)
+emission_energy_multiplier = 4.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_streamer"]
-albedo_color = Color(0.85, 0.2, 0.25, 1)
+[sub_resource type="SphereMesh" id="SphereMesh_flame"]
+material = SubResource("StandardMaterial3D_flame")
+radius = 0.012
+height = 0.045
+radial_segments = 8
+rings = 4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_slab"]
+size = Vector3(1.22, 0.7, 0.7)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_altar"]
 size = Vector3(1.3, 2.0, 0.9)
@@ -19,28 +32,38 @@ size = Vector3(1.3, 2.0, 0.9)
 [node name="Altar" type="Node3D"]
 script = ExtResource("1_altar")
 
-[node name="Slab" type="CSGBox3D" parent="."]
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
-use_collision = true
-size = Vector3(1.1, 0.7, 0.6)
-material = ExtResource("3_rock")
+shape = SubResource("BoxShape3D_slab")
 
-[node name="Streamer" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0.305)
-size = Vector3(1.05, 0.06, 0.01)
-material = SubResource("StandardMaterial3D_streamer")
+[node name="Stone" type="MeshInstance3D" parent="."]
+mesh = ExtResource("4_stone")
+surface_material_override/0 = ExtResource("3_stone")
 
-[node name="CandleLeft" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0.78, 0.1)
-radius = 0.025
-height = 0.16
-material = SubResource("StandardMaterial3D_wax")
+[node name="Aguayo" type="MeshInstance3D" parent="."]
+mesh = ExtResource("5_cloth")
+surface_material_override/0 = ExtResource("6_aguayo")
 
-[node name="CandleRight" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.76, 0.05)
-radius = 0.025
-height = 0.12
-material = SubResource("StandardMaterial3D_wax")
+[node name="Candles" type="MeshInstance3D" parent="."]
+mesh = ExtResource("7_candles")
+surface_material_override/0 = ExtResource("8_wax")
+
+[node name="Flame1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.894, -0.05)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_flame")
+
+[node name="Flame2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 0.854, 0.0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_flame")
+
+[node name="Flame3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.934, 0.18)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_flame")
 
 [node name="CandleLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0.15)

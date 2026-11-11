@@ -129,22 +129,22 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8, 0, -24)
 [node name="Veins" type="Node3D" parent="."]
 
 [node name="Vein1" parent="Veins" instance=ExtResource("11_silver_vein")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.9, 1.4, -22)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.98, 1.4, -22)
 
 [node name="Vein2" parent="Veins" instance=ExtResource("11_silver_vein")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1, 1.6, -27)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -11.02, 1.6, -26)
 
 [node name="Vein3" parent="Veins" instance=ExtResource("11_silver_vein")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -14, 1.5, -28.9)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -14, 1.5, -28.98)
 
 [node name="Vein4" parent="Veins" instance=ExtResource("11_silver_vein")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4, 1.2, -12)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 13.48, 1.2, -12)
 
 [node name="Vein5" parent="Veins" instance=ExtResource("11_silver_vein")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -18, 1.7, -19.1)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -18, 1.7, -19.02)
 
 [node name="Vein6" parent="Veins" instance=ExtResource("11_silver_vein")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6, 1.0, -18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.52, 1.0, -18)
 
 [node name="Supports" type="Node3D" parent="." groups=["navigation_source"]]
 

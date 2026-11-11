@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ba5hhucgssg62"
+path="res://.godot/imported/altar_cloth.obj-1613abb5ec1cf0a5054732b91a397fdf.mesh"
+
+[deps]
+
+files=["res://.godot/imported/altar_cloth.obj-1613abb5ec1cf0a5054732b91a397fdf.mesh"]
+
+source_file="res://assets/models/props/altar_cloth.obj"
+dest_files=["res://.godot/imported/altar_cloth.obj-1613abb5ec1cf0a5054732b91a397fdf.mesh", "res://.godot/imported/altar_cloth.obj-1613abb5ec1cf0a5054732b91a397fdf.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
