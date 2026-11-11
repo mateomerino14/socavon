@@ -34,6 +34,7 @@
 [ext_resource type="PackedScene" path="res://src/story/voice_player.tscn" id="32_voice_player"]
 [ext_resource type="Resource" path="res://src/story/voices/mateo_luz.tres" id="33_mateo_luz"]
 [ext_resource type="PackedScene" path="res://src/story/voice_trigger.tscn" id="34_voice_trigger"]
+[ext_resource type="PackedScene" path="res://src/world/props/mine_mouth.tscn" id="35_mine_mouth"]
 
 [node name="Level05" type="Node3D"]
 script = ExtResource("1_level")
@@ -89,8 +90,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28)
 [node name="Straight4" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
 
-[node name="ExitDeadEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
+[node name="ExitStraight" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -36)
+
+[node name="MineMouth" parent="Mine" instance=ExtResource("35_mine_mouth")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -37.95)
 
 [node name="Rails" type="Node3D" parent="."]
 
@@ -164,7 +168,7 @@ light_energy = 0.45
 omni_range = 4.0
 
 [node name="Daylight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, -35)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -36.6)
 light_color = Color(1, 0.95, 0.85, 1)
 light_energy = 1.6
 omni_range = 9.0
@@ -189,9 +193,10 @@ patrol_points = [NodePath("../PatrolPoints/TioWestArm"), NodePath("../PatrolPoin
 
 [node name="EndingScreen" parent="." instance=ExtResource("18_ending_screen")]
 
-[node name="EndingExit" parent="." node_paths=PackedStringArray("ending_screen") instance=ExtResource("19_ending_exit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -35.5)
+[node name="EndingExit" parent="." node_paths=PackedStringArray("ending_screen", "daylight") instance=ExtResource("19_ending_exit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
 ending_screen = NodePath("../EndingScreen")
+daylight = NodePath("../Daylight")
 restart_scene_path = "res://src/world/level_01/level_01.tscn"
 paid_title = "Con permiso"
 paid_body = "Le pagaste lo que se le debía y, al salir, el sol de Potosí te quema los ojos como si fuera la primera vez que lo ves.

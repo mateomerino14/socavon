@@ -291,6 +291,16 @@ func start_chase() -> void:
 	_enter_state(State.HUNT)
 
 
+## Escena final: aparece de golpe en un punto mirando al jugador y embiste, sin moverse más.
+func stage_ambush(at: Vector3, looking_at: Vector3) -> void:
+	set_physics_process(false)
+	global_position = at
+	var offset := (looking_at - at) * HORIZONTAL_PLANE
+	if offset != Vector3.ZERO:
+		rotation.y = atan2(-offset.x, -offset.z)
+	_animator.play_catch()
+
+
 ## Posición de sus ojos, a donde mira el jugador al ser atrapado.
 func get_face_position() -> Vector3:
 	return _animator.get_face_position()
