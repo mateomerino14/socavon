@@ -53,6 +53,8 @@ Versión `0.4.0`: el juego completo, con menú principal, cinco niveles, dos fin
 
 En [Releases](https://github.com/mateomerino14/socavon/releases) está el `.zip` para Windows. Descomprímelo y abre `Socavon.exe`; no hace falta instalar Godot.
 
+Cada etiqueta `v*` que se sube a GitHub dispara `.github/workflows/release.yml`: exporta el juego para Windows, lo empaqueta con `docs/LEEME.txt` y lo publica en Releases con las notas de `docs/notas_version.md`.
+
 Para exportarlo tú mismo, instala las plantillas de exportación de Godot 4.7.2 y ejecuta:
 
 ```bash
