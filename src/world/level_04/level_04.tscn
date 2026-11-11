@@ -37,7 +37,7 @@
 
 [node name="Level04" type="Node3D"]
 script = ExtResource("1_level")
-title = "Nivel 4: La cuadrilla"
+title = "Nivel 4 · La cuadrilla"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_mine_environment")

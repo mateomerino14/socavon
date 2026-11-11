@@ -6,11 +6,12 @@ const PAYMENT: Array[ItemCatalog.Type] = [
 	ItemCatalog.Type.COCA, ItemCatalog.Type.ALCOHOL, ItemCatalog.Type.CIGARETTE
 ]
 const PAY_PROMPT := "Pagarle al Tío su parte"
-const MISSING_PROMPT := "El Tío pide coca, alcohol y cigarro"
+const MISSING_PROMPT := "El Tío pide coca, alcohol y cigarro, todo junto"
 const PAID_PROMPT := "Ya le pagaste al Tío"
-const PAID_NOTICE := "Pagaste lo que se debía. Partida guardada"
-const MISSING_NOTICE := "Te falta: %s"
+const PAID_NOTICE := "Le pagaste al Tío lo que se le debía y se guardó la partida"
+const MISSING_NOTICE := "Todavía te falta %s"
 const LIST_SEPARATOR := ", "
+const LAST_SEPARATOR := " y "
 ## Respeto que da pagar completo: la deuda queda saldada.
 const PAYMENT_RESPECT := 50.0
 ## El pago se anuncia como la ofrenda mayor, la que calma al Tío.
@@ -36,7 +37,7 @@ func _on_interacted(player: Player) -> void:
 		return
 	var missing := _missing(player)
 	if not missing.is_empty():
-		EventBus.notice_requested.emit(MISSING_NOTICE % LIST_SEPARATOR.join(missing))
+		EventBus.notice_requested.emit(MISSING_NOTICE % _spoken_list(missing))
 		return
 	for item in PAYMENT:
 		player.inventory.remove(item)
@@ -56,3 +57,11 @@ func _missing(player: Player) -> PackedStringArray:
 		if player.inventory.count(item) == 0:
 			missing.append(ItemCatalog.display_name(item))
 	return missing
+
+
+## Une los nombres como se dice en voz alta: "coca, alcohol y cigarro".
+func _spoken_list(names: PackedStringArray) -> String:
+	if names.size() == 1:
+		return names[0]
+	var head := names.slice(0, names.size() - 1)
+	return LIST_SEPARATOR.join(head) + LAST_SEPARATOR + names[names.size() - 1]

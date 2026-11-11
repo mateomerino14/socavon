@@ -4,8 +4,8 @@ extends Node3D
 
 const ASK_PERMISSION_PROMPT := "Pedir permiso al Tío"
 const OFFER_PROMPT := "Ofrendar %s"
-const SAVED_NOTICE := "Pediste permiso. Partida guardada"
-const OFFERING_NOTICE := "El Tío recibe tu %s. Partida guardada"
+const SAVED_NOTICE := "Le pediste permiso al Tío y se guardó la partida"
+const OFFERING_NOTICE := "El Tío recibe tu %s y se guardó la partida"
 const CANDLE_FLICKER_SPEED := 5.0
 const CANDLE_FLICKER_STRENGTH := 0.25
 
