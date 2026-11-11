@@ -12,7 +12,7 @@ Versión `0.4.0`: el juego completo, con menú principal, cinco niveles, dos fin
 |---|---|
 | Movimiento en primera persona: caminar, correr y agacharse | Grabar las voces del guion |
 | Aliento que se gasta al correr | Modelos de Blender |
-| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | Exportar ejecutable para Windows |
+| Lámpara de carburo con combustible, tres niveles de llama y parpadeo | |
 | Pasos que emiten ruido para la futura IA | |
 | Túnel gris de prueba y HUD mínimo | |
 | Bolsa de objetos: carburo, coca, alcohol, cigarros y piedras | |
@@ -48,6 +48,16 @@ Versión `0.4.0`: el juego completo, con menú principal, cinco niveles, dos fin
 1. Clona el repositorio: `git clone https://github.com/mateomerino14/socavon.git`
 2. Abre Godot, pulsa **Importar** y elige el archivo `project.godot`.
 3. Pulsa **F5** para jugar el nivel 1. Para el túnel de prueba, abre `src/world/test_tunnel/test_tunnel.tscn` y pulsa **F6**.
+
+## Descargar y jugar
+
+En [Releases](https://github.com/mateomerino14/socavon/releases) está el `.zip` para Windows. Descomprímelo y abre `Socavon.exe`; no hace falta instalar Godot.
+
+Para exportarlo tú mismo, instala las plantillas de exportación de Godot 4.7.2 y ejecuta:
+
+```bash
+godot --headless --export-release "Windows Desktop" build/Socavon.exe
+```
 
 ## Controles
 

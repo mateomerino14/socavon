@@ -16,3 +16,4 @@ export_presets.cfg
 Thumbs.db
 desktop.ini
 __pycache__/
+build/
