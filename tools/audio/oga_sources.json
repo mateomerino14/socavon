@@ -1,0 +1,44 @@
+{
+  "pasos": {
+    "url": "https://opengameart.org/sites/default/files/%5Bkdd%5DDifferentSteps_0.zip",
+    "page": "https://opengameart.org/content/different-steps-on-wood-stone-leaves-gravel-and-mud",
+    "author": "TinyWorlds",
+    "license": "CC0"
+  },
+  "agua": {
+    "url": "https://opengameart.org/sites/default/files/water-splash-slime-sfx.zip",
+    "page": "https://opengameart.org/content/40-cc0-water-splash-slime-sfx",
+    "author": "rubberduck",
+    "license": "CC0"
+  },
+  "golpes": {
+    "url": "https://opengameart.org/sites/default/files/sfx_breaking_and_falling.zip",
+    "page": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+    "author": "rubberduck",
+    "license": "CC0"
+  },
+  "goteo": {
+    "url": "https://opengameart.org/sites/default/files/atmosbasement.mp3_.flac",
+    "page": "https://opengameart.org/content/dripping-water-loop",
+    "author": "Independent.nu",
+    "license": "CC0"
+  },
+  "calabozo": {
+    "url": "https://opengameart.org/sites/default/files/dungeon_ambient_1.ogg",
+    "page": "https://opengameart.org/content/loopable-dungeon-ambience",
+    "author": "JaggedStone",
+    "license": "CC0"
+  },
+  "derrumbe": {
+    "url": "https://opengameart.org/sites/default/files/cave_in_-_starninjas.ogg",
+    "page": "https://opengameart.org/content/cave-in",
+    "author": "StarNinjas",
+    "license": "CC0"
+  },
+  "retumbo": {
+    "url": "https://opengameart.org/sites/default/files/low-rumbling-176033.mp3",
+    "page": "https://opengameart.org/content/low-rumbling",
+    "author": "Musheran",
+    "license": "CC0"
+  }
+}

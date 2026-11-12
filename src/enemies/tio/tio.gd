@@ -2,6 +2,9 @@ class_name Tio
 extends CharacterBody3D
 ## El Tío: patrulla, sospecha de ruidos, caza al jugador que ve, lo busca y se calma con ofrendas.
 
+## Cambió de estado; la música lo sigue.
+signal state_changed(new_state: State)
+
 enum State { PATROL, SUSPICION, HUNT, SEARCH, CALM }
 
 const HORIZONTAL_PLANE := Vector3(1.0, 0.0, 1.0)
@@ -197,6 +200,7 @@ func _update_calm(delta: float) -> void:
 ## Cambia de estado y prepara lo que necesita al empezar.
 func _enter_state(new_state: State) -> void:
 	state = new_state
+	state_changed.emit(state)
 	_hearing.enabled = state != State.CALM
 	_sight.enabled = state != State.CALM
 	_voice.react_to_state(state)

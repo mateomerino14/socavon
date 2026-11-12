@@ -7,6 +7,7 @@ signal back_requested
 @onready var _sensitivity_slider: HSlider = %SensitivitySlider
 @onready var _crouch_toggle: CheckButton = %CrouchToggle
 @onready var _volume_slider: HSlider = %VolumeSlider
+@onready var _music_slider: HSlider = %MusicSlider
 @onready var _quality_toggle: CheckButton = %QualityToggle
 
 
@@ -17,6 +18,7 @@ func _ready() -> void:
 	_sensitivity_slider.value_changed.connect(Settings.set_mouse_sensitivity)
 	_crouch_toggle.toggled.connect(Settings.set_crouch_toggles)
 	_volume_slider.value_changed.connect(Settings.set_master_volume)
+	_music_slider.value_changed.connect(Settings.set_music_volume)
 	_quality_toggle.toggled.connect(Settings.set_high_quality)
 	%BackButton.pressed.connect(back_requested.emit)
 
@@ -26,5 +28,6 @@ func refresh() -> void:
 	_sensitivity_slider.set_value_no_signal(Settings.mouse_sensitivity)
 	_crouch_toggle.set_pressed_no_signal(Settings.crouch_toggles)
 	_volume_slider.set_value_no_signal(Settings.master_volume)
+	_music_slider.set_value_no_signal(Settings.music_volume)
 	_quality_toggle.set_pressed_no_signal(Settings.high_quality)
 	_sensitivity_slider.grab_focus()

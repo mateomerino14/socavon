@@ -1,5 +1,6 @@
 [gd_scene format=3]
 
+[ext_resource type="PackedScene" path="res://src/audio/music_director.tscn" id="music_r"]
 [ext_resource type="Script" path="res://src/world/environment_quality.gd" id="quality_r"]
 [ext_resource type="Script" path="res://src/world/level.gd" id="1_level"]
 [ext_resource type="Environment" path="res://src/world/materials/mine_environment.tres" id="2_mine_environment"]
@@ -304,3 +305,5 @@ voice = NodePath("../SquadVoice")
 [node name="TwoTrigger" parent="Voices" instance=ExtResource("31_voice_trigger")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -37.5)
 lines = Array[ExtResource("30_voice_line")]([ExtResource("34_mateo_dos")])
+
+[node name="MusicDirector" parent="." instance=ExtResource("music_r")]
