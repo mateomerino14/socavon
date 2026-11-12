@@ -16,6 +16,7 @@ Socavón — convenciones de ramas, commits, codificación y arquitectura en God
 | `refactor/<tema>` | Reestructuración o limpieza sin cambiar el comportamiento |
 | `test/<tema>` | Pruebas nuevas o ajustes de pruebas |
 | `docs/<tema>` | Documentación (README, reglas, diseño) |
+| `build/<tema>` | Exportación del juego y publicación de versiones |
 
 ### Flujo
 
@@ -41,6 +42,7 @@ Se usa Conventional Commits, con todos los commits a nombre del autor del reposi
 | `docs` | Documentación |
 | `test` | Creación o actualización de pruebas |
 | `chore` | Configuración del proyecto, CI y herramientas |
+| `build` | Exportación del ejecutable, presets y publicación de versiones en Releases |
 
 ### Formato
 

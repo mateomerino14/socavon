@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/player/components/first_person_body.gd" id="1_body"]
+[ext_resource type="PackedScene" path="res://assets/models/mateo/mateo_brazos.gltf" id="2_mateo"]
+
+[node name="FirstPersonBody" type="Node3D"]
+script = ExtResource("1_body")
+
+[node name="Mateo" parent="." instance=ExtResource("2_mateo")]
+transform = Transform3D(-1, 0, 0, 0, 0.9272, 0.3746, 0, 0.3746, -0.9272, 0.03, -1.28, -0.34)

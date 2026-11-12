@@ -1,5 +1,7 @@
 [gd_scene format=3]
 
+[ext_resource type="PackedScene" path="res://src/audio/music_director.tscn" id="music_r"]
+[ext_resource type="Script" path="res://src/world/environment_quality.gd" id="quality_r"]
 [ext_resource type="Environment" path="res://src/world/materials/mine_environment.tres" id="1_env"]
 [ext_resource type="Script" path="res://src/world/level.gd" id="2_level"]
 [ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_straight.tscn" id="3_straight"]
@@ -42,6 +44,7 @@
 script = ExtResource("2_level")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+script = ExtResource("quality_r")
 environment = ExtResource("1_env")
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]
@@ -289,3 +292,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -31)
 lines = Array[ExtResource("52_voice_line")]([ExtResource("56_mateo_siete")])
 
 [node name="IntroCinematic" parent="." instance=ExtResource("60_intro")]
+
+[node name="MusicDirector" parent="." instance=ExtResource("music_r")]

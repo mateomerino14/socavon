@@ -1,5 +1,5 @@
 SOCAVÓN, una historia del Cerro Rico de Potosí
-Versión 0.4.0 para Windows (64 bits)
+Versión 1.1.0 para Windows (64 bits)
 
 Para jugar, abre Socavon.exe. No hace falta instalar nada.
 Usa audífonos: gran parte del miedo está en el sonido.
@@ -18,3 +18,5 @@ Controles
 
 La partida se guarda sola al empezar cada nivel y cada vez que le pides permiso al Tío en un altar.
 Windows puede avisar que el programa no está firmado; elige "Más información" y luego "Ejecutar de todas formas".
+
+Las licencias del material de otros autores están en LICENCIAS.txt.

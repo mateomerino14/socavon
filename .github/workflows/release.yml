@@ -32,7 +32,7 @@ jobs:
           ./godot --headless --path . --import
           mkdir -p build/Socavon
           ./godot --headless --path . --export-release "Windows Desktop" build/Socavon/Socavon.exe
-          cp docs/LEEME.txt build/Socavon/
+          cp docs/LEEME.txt docs/LICENCIAS.txt build/Socavon/
       - name: Lee la versión del proyecto
         run: |
           version=$(sed -n 's/^config\/version="\(.*\)"/\1/p' project.godot)

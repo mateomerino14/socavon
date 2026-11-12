@@ -45,7 +45,7 @@ Para el Tío sirve una voz grave y lenta; luego se le puede bajar el tono en Aud
 
 ## Voces provisionales
 
-Mientras no haya grabaciones, `tools/generate_voices.py` crea todas las líneas con la voz española de Piper y las actúa. En `DIRECTION` cada línea se parte en tramos con su emoción:
+Mientras no haya grabaciones, `tools/generate_voices.py` crea todas las líneas con voces mexicanas de Piper en alta calidad (`es_MX-claude-high` para Mateo y Wilmer, `es_MX-ald-medium` para Rosendo, Don Faustino y el Tío) y las actúa. En `DIRECTION` cada línea se parte en tramos con su emoción:
 
 - **Humanos**: gritar, pánico (rápido, agudo, temblando y saturado), susurro con miedo, llamar a lo lejos, burla, voz de fantasma (Wilmer). También respiraciones antes de hablar.
 - **El Tío**: susurro pegado al oído con un rumor grave, gruñido de tres capas (grave, una octava abajo y siseo), risa temblorosa y rugido casi gritado. Suele empezar en susurro y estallar, con silencio antes del golpe.

@@ -35,10 +35,27 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
+[node name="MusicLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Volumen de la música"
+
+[node name="MusicSlider" type="HSlider" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.8
+
 [node name="CrouchToggle" type="CheckButton" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Agacharse con una pulsación"
+
+[node name="QualityToggle" type="CheckButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Gráficos en calidad alta"
 
 [node name="BackButton" type="Button" parent="."]
 unique_name_in_owner = true

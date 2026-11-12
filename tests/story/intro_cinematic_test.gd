@@ -64,3 +64,22 @@ func test_intro_can_be_skipped() -> void:
 	Input.parse_input_event(skip)
 	await wait_physics_frames(RUN_FRAMES * 3)
 	assert_false(_intro.is_playing, "Escape debe saltar la cinemática")
+
+
+## La cuadrilla aparece con Faustino hablando y, cuando Mateo despierta, ya no está.
+func test_crew_appears_then_is_gone() -> void:
+	_intro.calm_seconds = 30.0
+	await wait_physics_frames(RUN_FRAMES)
+	var faustino: Node3D = _intro.foreman
+	assert_true(_intro.crew.size() == 3, "Faustino, Rosendo y Mateo")
+	for miner in _intro.crew:
+		assert_true(miner.visible, "Toda la cuadrilla se ve al empezar")
+	var animation := faustino.find_child("AnimationPlayer") as AnimationPlayer
+	assert_true(animation.current_animation == IntroCinematic.TALK, "Faustino da la orden")
+	var skip := InputEventAction.new()
+	skip.action = "pause"
+	skip.pressed = true
+	Input.parse_input_event(skip)
+	await wait_physics_frames(RUN_FRAMES * 3)
+	for miner in _intro.crew:
+		assert_false(miner.visible, "Al despertar, Mateo está solo")
