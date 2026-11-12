@@ -6,11 +6,15 @@ el tono y la textura, y se unen con respiraciones y silencios antes de darle el 
 Para el Tío se siguen ideas del diseño de criaturas: capas graves, agudas y de ruido, respiración
 ronca, susurros pegados al oído que estallan en rugidos, y silencio antes del golpe.
 
-Requisitos: pip install piper-tts numpy, ffmpeg en el PATH y el modelo de voz:
-  https://github.com/rhasspy/piper/releases/download/v0.0.2/voice-es-carlfm-x-low.tar.gz
-Uso: python3 tools/generate_voices.py <carpeta_del_modelo>
+Cada personaje habla con su propio modelo de Piper (ver MODELS): es_MX-claude-high (Apache 2.0)
+para Mateo y Wilmer, y es_MX-ald-medium (dominio público) para Rosendo, Don Faustino y el Tío.
+
+Requisitos: pip install piper-tts numpy, ffmpeg en el PATH y los modelos (.onnx y .onnx.json) de
+  https://huggingface.co/rhasspy/piper-voices/tree/main/es/es_MX
+Uso: python3 tools/generate_voices.py <carpeta_de_los_modelos>
 """
 
+import json
 import re
 import subprocess
 import sys
@@ -25,12 +29,19 @@ LINES_DIR = ROOT / "src" / "story" / "voices"
 OUTPUT_DIR = ROOT / "assets" / "audio" / "voices"
 ROAR_PATH = ROOT / "tools" / "audio_sources" / "tio_roar.wav"
 SCREAM_PATH = ROOT / "assets" / "audio" / "tio_scream.wav"
-MODEL_NAME = "es-carlfm-x-low.onnx"
-SAMPLE_RATE = 16000
 OUTPUT_RATE = 44100
 PEAK_DB = -1.0
 SEED = 1545
 TIO = "El Tío"
+
+# Modelo de Piper de cada personaje.
+MODELS = {
+    "Mateo": "es_MX-claude-high.onnx",
+    "Wilmer": "es_MX-claude-high.onnx",
+    "Rosendo": "es_MX-ald-medium.onnx",
+    "Don Faustino": "es_MX-ald-medium.onnx",
+    TIO: "es_MX-ald-medium.onnx",
+}
 
 # Ecos: socavón para todos; el de Wilmer suena lejano y repetido.
 CAVE = "apad=pad_dur=1.2,aecho=0.8:0.6:45|110|230|420:0.35|0.25|0.18|0.1"
@@ -151,7 +162,7 @@ MAX_ATTEMPTS = 6
 # Duración razonable de un tramo: segundos por letra según la lentitud, más un margen.
 SECONDS_PER_CHAR = 0.1
 MIN_SECONDS_PER_CHAR = 0.04
-EXTRA_SECONDS = 1.0
+EXTRA_SECONDS = 1.6
 BREATH_SECONDS = 0.55
 TIO_BREATH_SECONDS = 0.9
 
@@ -215,11 +226,16 @@ def breath(path, rng, deep):
     write_wav(path, noise * envelope * rasp * 0.5, OUTPUT_RATE)
 
 
-def human_segment(raw, speaker, style, out):
+def model_rate(model):
+    """Frecuencia de muestreo con la que habla el modelo, leída de su .onnx.json."""
+    return json.loads(Path(str(model) + ".json").read_text())["audio"]["sample_rate"]
+
+
+def human_segment(raw, speaker, style, rate, out):
     """Cambia tono, textura y volumen de un tramo humano según su emoción."""
     s = STYLES[style]
     pitch = CHARACTERS[speaker]["pitch"] * s.get("pitch", 1.0)
-    base = f"asetrate={SAMPLE_RATE}*{pitch:.4f},aresample={OUTPUT_RATE},atempo={1 / pitch:.4f}"
+    base = f"asetrate={rate}*{pitch:.4f},aresample={OUTPUT_RATE},atempo={1 / pitch:.4f}"
     whisper = s.get("whisper", 0.0)
     tremble = s.get("tremble", 0.0)
     post = []
@@ -235,9 +251,9 @@ def human_segment(raw, speaker, style, out):
     ffmpeg("-i", raw, "-filter_complex", graph, "-ar", OUTPUT_RATE, out)
 
 
-def tio_segment(raw, style, out):
+def tio_segment(raw, style, rate, out):
     """Pasa un tramo del Tío por la cadena de capas de su emoción."""
-    graph = TIO_CHAINS[style].format(rate=SAMPLE_RATE, out=OUTPUT_RATE)
+    graph = TIO_CHAINS[style].format(rate=rate, out=OUTPUT_RATE)
     ffmpeg("-i", raw, "-filter_complex", graph, "-ar", OUTPUT_RATE, out)
 
 
@@ -267,9 +283,11 @@ def finish(parts, space, out, tmp, codec):
     ffmpeg("-i", joined, "-af", trim, *codec, out)
 
 
-def render_line(model, line, tmp, rng):
-    """Actúa una línea completa tramo por tramo."""
+def render_line(models, line, tmp, rng):
+    """Actúa una línea completa tramo por tramo, con el modelo de su personaje."""
     is_tio = line["speaker"] == TIO
+    model = models / MODELS[line["speaker"]]
+    rate = model_rate(model)
     parts = []
     for index, (text, style) in enumerate(DIRECTION[line["id"]]):
         if text == "<inhala>":
@@ -282,9 +300,9 @@ def render_line(model, line, tmp, rng):
         synthesize(model, text, params["length"], params.get("noise", 0.8), raw)
         shaped = tmp / f"seg_{index}.wav"
         if is_tio:
-            tio_segment(raw, style, shaped)
+            tio_segment(raw, style, rate, shaped)
         else:
-            human_segment(raw, line["speaker"], style, shaped)
+            human_segment(raw, line["speaker"], style, rate, shaped)
         parts.append(shaped)
         gap = tmp / f"gap_{index}.wav"
         silence(gap, params.get("pause", 0.25))
@@ -294,12 +312,13 @@ def render_line(model, line, tmp, rng):
     finish(parts, space, out, tmp, ["-c:a", "libvorbis", "-q:a", "5"])
 
 
-def render_scream(model, tmp):
+def render_scream(models, tmp):
     """Mezcla al Tío gritando con el rugido sintético de tools/generate_sounds.py."""
+    model = models / MODELS[TIO]
     raw = tmp / "scream_raw.wav"
     synthesize(model, SCREAM_TEXT, 1.6, 1.0, raw)
     voice = tmp / "scream_voice.wav"
-    tio_segment(raw, "roar", voice)
+    tio_segment(raw, "roar", model_rate(model), voice)
     mixed = tmp / "scream_mix.wav"
     ffmpeg("-i", voice, "-i", ROAR_PATH, "-filter_complex",
            "[0:a]volume=1.3[v];[1:a]aresample=44100,volume=0.8[r];[v][r]amix=inputs=2:normalize=0:duration=longest",
@@ -309,16 +328,16 @@ def render_scream(model, tmp):
 
 def main():
     """Genera todas las voces y el grito de captura."""
-    model = Path(sys.argv[1]) / MODEL_NAME
+    models = Path(sys.argv[1])
     rng = np.random.default_rng(SEED)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     for path in sorted(LINES_DIR.glob("*.tres")):
         line = read_line(path)
         with tempfile.TemporaryDirectory() as tmp:
-            render_line(model, line, Path(tmp), rng)
+            render_line(models, line, Path(tmp), rng)
         print("voz", line["id"])
     with tempfile.TemporaryDirectory() as tmp:
-        render_scream(model, Path(tmp))
+        render_scream(models, Path(tmp))
     print("grito del Tío")
 
 
