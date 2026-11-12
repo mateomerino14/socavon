@@ -1,16 +1,27 @@
 class_name IntroCinematic
 extends Node3D
 ## Cinemática del derrumbe: la orden de Faustino, el temblor, el grito de Rosendo y el despertar.
+## La cuadrilla está frente a la cámara: Faustino habla, todos se cubren al temblar y, cuando vuelve
+## la luz, Mateo está solo.
 
 const OPAQUE := 1.0
 const CLEAR := 0.0
 ## Inclinación de la cabeza al despertar, mirando el techo caído.
 const WAKE_PITCH_DEGREES := -55.0
+const IDLE := &"idle"
+const TALK := &"talk"
+const COVER := &"cover"
+const LOOPED: Array[StringName] = [&"idle", &"talk", &"cover"]
+const BLEND_SECONDS := 0.3
 
 ## Si es falso no se reproduce; las pruebas lo apagan para empezar a jugar de inmediato.
 @export var enabled := true
 @export var order_line: VoiceLine
 @export var warning_line: VoiceLine
+## Quien da la orden de entrar.
+@export var foreman: Node3D
+## Toda la cuadrilla que se ve en la cinemática, el capataz incluido.
+@export var crew: Array[Node3D] = []
 
 @export_group("Tiempos (s)")
 @export var fade_seconds := 1.5
@@ -69,6 +80,11 @@ func play() -> void:
 	_player.set_controls_enabled(false)
 	EventBus.hud_visibility_requested.emit(false)
 	_curtain.modulate.a = OPAQUE
+	for miner in crew:
+		miner.visible = true
+		_animate(miner, IDLE)
+	if foreman:
+		_animate(foreman, TALK)
 	_say(order_line)
 	if await _wait(calm_seconds):
 		_camera.make_current()
@@ -83,18 +99,31 @@ func play() -> void:
 	_finish()
 
 
-## Hace temblar la mina y grita Rosendo.
+## Hace temblar la mina, grita Rosendo y la cuadrilla se cubre.
 func _start_collapse() -> void:
+	for miner in crew:
+		_animate(miner, COVER)
 	_shake = max_shake
 	_dust.emitting = true
 	_rumble.play()
 	_say(warning_line)
 
 
-## Detiene el temblor y el polvo.
+## Detiene el temblor y el polvo. Cuando vuelve la luz, la cuadrilla ya no está.
 func _stop_collapse() -> void:
 	_shake = 0.0
 	_dust.emitting = false
+	for miner in crew:
+		miner.visible = false
+
+
+## Hace sonar una animación del minero, en bucle si es de las que se repiten.
+func _animate(miner: Node3D, animation_name: StringName) -> void:
+	var player := miner.find_child("AnimationPlayer") as AnimationPlayer
+	var animation := player.get_animation(animation_name)
+	if animation_name in LOOPED:
+		animation.loop_mode = Animation.LOOP_LINEAR
+	player.play(animation_name, BLEND_SECONDS)
 
 
 ## Mateo despierta mirando el techo caído y baja la vista mientras se aclara la pantalla.
@@ -111,6 +140,8 @@ func _wake_up() -> void:
 
 ## Deja todo listo para jugar, se haya visto entera o se haya saltado.
 func _finish() -> void:
+	for miner in crew:
+		miner.visible = false
 	_stop_collapse()
 	_rumble.stop()
 	_curtain.modulate.a = CLEAR

@@ -1,0 +1,24 @@
+{
+  "name": "Rosendo",
+  "file": "rosendo",
+  "targets": {
+    "macrodetails/asian-male-young": 0.9,
+    "macrodetails/caucasian-male-young": 0.1,
+    "macrodetails/universal-male-young-maxmuscle-averageweight": 0.6,
+    "macrodetails/height/male-young-maxmuscle-averageweight-minheight": 0.4
+  },
+  "skin": {"path": "skins/young_asian_male", "tint": [0.62, 0.47, 0.36]},
+  "pieces": [
+    {"name": "Overol", "path": "clothes/male_worksuit01", "tint": [0.5, 0.32, 0.2]},
+    {"name": "Botas", "path": "clothes/shoes03"},
+    {"name": "Pelo", "path": "hair/short02", "alpha": true, "tint": [0.1, 0.09, 0.08]},
+    {"name": "Cejas", "path": "eyebrows/eyebrow010", "alpha": true},
+    {"name": "Ojos", "path": "eyes/low-poly"}
+  ],
+  "extras": "casco_minero.py",
+  "animations": {
+    "Idle_Loop": "idle",
+    "Idle_Talking_Loop": "talk",
+    "Crouch_Idle_Loop": "cover"
+  }
+}

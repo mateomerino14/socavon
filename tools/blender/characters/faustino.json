@@ -1,0 +1,23 @@
+{
+  "name": "Faustino",
+  "file": "faustino",
+  "targets": {
+    "macrodetails/asian-male-old": 0.7,
+    "macrodetails/caucasian-male-old": 0.3,
+    "macrodetails/universal-male-old-averagemuscle-maxweight": 0.7,
+    "macrodetails/height/male-old-averagemuscle-maxweight-minheight": 0.5
+  },
+  "skin": {"path": "skins/middleage_asian_male", "tint": [0.66, 0.5, 0.39]},
+  "pieces": [
+    {"name": "Chamarra", "path": "clothes/male_casualsuit02", "tint": [0.38, 0.3, 0.22]},
+    {"name": "Botas", "path": "clothes/shoes03"},
+    {"name": "Cejas", "path": "eyebrows/eyebrow001", "alpha": true, "tint": [0.35, 0.33, 0.3]},
+    {"name": "Ojos", "path": "eyes/low-poly"}
+  ],
+  "extras": "casco_minero.py",
+  "animations": {
+    "Idle_Loop": "idle",
+    "Idle_Talking_Loop": "talk",
+    "Crouch_Idle_Loop": "cover"
+  }
+}
