@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cchyynd670mjd"
-path="res://.godot/imported/rock_orm.png-0458105ee6ab9df5249a8241794a412a.ctex"
+uid="uid://0x3tey1iryru"
+path="res://.godot/imported/iron_orm.jpg-fef284b7a2c8bceaabcad2e762630558.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/mine/rock_orm.png"
-dest_files=["res://.godot/imported/rock_orm.png-0458105ee6ab9df5249a8241794a412a.ctex"]
+source_file="res://assets/textures/mine/iron_orm.jpg"
+dest_files=["res://.godot/imported/iron_orm.jpg-fef284b7a2c8bceaabcad2e762630558.ctex"]
 
 [params]
 

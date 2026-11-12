@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dr6astk4heaj1"
-path="res://.godot/imported/wood_normal.png-05c5e00fd242501f7ae1f6211e9b7e60.ctex"
+uid="uid://bv7io7dy2ocrm"
+path="res://.godot/imported/ground_normal.jpg-d7bdc8bd520ee5822f59dbe8be4eb752.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/mine/wood_normal.png"
-dest_files=["res://.godot/imported/wood_normal.png-05c5e00fd242501f7ae1f6211e9b7e60.ctex"]
+source_file="res://assets/textures/mine/ground_normal.jpg"
+dest_files=["res://.godot/imported/ground_normal.jpg-d7bdc8bd520ee5822f59dbe8be4eb752.ctex"]
 
 [params]
 

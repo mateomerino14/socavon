@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oyefw7yuo74"
-path="res://.godot/imported/iron_albedo.png-af6aac44c6952699adcb3422b75b5d1a.ctex"
+uid="uid://bqly7o1mpecg"
+path="res://.godot/imported/ground_albedo.jpg-51ff5fe3e9ab9cb227e3150d17aaaf86.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/mine/iron_albedo.png"
-dest_files=["res://.godot/imported/iron_albedo.png-af6aac44c6952699adcb3422b75b5d1a.ctex"]
+source_file="res://assets/textures/mine/ground_albedo.jpg"
+dest_files=["res://.godot/imported/ground_albedo.jpg-51ff5fe3e9ab9cb227e3150d17aaaf86.ctex"]
 
 [params]
 

@@ -31,11 +31,13 @@ func test_settings_survive_reload() -> void:
 	Settings.set_mouse_sensitivity(1.75)
 	Settings.set_crouch_toggles(true)
 	Settings.set_master_volume(0.4)
+	Settings.set_high_quality(false)
 	_restore_defaults()
 	Settings.load_settings()
 	assert_almost_eq(Settings.mouse_sensitivity, 1.75, "Debe recuperar la sensibilidad")
 	assert_true(Settings.crouch_toggles, "Debe recuperar agacharse alterno")
 	assert_almost_eq(Settings.master_volume, 0.4, "Debe recuperar el volumen")
+	assert_false(Settings.high_quality, "Debe recuperar la calidad baja")
 
 
 ## La sensibilidad no sale de sus límites.
@@ -69,3 +71,14 @@ func _restore_defaults() -> void:
 	Settings.mouse_sensitivity = DEFAULT_SENSITIVITY
 	Settings.crouch_toggles = false
 	Settings.master_volume = DEFAULT_VOLUME
+	Settings.high_quality = true
+
+
+## La calidad baja apaga la luz rebotada y la niebla volumétrica del ambiente de la mina.
+func test_quality_toggles_environment() -> void:
+	var world: WorldEnvironment = _tunnel.get_node("WorldEnvironment")
+	Settings.set_high_quality(false)
+	assert_false(world.environment.sdfgi_enabled, "En baja no hay luz rebotada")
+	assert_false(world.environment.volumetric_fog_enabled, "En baja no hay niebla volumétrica")
+	Settings.set_high_quality(true)
+	assert_true(world.environment.sdfgi_enabled, "En alta vuelve la luz rebotada")

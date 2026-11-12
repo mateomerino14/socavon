@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bio2mnyponcnl"
-path="res://.godot/imported/wood_albedo.png-3e15f5ed8151b12d0ad4add171c0a774.ctex"
+uid="uid://c8y41c6sghihy"
+path="res://.godot/imported/wood_orm.jpg-fd22232234f5c9ca4227f3cf709a20c1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/mine/wood_albedo.png"
-dest_files=["res://.godot/imported/wood_albedo.png-3e15f5ed8151b12d0ad4add171c0a774.ctex"]
+source_file="res://assets/textures/mine/wood_orm.jpg"
+dest_files=["res://.godot/imported/wood_orm.jpg-fd22232234f5c9ca4227f3cf709a20c1.ctex"]
 
 [params]
 

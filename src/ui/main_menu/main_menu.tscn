@@ -1,5 +1,6 @@
 [gd_scene format=3]
 
+[ext_resource type="Script" path="res://src/world/environment_quality.gd" id="quality_r"]
 [ext_resource type="Script" path="res://src/ui/main_menu/main_menu.gd" id="1_menu"]
 [ext_resource type="Environment" path="res://src/world/materials/mine_environment.tres" id="2_env"]
 [ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_straight.tscn" id="3_straight"]
@@ -34,6 +35,7 @@ line_spacing = 4.0
 script = ExtResource("1_menu")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+script = ExtResource("quality_r")
 environment = ExtResource("2_env")
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]

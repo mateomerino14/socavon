@@ -40,6 +40,12 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Agacharse con una pulsación"
 
+[node name="QualityToggle" type="CheckButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Gráficos en calidad alta"
+
 [node name="BackButton" type="Button" parent="."]
 unique_name_in_owner = true
 layout_mode = 2

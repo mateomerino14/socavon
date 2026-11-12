@@ -5,6 +5,7 @@ signal changed
 
 const SECTION := "controles"
 const AUDIO_SECTION := "audio"
+const VIDEO_SECTION := "video"
 const DEFAULT_PATH := "user://ajustes.cfg"
 const MIN_SENSITIVITY := 0.25
 const MAX_SENSITIVITY := 2.5
@@ -14,6 +15,8 @@ var config_path := DEFAULT_PATH
 var mouse_sensitivity := 1.0
 var crouch_toggles := false
 var master_volume := 1.0
+## Luz rebotada, luz indirecta en pantalla y niebla volumétrica; en baja se apagan.
+var high_quality := true
 
 
 ## Carga los ajustes guardados al iniciar.
@@ -28,6 +31,7 @@ func load_settings() -> void:
 		mouse_sensitivity = config.get_value(SECTION, "sensibilidad_raton", mouse_sensitivity)
 		crouch_toggles = config.get_value(SECTION, "agacharse_alterno", crouch_toggles)
 		master_volume = config.get_value(AUDIO_SECTION, "volumen_general", master_volume)
+		high_quality = config.get_value(VIDEO_SECTION, "calidad_alta", high_quality)
 	_apply_volume()
 	changed.emit()
 
@@ -38,6 +42,7 @@ func save_settings() -> void:
 	config.set_value(SECTION, "sensibilidad_raton", mouse_sensitivity)
 	config.set_value(SECTION, "agacharse_alterno", crouch_toggles)
 	config.set_value(AUDIO_SECTION, "volumen_general", master_volume)
+	config.set_value(VIDEO_SECTION, "calidad_alta", high_quality)
 	config.save(config_path)
 
 
@@ -57,6 +62,12 @@ func set_crouch_toggles(value: bool) -> void:
 func set_master_volume(value: float) -> void:
 	master_volume = clampf(value, 0.0, 1.0)
 	_apply_volume()
+	_commit()
+
+
+## Elige entre gráficos en calidad alta o baja.
+func set_high_quality(value: bool) -> void:
+	high_quality = value
 	_commit()
 
 

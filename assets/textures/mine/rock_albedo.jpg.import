@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnd0psw2jdm6l"
-path="res://.godot/imported/ground_orm.png-b5e80123adbcf135bb3a8fd079f0b345.ctex"
+uid="uid://d3k0m18030uqj"
+path="res://.godot/imported/rock_albedo.jpg-8d8de9997cf54179550094617d52eaa7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/mine/ground_orm.png"
-dest_files=["res://.godot/imported/ground_orm.png-b5e80123adbcf135bb3a8fd079f0b345.ctex"]
+source_file="res://assets/textures/mine/rock_albedo.jpg"
+dest_files=["res://.godot/imported/rock_albedo.jpg-8d8de9997cf54179550094617d52eaa7.ctex"]
 
 [params]
 
