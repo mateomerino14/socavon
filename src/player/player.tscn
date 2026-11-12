@@ -1,5 +1,6 @@
 [gd_scene format=3]
 
+[ext_resource type="PackedScene" path="res://src/player/components/first_person_body.tscn" id="20_body"]
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://src/player/first_person_camera.gd" id="2_camera"]
 [ext_resource type="Script" path="res://src/player/components/stamina_component.gd" id="3_stamina"]
@@ -79,6 +80,10 @@ script = ExtResource("6_interactor")
 [node name="StoneThrower" type="Marker3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -0.1, -0.45)
 script = ExtResource("8_thrower")
+
+[node name="FirstPersonBody" parent="Head/Camera3D" node_paths=PackedStringArray("interactor", "stone_thrower") instance=ExtResource("20_body")]
+interactor = NodePath("../Interactor")
+stone_thrower = NodePath("../StoneThrower")
 
 [node name="StaminaComponent" type="Node" parent="."]
 script = ExtResource("3_stamina")

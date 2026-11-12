@@ -37,3 +37,13 @@ La roca y el suelo se combinan en `src/world/materials/mine_rock.gdshader`: proy
 ```bash
 blender -b -P props.py -- assets/models/props
 ```
+
+## Personajes con MakeHuman
+
+`make_human.py` arma personajes humanos con [MakeHuman](http://www.makehumancommunity.org) (CC0) y los anima con la [Universal Animation Library](https://quaternius.com) de Quaternius (CC0). Cada personaje se describe en un JSON de `characters/`: objetivos del cuerpo, piel, ropa, pelo y animaciones. Con `"extras"` se suma un script que agrega piezas propias colgadas de los huesos, como el casco de minero con su lámpara de carburo (`casco_minero.py`). Con `"first_person"` se exportan además solo los brazos, que son los que Mateo ve en primera persona.
+
+```bash
+python3 tools/blender/make_human.py tools/blender/characters/mateo.json <makehuman/data> <assets_del_sistema> <AnimationLibrary_Godot_Standard.gltf> "$PWD/assets/models/mateo"
+```
+
+La ruta de salida tiene que ser absoluta: el script guarda un `.blend` antes de exportar y, con una ruta relativa, las texturas teñidas quedan sin datos. Los recursos del sistema son `makehuman_system_assets_cc0.zip` de la página de paquetes de MakeHuman.
