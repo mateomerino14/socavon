@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d05hc3sal1fsy"
-path="res://.godot/imported/rock_albedo.png-7eccb27235016f9ba94a8625ea06c0d2.ctex"
+uid="uid://p0l8xkierlh8"
+path="res://.godot/imported/wood_normal.jpg-40adc08ca0e46c81445e277e93b26c0c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/mine/rock_albedo.png"
-dest_files=["res://.godot/imported/rock_albedo.png-7eccb27235016f9ba94a8625ea06c0d2.ctex"]
+source_file="res://assets/textures/mine/wood_normal.jpg"
+dest_files=["res://.godot/imported/wood_normal.jpg-40adc08ca0e46c81445e277e93b26c0c.ctex"]
 
 [params]
 

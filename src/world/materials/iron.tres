@@ -1,8 +1,8 @@
 [gd_resource type="ORMMaterial3D" format=3]
 
-[ext_resource type="Texture2D" path="res://assets/textures/mine/iron_albedo.png" id="1_albedo"]
-[ext_resource type="Texture2D" path="res://assets/textures/mine/iron_normal.png" id="2_normal"]
-[ext_resource type="Texture2D" path="res://assets/textures/mine/iron_orm.png" id="3_orm"]
+[ext_resource type="Texture2D" path="res://assets/textures/mine/iron_albedo.jpg" id="1_albedo"]
+[ext_resource type="Texture2D" path="res://assets/textures/mine/iron_normal.jpg" id="2_normal"]
+[ext_resource type="Texture2D" path="res://assets/textures/mine/iron_orm.jpg" id="3_orm"]
 
 [resource]
 albedo_texture = ExtResource("1_albedo")

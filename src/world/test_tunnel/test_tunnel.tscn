@@ -1,5 +1,6 @@
 [gd_scene format=3]
 
+[ext_resource type="Script" path="res://src/world/environment_quality.gd" id="quality_r"]
 [ext_resource type="Material" path="res://src/world/materials/rock.tres" id="1_rock"]
 [ext_resource type="Environment" path="res://src/world/materials/mine_environment.tres" id="14_env"]
 [ext_resource type="PackedScene" path="res://src/world/props/timber_frame.tscn" id="2_frame"]
@@ -24,6 +25,7 @@
 script = ExtResource("5_level")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+script = ExtResource("quality_r")
 environment = ExtResource("14_env")
 
 [node name="Tunnel" type="CSGCombiner3D" parent="." groups=["navigation_source"]]

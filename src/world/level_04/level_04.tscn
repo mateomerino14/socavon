@@ -1,5 +1,6 @@
 [gd_scene format=3]
 
+[ext_resource type="Script" path="res://src/world/environment_quality.gd" id="quality_r"]
 [ext_resource type="Script" path="res://src/world/level.gd" id="1_level"]
 [ext_resource type="Environment" path="res://src/world/materials/mine_environment.tres" id="2_mine_environment"]
 [ext_resource type="AudioStream" path="res://assets/audio/mine_ambience_loop.wav" id="3_mine_ambience_loop"]
@@ -40,6 +41,7 @@ script = ExtResource("1_level")
 title = "Nivel 4 · La cuadrilla"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+script = ExtResource("quality_r")
 environment = ExtResource("2_mine_environment")
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]

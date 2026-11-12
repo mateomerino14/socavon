@@ -21,10 +21,11 @@ Exporta como glTF con texturas separadas (`tio.gltf`, `tio.bin` y los PNG) a `as
 
 ## Texturas de la mina
 
-`mine_textures.py` hornea texturas repetibles sin costuras (roca del Cerro Rico, suelo de barro con gravilla y madera de callapo): albedo, normales y ORM (oclusión, rugosidad). Las normales y la oclusión salen de la altura, calculadas con numpy.
+Las texturas son escaneos de [Poly Haven](https://polyhaven.com) (CC0): la pared de cantera de Dimitrios Savva para la roca, el barro con piedras de Rob Tuytel para el suelo, la madera aserrada de Charlotte Baglioni para los callapos y el metal oxidado de Rob Tuytel para los rieles. `tools/download_textures.py` las baja con albedo, normales y ORM, y recolorea el albedo por luminancia con los tonos rojizos del Cerro Rico.
 
 ```bash
-blender -b -P mine_textures.py -- assets/textures/mine 1024
+python3 tools/download_textures.py assets/textures/mine 2k rock ground
+python3 tools/download_textures.py assets/textures/mine 1k wood iron
 ```
 
 La roca y el suelo se combinan en `src/world/materials/mine_rock.gdshader`: proyección triplanar en paredes y techo, y suelo en las caras que miran hacia arriba.
