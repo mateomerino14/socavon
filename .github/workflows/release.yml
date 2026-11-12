@@ -51,7 +51,7 @@ jobs:
             gh release upload "v${VERSION}" "${ZIP}" --clobber
           else
             gh release create "v${VERSION}" "${ZIP}" --target "${GITHUB_SHA}" \
-              --title "Socavón ${VERSION}" --notes-file docs/notas_version.md --prerelease
+              --title "Socavón ${VERSION}" --notes-file docs/notas_version.md
           fi
       - name: Guarda el paquete
         uses: actions/upload-artifact@v4
