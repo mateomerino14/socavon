@@ -2,6 +2,9 @@ class_name StoneThrower
 extends Marker3D
 ## Punto desde donde el jugador lanza piedras hacia donde mira.
 
+## Salió una piedra de la mano.
+signal thrown
+
 const STONE_SCENE := preload("res://src/items/thrown_stone.tscn")
 
 @export var throw_speed := 11.0
@@ -16,4 +19,5 @@ func throw(container: Node, inherited_velocity: Vector3) -> ThrownStone:
 	stone.linear_velocity = (
 		-global_basis.z * throw_speed + Vector3.UP * upward_boost + inherited_velocity
 	)
+	thrown.emit()
 	return stone
