@@ -1,0 +1,25 @@
+SOCAVÓN: licencias de material de otros autores
+
+Socavón fue creado por Mateo Alejandro Merino Vidal. Además del código y los modelos hechos para el juego (el Tío, los objetos, el casco de minero y las piezas de la mina), usa material de otros autores, con estas licencias:
+
+Texturas
+Texturas escaneadas de Poly Haven (polyhaven.com), dominio público (CC0): Dimitrios Savva, Rob Tuytel y Charlotte Baglioni.
+
+Personajes y animaciones
+Mateo, Rosendo y Don Faustino se armaron con MakeHuman (makehumancommunity.org), con recursos CC0. Se mueven con la Universal Animation Library de Quaternius (quaternius.com), CC0.
+
+Voces
+Sintetizadas con Piper (github.com/rhasspy/piper):
+- ald, español de México, dominio público.
+- claude, español de México, de HirCoir, licencia Apache 2.0.
+
+Sonidos y música
+Grabaciones de OpenGameArt (opengameart.org), dominio público (CC0), de TinyWorlds, rubberduck, Independent.nu, StarNinjas, Musheran y JaggedStone.
+Música armada con piezas de OpenGameArt, dominio público (CC0), de Paul Wortmann y congusbongus.
+El rugido del Tío y la música de persecución se sintetizaron para el juego.
+
+Tipografías
+IM Fell English SC (Igino Marini) y Lora, bajo la licencia SIL Open Font (openfontlicense.org).
+
+Motor
+Godot Engine (godotengine.org), licencia MIT.

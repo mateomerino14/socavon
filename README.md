@@ -4,7 +4,7 @@ Juego de terror en primera persona ambientado en las minas del Cerro Rico de Pot
 
 Es la primera historia del universo del Manqha Pacha.
 
-Versión `0.4.0`: el juego completo, con menú principal, cinco niveles, dos finales y partida guardada.
+Versión `1.1.0`: el juego completo, con cinco niveles, dos finales y partida guardada, ahora con texturas escaneadas, brazos en primera persona, música que sigue al Tío y voces nuevas.
 
 ## Descargar y jugar
 
@@ -23,9 +23,10 @@ En [Releases](https://github.com/mateomerino14/socavon/releases) está el `.zip`
 - **Dos finales**, según si le pagas al Tío lo que pide.
 - **Presentación:**
   - menú principal con la mina de fondo;
-  - opciones, pausa y créditos;
-  - niebla volumétrica y grano de película;
-  - texturas y modelos hechos en Blender.
+  - opciones (con calidad alta y volumen de música), pausa y créditos;
+  - texturas escaneadas, iluminación global, niebla volumétrica y grano de película;
+  - brazos de Mateo en primera persona y la cuadrilla en la cinemática del derrumbe;
+  - música en tres capas que cambia según lo que hace el Tío.
 
 ## Niveles
 
@@ -117,7 +118,7 @@ src/ui/        Menú principal, HUD, pausa, opciones, visor de notas, pantalla d
 tests/         Pruebas automáticas, en carpetas que reflejan src/
 tools/         Generadores (Blender, sonidos, voces, malla de navegación) y buscador de código sin uso
 assets/        Modelos, texturas, audio y fuentes
-docs/          Guion de voces, LEEME del ejecutable y notas de versión
+docs/          Guion de voces, LEEME y LICENCIAS del ejecutable y notas de versión
 ```
 
 La arquitectura, los nombres y el flujo de ramas y commits están en [reglas.md](reglas.md).
@@ -147,4 +148,4 @@ python3 tools/find_unused.py src tests
 | Malla de navegación de un nivel | `godot --headless --path . -s tools/bake_navmesh.gd -- res://src/world/level_0N/level_0N.tscn` |
 | Ejecutable de Windows | `godot --headless --export-release "Windows Desktop" build/Socavon.exe` |
 
-Cada vez que `develop` se une a `main`, `.github/workflows/release.yml` exporta el juego para Windows, lo empaqueta con `docs/LEEME.txt` y lo publica en Releases como `v` más la versión de `project.godot`, con las notas de `docs/notas_version.md`.
+Cada vez que `develop` se une a `main`, `.github/workflows/release.yml` exporta el juego para Windows, lo empaqueta con `docs/LEEME.txt` y `docs/LICENCIAS.txt` y lo publica en Releases como `v` más la versión de `project.godot`, con las notas de `docs/notas_version.md`.

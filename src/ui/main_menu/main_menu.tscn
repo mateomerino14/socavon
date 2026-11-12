@@ -186,6 +186,7 @@ layout_mode = 2
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 14
 
 [node name="CreditsTitle" type="Label" parent="Ui/Column/CreditsPanel"]
@@ -193,20 +194,26 @@ layout_mode = 2
 text = "Créditos"
 label_settings = ExtResource("13_heading")
 
-[node name="CreditsText" type="Label" parent="Ui/Column/CreditsPanel"]
+[node name="CreditsScroll" type="ScrollContainer" parent="Ui/Column/CreditsPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="CreditsText" type="Label" parent="Ui/Column/CreditsPanel/CreditsScroll"]
 custom_minimum_size = Vector2(460, 0)
 layout_mode = 2
-text = "Idea, dirección y código: mateomerino14
+size_flags_horizontal = 3
+text = "Creado por Mateo Alejandro Merino Vidal
 
-Hecho en Godot 4.7. El Tío, los objetos y las texturas se modelaron y pintaron por código en Blender.
+Gracias por jugar.
 
-Voces sintéticas con Piper (voces mexicanas claude y ald), actuadas y procesadas con ffmpeg.
+¿Pasó de verdad?
+No. Socavón es una historia inventada: Mateo, la cuadrilla de Don Faustino y los siete mineros de 1975 no existieron. El lugar sí existe: el Cerro Rico de Potosí, del que se saca plata desde 1545 y donde todavía entran a trabajar miles de mineros, muchos de ellos muy jóvenes. También son reales las costumbres del juego: pijchar coca antes de entrar, la ch'alla con alcohol para pedir permiso y las ofrendas al Tío.
 
-Tipografías IM Fell English SC (Igino Marini) y Lora, bajo licencia SIL Open Font.
+¿Qué es el Tío?
+Para los mineros de Bolivia, el Tío es el dueño del subsuelo, el señor del mundo de abajo. En muchas minas hay una figura suya de barro, con cuernos, sentada en un rincón del socavón. Los mineros le dejan coca, alcohol y cigarros para que les dé buena veta y los deje salir: afuera manda Dios, pero adentro manda el Tío. El Tío del juego es una versión de terror de esa creencia.
 
-Desarrollado con la ayuda de Claude, de Anthropic.
-
-Para los mineros del Cerro Rico, que todavía le piden permiso al Tío antes de entrar."
+Las licencias de las texturas, voces, sonidos y tipografías de otros autores están en LICENCIAS.txt, junto al juego."
 label_settings = SubResource("LabelSettings_credits")
 autowrap_mode = 3
 
