@@ -139,8 +139,10 @@ python3 tools/find_unused.py src tests
 
 | Qué | Cómo |
 |---|---|
-| Tío, objetos y texturas de la mina | Scripts de Blender en `tools/blender/` (ver su [README](tools/blender/README.md)) |
-| Sonidos (pasos, agua, goteo, ambiente, rugido) | `python3 tools/generate_sounds.py` |
+| Tío, objetos, Mateo y el casco de minero | Scripts de Blender en `tools/blender/` (ver su [README](tools/blender/README.md)) |
+| Texturas escaneadas de la mina | `python3 tools/download_textures.py assets/textures/mine 2k` |
+| Sonidos de la mina y música (ver [tools/audio](tools/audio/README.md)) | `python3 tools/audio/build_oga_sounds.py <descargas> assets/audio` y `build_music.py` |
+| Rugido del Tío, base del grito | `python3 tools/generate_sounds.py` |
 | Voces actuadas | `python3 tools/generate_voices.py <carpeta del modelo de Piper>` (ver el [guion](docs/guion_voces.md)) |
 | Malla de navegación de un nivel | `godot --headless --path . -s tools/bake_navmesh.gd -- res://src/world/level_0N/level_0N.tscn` |
 | Ejecutable de Windows | `godot --headless --export-release "Windows Desktop" build/Socavon.exe` |

@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/audio/music_director.gd" id="1_director"]
+[ext_resource type="AudioStream" path="res://assets/audio/music/calm.ogg" id="2_calm"]
+[ext_resource type="AudioStream" path="res://assets/audio/music/tension.ogg" id="3_tension"]
+[ext_resource type="AudioStream" path="res://assets/audio/music/chase.ogg" id="4_chase"]
+
+[node name="MusicDirector" type="Node"]
+script = ExtResource("1_director")
+
+[node name="Calm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_calm")
+volume_db = -4.0
+bus = &"Musica"
+
+[node name="Tension" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_tension")
+volume_db = -2.0
+bus = &"Musica"
+
+[node name="Chase" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_chase")
+bus = &"Musica"
