@@ -5,6 +5,9 @@
 [ext_resource type="AudioStream" path="res://assets/audio/collapse_rumble.wav" id="3_rumble"]
 [ext_resource type="Resource" path="res://src/story/voices/faustino_orden.tres" id="4_order"]
 [ext_resource type="Resource" path="res://src/story/voices/rosendo_derrumbe.tres" id="5_warning"]
+[ext_resource type="PackedScene" path="res://assets/models/faustino/faustino.gltf" id="6_faustino"]
+[ext_resource type="PackedScene" path="res://assets/models/rosendo/rosendo.gltf" id="7_rosendo"]
+[ext_resource type="PackedScene" path="res://assets/models/mateo/mateo.gltf" id="8_mateo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dust"]
 shading_mode = 0
@@ -22,10 +25,12 @@ font_color = Color(0.92, 0.82, 0.62, 1)
 outline_size = 6
 outline_color = Color(0, 0, 0, 0.8)
 
-[node name="IntroCinematic" type="Node3D"]
+[node name="IntroCinematic" type="Node3D" node_paths=PackedStringArray("foreman", "crew")]
 script = ExtResource("1_intro")
 order_line = ExtResource("4_order")
 warning_line = ExtResource("5_warning")
+foreman = NodePath("Faustino")
+crew = [NodePath("Faustino"), NodePath("Rosendo"), NodePath("Mateo")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, 0, 0, 0.97, 0.24, 0, 0.24, -0.97, 0.4, 1.7, -5.5)
@@ -37,6 +42,18 @@ light_color = Color(1, 0.7, 0.4, 1)
 light_energy = 1.2
 shadow_enabled = true
 omni_range = 9.0
+
+[node name="Faustino" parent="." instance=ExtResource("6_faustino")]
+transform = Transform3D(-0.9659, 0, -0.2588, 0, 1, 0, 0.2588, 0, -0.9659, 0.55, 0, -3.4)
+visible = false
+
+[node name="Rosendo" parent="." instance=ExtResource("7_rosendo")]
+transform = Transform3D(-0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, -0.9397, -0.6, 0, -2.5)
+visible = false
+
+[node name="Mateo" parent="." instance=ExtResource("8_mateo")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.15, 0, -1.4)
+visible = false
 
 [node name="Dust" type="CPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -2.5)
