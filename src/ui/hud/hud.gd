@@ -80,10 +80,11 @@ func _on_notice_requested(text: String) -> void:
 	_show_for(_notice_label, _notice_timer, NOTICE_SECONDS)
 
 
-## Oculta o muestra las barras y la mira; los subtítulos siguen visibles.
+## Oculta o muestra las barras, la mira y lo que se puede usar; los subtítulos siguen visibles.
 func _on_hud_visibility_requested(is_visible: bool) -> void:
 	_bars.visible = is_visible
 	_crosshair.visible = is_visible
+	_prompt_label.visible = is_visible
 
 
 ## Muestra quién habla y qué dice durante el tiempo de la línea.

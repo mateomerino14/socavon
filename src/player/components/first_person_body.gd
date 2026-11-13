@@ -1,15 +1,13 @@
 class_name FirstPersonBody
 extends Node3D
 ## Los brazos de Mateo vistos desde sus ojos: quietos quedan abajo, fuera de la vista, y aparecen al
-## estirar la mano hacia lo que usa o al lanzar una piedra. Van en su propia capa de render.
+## lanzar una piedra. Van en su propia capa de render.
 
 const IDLE := &"idle"
-const REACH := &"interact"
 const THROW := &"throw"
-const GESTURES: Array[StringName] = [&"interact", &"throw"]
+const GESTURES: Array[StringName] = [&"throw"]
 const BLEND_SECONDS := 0.2
 
-@export var interactor: Interactor
 @export var stone_thrower: StoneThrower
 ## Capa de render del cuerpo propio.
 @export_flags_3d_render var render_layers := 2048
@@ -17,14 +15,13 @@ const BLEND_SECONDS := 0.2
 var _animation: AnimationPlayer
 
 
-## Prepara los brazos y escucha a las manos.
+## Prepara los brazos y escucha a la mano que lanza.
 func _ready() -> void:
 	_animation = find_children("*", "AnimationPlayer", true, false).front() as AnimationPlayer
 	_animation.get_animation(IDLE).loop_mode = Animation.LOOP_LINEAR
 	for mesh: MeshInstance3D in find_children("*", "MeshInstance3D", true, false):
 		mesh.layers = render_layers
 	_animation.animation_finished.connect(_on_animation_finished)
-	interactor.interacted.connect(_play.bind(REACH))
 	stone_thrower.thrown.connect(_play.bind(THROW))
 	_animation.play(IDLE)
 

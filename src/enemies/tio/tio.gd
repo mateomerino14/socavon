@@ -79,6 +79,7 @@ func _ready() -> void:
 	_hearing.heard.connect(_on_heard)
 	EventBus.offering_made.connect(_on_offering_made)
 	EventBus.player_hid.connect(_on_player_hid)
+	EventBus.player_caught.connect(_hold_still)
 	GameState.respect_changed.connect(_on_respect_changed)
 	_on_respect_changed(GameState.respect)
 	_enter_state(State.PATROL)
@@ -322,12 +323,25 @@ func _catch() -> void:
 	EventBus.player_caught.emit()
 
 
-## Retrocede hasta quedar a la distancia del susto, sin atravesar paredes.
+## Retrocede hasta quedar a la distancia del susto, sin atravesar paredes; si una pared lo frena,
+## empuja al jugador lo que falta. Escondido no se le empuja: sale del escondite al reaparecer.
 func _step_back_from_player() -> void:
 	var offset := (global_position - _player.global_position) * HORIZONTAL_PLANE
 	if offset.length() >= SCARE_DISTANCE or offset == Vector3.ZERO:
 		return
-	move_and_collide(offset.normalized() * (SCARE_DISTANCE - offset.length()))
+	var direction := offset.normalized()
+	move_and_collide(direction * (SCARE_DISTANCE - offset.length()))
+	var missing := (
+		SCARE_DISTANCE - ((global_position - _player.global_position) * HORIZONTAL_PLANE).length()
+	)
+	if missing > 0.0 and _player.hiding_spot == null:
+		_player.move_and_collide(-direction * missing)
+
+
+## Mientras dura un susto ningún Tío se mueve, para que otro no llegue encima de la cámara.
+func _hold_still() -> void:
+	_has_caught = true
+	velocity = Vector3.ZERO
 
 
 ## Se gira de golpe hacia el jugador para embestirlo de frente.
