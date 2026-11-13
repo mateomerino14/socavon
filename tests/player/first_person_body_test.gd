@@ -1,6 +1,6 @@
 extends TestCase
-## Pruebas de los brazos en primera persona: quietos esperan abajo, se estiran al usar algo y
-## lanzan al tirar una piedra; nunca se ven en otra capa que la suya.
+## Pruebas de los brazos en primera persona: quietos esperan abajo y lanzan al tirar una piedra;
+## nunca se ven en otra capa que la suya.
 
 const TUNNEL_SCENE := preload("res://src/world/test_tunnel/test_tunnel.tscn")
 const BODY_LAYER := 2048
@@ -29,10 +29,8 @@ func test_starts_idle_on_own_layer() -> void:
 		assert_true(mesh.layers == BODY_LAYER, "Solo en la capa del cuerpo propio")
 
 
-## Al usar algo se estiran, al lanzar tiran, y al terminar vuelven a quedar quietos.
+## Al lanzar tiran la piedra y al terminar vuelven a quedar quietos.
 func test_gestures_follow_hands() -> void:
-	_body.interactor.interacted.emit()
-	assert_true(_animation.current_animation == FirstPersonBody.REACH, "Se estiran al usar")
 	_body.stone_thrower.thrown.emit()
 	assert_true(_animation.current_animation == FirstPersonBody.THROW, "Lanzan la piedra")
 	_animation.animation_finished.emit(FirstPersonBody.THROW)

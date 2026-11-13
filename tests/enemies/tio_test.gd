@@ -19,6 +19,12 @@ const SCARE_FRAMES := 60
 const FACING_DOT := 0.95
 ## Metros mínimos entre la cámara y la cara del Tío durante el susto, para no verlo por dentro.
 const MIN_SCARE_GAP := 0.5
+## Pared pegada a la espalda del Tío, para cuando no puede retroceder.
+const WALL_OFFSET := Vector3(0.55, 1.0, 0.0)
+const WALL_SIZE := Vector3(0.2, 2.0, 3.0)
+## Metros que un Tío puede moverse mientras otro asusta, como mucho.
+const HOLD_TOLERANCE := 0.05
+const HOLD_FRAMES := 30
 
 var _tunnel: Node3D
 var _tio: Tio
@@ -181,3 +187,36 @@ func test_caught_player_looks_at_tio_face() -> void:
 	assert_true(gap > MIN_SCARE_GAP, "La cámara no debe meterse en el Tío (quedó a %.2f m)" % gap)
 	_player.respawn_at(_player.global_transform)
 	assert_false(reaction.is_active, "Al reaparecer el susto debe terminar")
+
+
+## Con una pared detrás del Tío, el que retrocede es el jugador y la cámara sigue fuera de él.
+func test_wall_behind_tio_keeps_camera_outside() -> void:
+	var wall := StaticBody3D.new()
+	var shape := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = WALL_SIZE
+	shape.shape = box
+	wall.add_child(shape)
+	_tunnel.add_child(wall)
+	wall.global_position = _tio.global_position + WALL_OFFSET
+	await wait_physics_frames(SENSE_FRAMES)
+	_player.global_position = _tio.global_position + CLOSE_OFFSET
+	await wait_physics_frames(SCARE_FRAMES)
+	var camera: Camera3D = _player.get_node("Head/Camera3D")
+	var gap := _tio.get_face_position().distance_to(camera.global_position)
+	assert_true(gap > MIN_SCARE_GAP, "La cámara no debe meterse en el Tío (quedó a %.2f m)" % gap)
+
+
+## Mientras otro Tío asusta al jugador, este se queda quieto aunque lo estuviera cazando.
+func test_holds_still_while_player_is_scared() -> void:
+	_player.global_position = SIDE_CORRIDOR_SPOT
+	_tio.start_chase()
+	await wait_physics_frames(HOLD_FRAMES)
+	EventBus.player_caught.emit()
+	await wait_physics_frames(SENSE_FRAMES)
+	var held := _tio.global_position
+	await wait_physics_frames(HOLD_FRAMES)
+	var moved := held.distance_to(_tio.global_position)
+	assert_true(
+		moved < HOLD_TOLERANCE, "No debe acercarse durante el susto (se movió %.2f m)" % moved
+	)
