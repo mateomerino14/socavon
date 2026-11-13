@@ -10,6 +10,8 @@ enum State { PATROL, SUSPICION, HUNT, SEARCH, CALM }
 const HORIZONTAL_PLANE := Vector3(1.0, 0.0, 1.0)
 const ARRIVAL_DISTANCE := 0.7
 const CATCH_DISTANCE := 1.1
+## Al atrapar se planta a esta distancia, para que el jugador vea su cara y no su interior.
+const SCARE_DISTANCE := 1.3
 const TURN_SPEED := 6.0
 const LOOK_AROUND_SPEED := 1.2
 const SEARCH_RADIUS := 6.0
@@ -313,9 +315,19 @@ func get_face_position() -> Vector3:
 ## Marca la captura y la avisa.
 func _catch() -> void:
 	_has_caught = true
+	velocity = Vector3.ZERO
+	_step_back_from_player()
 	_face_player()
 	_animator.play_catch()
 	EventBus.player_caught.emit()
+
+
+## Retrocede hasta quedar a la distancia del susto, sin atravesar paredes.
+func _step_back_from_player() -> void:
+	var offset := (global_position - _player.global_position) * HORIZONTAL_PLANE
+	if offset.length() >= SCARE_DISTANCE or offset == Vector3.ZERO:
+		return
+	move_and_collide(offset.normalized() * (SCARE_DISTANCE - offset.length()))
 
 
 ## Se gira de golpe hacia el jugador para embestirlo de frente.

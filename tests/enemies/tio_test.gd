@@ -17,6 +17,8 @@ const MIN_PATROL_PROGRESS := 3.0
 const SCARE_FRAMES := 60
 ## Coseno del ángulo máximo entre la mirada y la cara del Tío.
 const FACING_DOT := 0.95
+## Metros mínimos entre la cámara y la cara del Tío durante el susto, para no verlo por dentro.
+const MIN_SCARE_GAP := 0.5
 
 var _tunnel: Node3D
 var _tio: Tio
@@ -175,5 +177,7 @@ func test_caught_player_looks_at_tio_face() -> void:
 	var to_face := (_tio.get_face_position() - camera.global_position).normalized()
 	var looking := -camera.global_basis.z
 	assert_true(looking.dot(to_face) > FACING_DOT, "Debe mirar a la cara del Tío")
+	var gap := _tio.get_face_position().distance_to(camera.global_position)
+	assert_true(gap > MIN_SCARE_GAP, "La cámara no debe meterse en el Tío (quedó a %.2f m)" % gap)
 	_player.respawn_at(_player.global_transform)
 	assert_false(reaction.is_active, "Al reaparecer el susto debe terminar")
