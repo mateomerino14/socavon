@@ -39,6 +39,7 @@
 [ext_resource type="Resource" path="res://src/story/voices/mateo_altar.tres" id="55_mateo_altar"]
 [ext_resource type="Resource" path="res://src/story/voices/mateo_siete.tres" id="56_mateo_siete"]
 [ext_resource type="PackedScene" path="res://src/story/cinematics/intro_cinematic.tscn" id="60_intro"]
+[ext_resource type="Resource" path="res://src/story/transition/hacia_rieles.tres" id="61_transition"]
 
 [node name="Level01" type="Node3D"]
 script = ExtResource("2_level")
@@ -234,6 +235,7 @@ patrol_points = [NodePath("../PatrolPoints/SealedNorth"), NodePath("../PatrolPoi
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -35.5)
 message = "Bajando a Los rieles..."
 next_level_path = "res://src/world/level_02/level_02.tscn"
+transition = ExtResource("61_transition")
 
 [node name="Player" parent="." instance=ExtResource("15_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.9)

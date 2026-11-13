@@ -37,6 +37,7 @@
 [ext_resource type="PackedScene" path="res://src/story/voice_trigger.tscn" id="33_voice_trigger"]
 [ext_resource type="Resource" path="res://src/story/voices/mateo_veta.tres" id="34_mateo_veta"]
 [ext_resource type="Resource" path="res://src/story/voices/faustino_eco.tres" id="35_faustino_eco"]
+[ext_resource type="Resource" path="res://src/story/transition/hacia_cuadrilla.tres" id="36_transition"]
 
 [node name="Level03" type="Node3D"]
 script = ExtResource("1_level")
@@ -259,6 +260,7 @@ patrol_points = [NodePath("../PatrolPoints/TioChamber"), NodePath("../PatrolPoin
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -35.5)
 message = "Bajando a La cuadrilla..."
 next_level_path = "res://src/world/level_04/level_04.tscn"
+transition = ExtResource("36_transition")
 
 [node name="Player" parent="." instance=ExtResource("19_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.9)

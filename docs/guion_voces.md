@@ -31,6 +31,10 @@ Para el Tío sirve una voz grave y lenta; luego se le puede bajar el tono en Aud
 | `mateo_dos` | Mateo | ¿Son... dos? | Nivel 4, al ver la segunda cámara | Paralizado, susurrando |
 | `tio_cuadrilla` | El Tío | Mi cuadrilla ya casi está completa. | Nivel 4, al llegar a la cámara del norte | Satisfecho, con una risa ronca |
 | `mateo_luz` | Mateo | ¡Luz! ¡Es la bocamina! | Nivel 5, al ver la salida | Esperanza que se le escapa en un grito |
+| `mateo_transito_rieles` | Mateo | Si sigo los rieles... tienen que llevar afuera. | Tránsito al nivel 2, bajando por los rieles | Bajo, dándose ánimo |
+| `mateo_transito_veta` | Mateo | Esa no era la voz de Wilmer. Lo que me llama... sabe sus nombres. | Tránsito al nivel 3, con el Tío detrás | Entiende algo terrible; termina en susurro |
+| `mateo_transito_cuadrilla` | Mateo | Don Faustino... si de verdad es usted, aguante. Ya voy. | Tránsito al nivel 4 | Duda y luego se decide |
+| `mateo_transito_bocamina` | Mateo | Coca, trago y cigarro. Te voy a pagar, Tío... pero déjame salir. | Tránsito al nivel 5, con el Tío detrás | Repite la pista de Rosendo; ruega al final |
 | `tio_cobro` | El Tío | ¿Y mi parte, wawa? | Nivel 5, si huyes sin pagar | Lento al principio, rugido al final |
 | `tio_gracias` | El Tío | Anda nomás. Ya pagaste. | Nivel 5, al pagarle en el altar | Grave y tranquilo; casi un abuelo |
 | `rosendo_derrumbe` | Rosendo | ¡Mateo! ¡Agárrate, chango, que se viene el techo! | Cinemática de inicio | Gritando por encima del estruendo |

@@ -11,7 +11,8 @@ para Mateo y Wilmer, y es_MX-ald-medium (dominio público) para Rosendo, Don Fau
 
 Requisitos: pip install piper-tts numpy, ffmpeg en el PATH y los modelos (.onnx y .onnx.json) de
   https://huggingface.co/rhasspy/piper-voices/tree/main/es/es_MX
-Uso: python3 tools/generate_voices.py <carpeta_de_los_modelos>
+Uso: python3 tools/generate_voices.py <carpeta_de_los_modelos> [id ...]
+Con ids, solo regenera esas líneas y deja las demás como están.
 """
 
 import json
@@ -141,6 +142,14 @@ DIRECTION = {
     "faustino_llamado": [("Por aquí, chango, rápido...", "hushed"), ("ya casi salimos.", "stern")],
     "mateo_dos": [("<inhala>", ""), ("¿Son...", "fear_whisper"), ("dos?", "fear_whisper")],
     "mateo_luz": [("¡Luz!", "shout"), ("¡Es la bocamina!", "panic")],
+    "mateo_transito_rieles": [("Si sigo los rieles...", "uneasy"), ("<inhala>", ""),
+                              ("tienen que llevar afuera.", "hushed")],
+    "mateo_transito_veta": [("Esa no era la voz de Wilmer.", "uneasy"), ("<inhala>", ""),
+                            ("Lo que me llama...", "fear_whisper"), ("sabe sus nombres.", "fear_whisper")],
+    "mateo_transito_cuadrilla": [("Don Faustino...", "hushed"), ("si de verdad es usted,", "uneasy"),
+                                 ("aguante. Ya voy.", "stern")],
+    "mateo_transito_bocamina": [("Coca, trago y cigarro.", "hushed"), ("<inhala>", ""),
+                                ("Te voy a pagar, Tío...", "uneasy"), ("pero déjame salir.", "fear_whisper")],
     "tio_cuadrilla": [("Je, je, je...", "laugh"), ("Mi cuadrilla...", "whisper"), ("ya casi está completa.", "growl_slow")],
     "tio_cobro": [("¿Y mi parte...", "whisper"), ("<inhala>", ""), ("wawa?", "roar")],
     "tio_gracias": [("Anda nomás.", "growl_slow"), ("Ya pagaste.", "satisfied")],
@@ -327,15 +336,20 @@ def render_scream(models, tmp):
 
 
 def main():
-    """Genera todas las voces y el grito de captura."""
+    """Genera todas las voces y el grito; con ids después de la carpeta, solo esas líneas."""
     models = Path(sys.argv[1])
+    only = set(sys.argv[2:])
     rng = np.random.default_rng(SEED)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     for path in sorted(LINES_DIR.glob("*.tres")):
         line = read_line(path)
+        if only and line["id"] not in only:
+            continue
         with tempfile.TemporaryDirectory() as tmp:
             render_line(models, line, Path(tmp), rng)
         print("voz", line["id"])
+    if only:
+        return
     with tempfile.TemporaryDirectory() as tmp:
         render_scream(models, Path(tmp))
     print("grito del Tío")

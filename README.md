@@ -19,7 +19,7 @@ En [Releases](https://github.com/mateomerino14/socavon/releases) está el `.zip`
 - **El Tío:** patrulla, sospecha, caza, busca y se calma con ofrendas. Oye tus pasos y las piedras que lanzas, ve según tu luz y revisa los escondites. Tiene modelo de arcilla pintada, animaciones y voz.
 - **Escondites:** nichos en la roca y carros mineros, con animación al entrar y salir.
 - **Altares:** pides permiso o dejas coca, alcohol o cigarros. Suben el respeto del Tío y guardan la partida.
-- **Historia:** se cuenta con notas, inscripciones en la roca, voces actuadas con subtítulos y dos cinemáticas, la del derrumbe y la de la bocamina.
+- **Historia:** se cuenta con notas, inscripciones en la roca, voces actuadas con subtítulos y dos cinemáticas, la del derrumbe y la de la bocamina. Entre nivel y nivel, un tránsito muestra a Mateo cruzando el socavón: dice lo que piensa, a veces el Tío lo sigue en la oscuridad y aparece el nombre del nivel siguiente.
 - **Dos finales**, según si le pagas al Tío lo que pide.
 - **Presentación:**
   - menú principal con la mina de fondo;
@@ -112,7 +112,7 @@ src/core/      Autoloads: bus de eventos, estado de la partida, ajustes y partid
 src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, escucha, susto)
 src/enemies/   El Tío y sus componentes (oído, vista, voz, pasos, animación)
 src/items/     Catálogo de objetos, objetos recogibles con su modelo e Interactable
-src/story/     Notas, voces, cinemática del derrumbe y el final (altar del pago, persecución, bocamina)
+src/story/     Notas, voces, cinemáticas, tránsitos entre niveles y el final (altar, persecución, bocamina)
 src/world/     Los cinco niveles, piezas modulares, altar, agua, escondites, soportes y materiales
 src/ui/        Menú principal, HUD, pausa, opciones, visor de notas, pantalla de muerte y tema visual
 tests/         Pruebas automáticas, en carpetas que reflejan src/

@@ -36,6 +36,7 @@
 [ext_resource type="Resource" path="res://src/story/voices/faustino_llamado.tres" id="32_faustino_llamado"]
 [ext_resource type="Resource" path="res://src/story/voices/tio_cuadrilla.tres" id="33_tio_cuadrilla"]
 [ext_resource type="Resource" path="res://src/story/voices/mateo_dos.tres" id="34_mateo_dos"]
+[ext_resource type="Resource" path="res://src/story/transition/hacia_bocamina.tres" id="35_transition"]
 
 [node name="Level04" type="Node3D"]
 script = ExtResource("1_level")
@@ -243,6 +244,7 @@ patrol_points = [NodePath("../PatrolPoints/TioShadowWest"), NodePath("../PatrolP
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -55.5)
 message = "Subiendo hacia la bocamina..."
 next_level_path = "res://src/world/level_05/level_05.tscn"
+transition = ExtResource("35_transition")
 
 [node name="Player" parent="." instance=ExtResource("17_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.9)

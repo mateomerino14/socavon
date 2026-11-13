@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TransitionData" format=3]
+
+[ext_resource type="Script" path="res://src/story/transition/transition_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://src/story/voices/mateo_transito_rieles.tres" id="2_line"]
+
+[resource]
+script = ExtResource("1_data")
+title = "Nivel 2 · Los rieles"
+line = ExtResource("2_line")
+has_rails = true
+shows_tio = false

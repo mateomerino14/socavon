@@ -1,6 +1,12 @@
 class_name Level
 extends Node3D
 ## Raíz de cada nivel: arranca o restaura la partida, la guarda en cada punto y anuncia su nombre.
+## Si se llega desde un tránsito, el nombre ya se vio y el nivel aparece desde el negro.
+
+## Segundos que tarda en aclararse la pantalla al llegar desde un tránsito.
+const ARRIVAL_FADE_SECONDS := 1.5
+## Capa del negro de llegada, por encima del HUD.
+const ARRIVAL_LAYER := 9
 
 ## Nombre que se muestra al empezar; vacío si el nivel abre con su propia cinemática.
 @export var title := ""
@@ -17,8 +23,25 @@ func _ready() -> void:
 		GameState.save_checkpoint(_player.global_transform)
 	else:
 		_restore(pending)
-	if not title.is_empty():
+	if Transition.take_arrival():
+		_fade_in_from_black()
+	elif not title.is_empty():
 		EventBus.notice_requested.emit.call_deferred(title)
+
+
+## Empieza en negro, como terminó el tránsito, y aclara la pantalla.
+func _fade_in_from_black() -> void:
+	var layer := CanvasLayer.new()
+	layer.layer = ARRIVAL_LAYER
+	var curtain := ColorRect.new()
+	curtain.color = Color.BLACK
+	curtain.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	curtain.set_anchors_preset(Control.PRESET_FULL_RECT)
+	layer.add_child(curtain)
+	add_child(layer)
+	var tween := create_tween()
+	tween.tween_property(curtain, "modulate:a", 0.0, ARRIVAL_FADE_SECONDS)
+	tween.tween_callback(layer.queue_free)
 
 
 ## Deja la partida como estaba guardada y al jugador en su último punto.
