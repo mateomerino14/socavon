@@ -217,4 +217,6 @@ func test_holds_still_while_player_is_scared() -> void:
 	var held := _tio.global_position
 	await wait_physics_frames(HOLD_FRAMES)
 	var moved := held.distance_to(_tio.global_position)
-	assert_true(moved < HOLD_TOLERANCE, "No debe acercarse durante el susto (se movió %.2f m)" % moved)
+	assert_true(
+		moved < HOLD_TOLERANCE, "No debe acercarse durante el susto (se movió %.2f m)" % moved
+	)
