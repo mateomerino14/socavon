@@ -40,6 +40,7 @@
 [ext_resource type="Resource" path="res://src/story/voices/wilmer_agua.tres" id="36_v_wilmer"]
 [ext_resource type="Resource" path="res://src/story/voices/mateo_lampara.tres" id="37_v_lampara"]
 [ext_resource type="Resource" path="res://src/story/voices/mateo_salida.tres" id="38_v_salida"]
+[ext_resource type="Resource" path="res://src/story/transition/hacia_veta.tres" id="39_transition"]
 
 [node name="Level02" type="Node3D"]
 script = ExtResource("2_level")
@@ -309,6 +310,7 @@ patrol_points = [NodePath("../PatrolPoints/Chute"), NodePath("../PatrolPoints/Cr
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -43.5)
 message = "Bajando a La veta..."
 next_level_path = "res://src/world/level_03/level_03.tscn"
+transition = ExtResource("39_transition")
 
 [node name="Player" parent="." instance=ExtResource("17_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.9)
