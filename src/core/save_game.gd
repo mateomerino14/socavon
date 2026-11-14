@@ -33,6 +33,7 @@ func save(level_path: String, inventory: InventoryComponent) -> void:
 
 ## Carga la partida guardada y abre su nivel; el nivel la aplica al empezar.
 func continue_game() -> void:
+	GameState.reset()
 	var level_path := load_pending()
 	if not level_path.is_empty():
 		get_tree().change_scene_to_file(level_path)
@@ -51,6 +52,7 @@ func load_pending() -> String:
 ## Borra lo guardado y empieza desde el nivel indicado.
 func new_game(first_level_path: String) -> void:
 	clear()
+	GameState.reset()
 	get_tree().change_scene_to_file(first_level_path)
 
 
