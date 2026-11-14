@@ -97,7 +97,7 @@ Al cruzar la bocamina se muestra tu final, la partida guardada se borra y vuelve
 
 - [Godot 4.7.2](https://godotengine.org/download) (versión estándar, no la .NET).
 - Git.
-- Para regenerar arte y sonido: Blender 5.2 (o el módulo `bpy`), Python 3, ffmpeg y `piper-tts`.
+- Para regenerar arte y sonido: Blender 5.2 (o el módulo `bpy`), Python 3 y ffmpeg; para las voces, `chatterbox-tts` y `faster-whisper` (ver [tools/audio](tools/audio/README.md)).
 
 ### Abrir el proyecto
 
@@ -144,7 +144,7 @@ python3 tools/find_unused.py src tests
 | Texturas escaneadas de la mina | `python3 tools/download_textures.py assets/textures/mine 2k` |
 | Sonidos de la mina y música (ver [tools/audio](tools/audio/README.md)) | `python3 tools/audio/build_oga_sounds.py <descargas> assets/audio` y `build_music.py` |
 | Rugido del Tío, base del grito | `python3 tools/generate_sounds.py` |
-| Voces actuadas | `python3 tools/generate_voices.py <carpeta de los modelos de Piper>` (ver el [guion](docs/guion_voces.md)) |
+| Voces actuadas con Chatterbox | `python3 tools/generate_voices.py [id ...]` (ver el [guion](docs/guion_voces.md)) |
 | Malla de navegación de un nivel | `godot --headless --path . -s tools/bake_navmesh.gd -- res://src/world/level_0N/level_0N.tscn` |
 | Ejecutable de Windows | `godot --headless --export-release "Windows Desktop" build/Socavon.exe` |
 
