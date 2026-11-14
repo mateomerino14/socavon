@@ -8,23 +8,25 @@ const DEFAULT_VOLUME := 1.0
 const DEFAULT_MUSIC_VOLUME := 0.8
 
 var _tunnel: Node3D
+var _previous_path := ""
 
 
 ## Usa un archivo de ajustes propio de la prueba y carga el túnel.
 func before_each() -> void:
+	_previous_path = Settings.config_path
 	Settings.config_path = TEST_CONFIG_PATH
 	_restore_defaults()
 	_tunnel = TUNNEL_SCENE.instantiate()
 	add_to_tree(_tunnel)
 
 
-## Quita la pausa, borra el archivo de prueba y vuelve a los ajustes de siempre.
+## Quita la pausa, borra el archivo de prueba y vuelve a los ajustes de antes.
 func after_each() -> void:
 	tree.paused = false
 	_tunnel.free()
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(TEST_CONFIG_PATH))
 	_restore_defaults()
-	Settings.config_path = Settings.DEFAULT_PATH
+	Settings.config_path = _previous_path
 
 
 ## Los ajustes guardados se recuperan al volver a cargarlos.

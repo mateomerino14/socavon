@@ -48,6 +48,7 @@
 [ext_resource type="PackedScene" path="res://src/world/obstacles/rubble.tscn" id="67_rubble"]
 [ext_resource type="PackedScene" path="res://src/story/objective_trigger/objective_trigger.tscn" id="68_objective_tr"]
 [ext_resource type="PackedScene" path="res://src/enemies/encounters/tio_apparition.tscn" id="69_tio_appariti"]
+[ext_resource type="PackedScene" path="res://src/story/hint_trigger/hint_trigger.tscn" id="70_hint_trigger"]
 
 [node name="Level01" type="Node3D"]
 script = ExtResource("2_level")
@@ -465,3 +466,25 @@ light_color = Color(1, 0.7, 0.4, 1)
 light_energy = 0.7
 shadow_enabled = true
 omni_range = 8.0
+
+[node name="Hints" type="Node3D" parent="."]
+
+[node name="HintCorrer" parent="Hints" instance=ExtResource("70_hint_trigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.5)
+hint_id = "correr"
+
+[node name="HintMapa" parent="Hints" instance=ExtResource("70_hint_trigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.5)
+hint_id = "mapa"
+
+[node name="HintLlama" parent="Hints" instance=ExtResource("70_hint_trigger")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3.5, 0, -8)
+hint_id = "llama"
+
+[node name="HintAltar" parent="Hints" instance=ExtResource("70_hint_trigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -19)
+hint_id = "altar"
+
+[node name="HintEscuchar" parent="Hints" instance=ExtResource("70_hint_trigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -31)
+hint_id = "escuchar"

@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/ui/inventory_screen/inventory_screen.gd" id="1_screen"]
+[ext_resource type="Script" path="res://src/ui/key_hint_label.gd" id="k_hint"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 36.0
@@ -137,6 +138,7 @@ autowrap_mode = 3
 
 [node name="Hint" type="Label" parent="Panel/Column"]
 layout_mode = 2
-text = "[Tab] Cerrar     [A] [D] Elegir objeto"
+script = ExtResource("k_hint")
+template = "{inventory} Cerrar     {move_left|move_right} Elegir objeto"
 label_settings = SubResource("LabelSettings_hint")
 horizontal_alignment = 2

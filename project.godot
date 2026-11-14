@@ -23,6 +23,8 @@ EventBus="*res://src/core/event_bus.gd"
 GameState="*res://src/core/game_state.gd"
 Settings="*res://src/core/settings.gd"
 SaveGame="*res://src/core/save_game.gd"
+InputDevice="*res://src/core/input_device.gd"
+MenuFocus="*res://src/core/menu_focus.gd"
 
 [debug]
 

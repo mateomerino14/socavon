@@ -26,6 +26,8 @@ En [Releases](https://github.com/mateomerino14/socavon/releases) está el `.zip`
   - menú principal con la mina de fondo;
   - el nombre de cada nivel abajo a la izquierda y el objetivo arriba a la izquierda, con un aviso sonoro cuando cambia;
   - inventario con el dibujo y el uso de cada objeto, y un mapa que Mateo dibuja a medida que explora;
+  - consejos que enseñan cada control la primera vez que hace falta, con la tecla o el botón según juegues con teclado o mando (se apagan en Opciones);
+  - pantalla de controles en el menú principal y en la pausa;
   - opciones (con calidad alta y volumen de música), pausa y créditos;
   - texturas escaneadas, iluminación global, niebla volumétrica y grano de película;
   - brazos de Mateo en primera persona y la cuadrilla en la cinemática del derrumbe;
@@ -83,6 +85,8 @@ Al cruzar la bocamina se muestra tu final, la partida guardada se borra y vuelve
 
 ## Controles
 
+También se ven en el juego, en **Controles**, desde el menú principal o la pausa.
+
 | Acción | Teclado y ratón | Mando |
 |---|---|---|
 | Moverse | W A S D | Stick izquierdo |
@@ -117,13 +121,13 @@ Al cruzar la bocamina se muestra tu final, la partida guardada se borra y vuelve
 ### Estructura
 
 ```
-src/core/      Autoloads: bus de eventos, estado de la partida, ajustes y partida guardada
+src/core/      Autoloads: bus de eventos, estado de la partida, ajustes, partida guardada, aparato de juego y foco de los menús
 src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, escucha, susto)
 src/enemies/   El Tío, sus componentes (oído, vista, voz, pasos, animación) y sus apariciones y emboscadas
 src/items/     Catálogo de objetos, objetos y herramientas recogibles con su modelo e Interactable
 src/story/     Notas, voces, cinemáticas, tránsitos entre niveles y el final (altar, persecución, bocamina)
 src/world/     Los seis niveles, piezas modulares, mapa, obstáculos (rejas, palancas, derrumbes, tablero de fichas), altar, agua, escondites, soportes y materiales
-src/ui/        Menú principal, HUD, inventario, mapa, pausa, opciones, visor de notas, pantalla de muerte y tema visual
+src/ui/        Menú principal, HUD, consejos, controles, inventario, mapa, pausa, opciones, visor de notas, pantalla de muerte y tema visual
 tests/         Pruebas automáticas, en carpetas que reflejan src/
 tools/         Generadores (Blender, sonidos, voces, malla de navegación) y buscador de código sin uso
 assets/        Modelos, texturas, audio y fuentes

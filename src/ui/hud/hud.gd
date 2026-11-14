@@ -9,7 +9,7 @@ const HIDDEN_ALPHA := 0.0
 const FADE_SPEED := 3.0
 const NOTICE_SECONDS := 3.0
 const INVENTORY_SECONDS := 4.0
-const PROMPT_FORMAT := "[E]  %s"
+const PROMPT_FORMAT := "[%s]  %s"
 const INVENTORY_SEPARATOR := "   ·   "
 const INVENTORY_ENTRY := "%s %d"
 const SUBTITLE_FORMAT := "%s: %s"
@@ -21,6 +21,8 @@ var _inventory_counts := {}
 ## Objetivo que llegó con el HUD oculto, por ejemplo en una cinemática; se anuncia al volver.
 var _pending_objective := ""
 var _is_hud_visible := true
+## Lo que se puede hacer con lo que está al frente; se reescribe si cambia el aparato.
+var _prompt := ""
 
 @onready var _fuel_bar: ProgressBar = %FuelBar
 @onready var _stamina_bar: ProgressBar = %StaminaBar
@@ -69,6 +71,7 @@ func _ready() -> void:
 	EventBus.hud_visibility_requested.connect(_on_hud_visibility_requested)
 	EventBus.level_title_requested.connect(_on_level_title_requested)
 	EventBus.objective_changed.connect(_on_objective_changed)
+	InputDevice.changed.connect(_write_prompt)
 
 
 ## Acerca la transparencia de cada elemento a la que le toca.
@@ -91,9 +94,15 @@ func _on_lamp_fuel_changed(current: float, maximum: float) -> void:
 
 ## Muestra qué se puede hacer con lo que está al frente.
 func _on_interaction_prompt_changed(prompt: String) -> void:
+	_prompt = prompt
+	_write_prompt()
+
+
+## Escribe la acción al frente con la tecla o el botón de usar del aparato actual.
+func _write_prompt() -> void:
 	_prompt_label.text = ""
-	if not prompt.is_empty():
-		_prompt_label.text = PROMPT_FORMAT % prompt
+	if not _prompt.is_empty():
+		_prompt_label.text = PROMPT_FORMAT % [InputDevice.label(&"interact"), _prompt]
 
 
 ## Muestra un aviso breve que se desvanece solo.

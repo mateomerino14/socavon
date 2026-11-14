@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://src/ui/pause_menu/pause_menu.gd" id="1_pause"]
 [ext_resource type="PackedScene" path="res://src/ui/options_panel/options_panel.tscn" id="2_options"]
 [ext_resource type="LabelSettings" path="res://src/ui/theme/heading.tres" id="3_heading"]
+[ext_resource type="PackedScene" path="res://src/ui/controls_panel/controls_panel.tscn" id="4_controls"]
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
@@ -49,6 +50,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Opciones"
 
+[node name="ControlsButton" type="Button" parent="Center/Panel/MainPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Controles"
+
 [node name="MenuButton" type="Button" parent="Center/Panel/MainPanel"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -62,4 +68,10 @@ text = "Salir del juego"
 [node name="OptionsPanel" parent="Center/Panel" instance=ExtResource("2_options")]
 unique_name_in_owner = true
 visible = false
+layout_mode = 2
+
+[node name="ControlsPanel" parent="Center/Panel" instance=ExtResource("4_controls")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(560, 560)
 layout_mode = 2

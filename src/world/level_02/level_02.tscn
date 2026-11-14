@@ -46,6 +46,7 @@
 [ext_resource type="PackedScene" path="res://src/world/obstacles/lever.tscn" id="42_lever"]
 [ext_resource type="PackedScene" path="res://src/story/objective_trigger/objective_trigger.tscn" id="43_objective_tr"]
 [ext_resource type="PackedScene" path="res://src/enemies/encounters/tio_ambush.tscn" id="44_tio_ambush"]
+[ext_resource type="PackedScene" path="res://src/story/hint_trigger/hint_trigger.tscn" id="45_hint_trigger"]
 
 [node name="Level02" type="Node3D"]
 script = ExtResource("2_level")
@@ -493,3 +494,13 @@ item_type = 5
 [node name="Coca2" parent="Pickups" instance=ExtResource("13_pickup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.8, 0, -26.8)
 item_type = 2
+
+[node name="Hints" type="Node3D" parent="."]
+
+[node name="HintAsomarse" parent="Hints" instance=ExtResource("45_hint_trigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+hint_id = "asomarse"
+
+[node name="HintEscondite" parent="Hints" instance=ExtResource("45_hint_trigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17)
+hint_id = "escondite"

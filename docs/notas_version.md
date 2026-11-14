@@ -13,6 +13,8 @@ Si Windows avisa que el programa no está firmado, elige "Más información" y l
 - **Objetivos:** aparecen arriba a la izquierda con un aviso sonoro, y el nombre del nivel siempre sale abajo a la izquierda.
 - **Mapa (M):** Mateo lo dibuja a medida que explora. Marca altares, salidas y lo que bloquea el paso.
 - **Inventario (Tab o I):** muestra el dibujo y el uso de cada objeto, las herramientas que llevas y el ánimo del Tío. La bolsa pasa de un nivel al siguiente.
+- **Consejos y controles:** cuadros que enseñan cada control la primera vez que hace falta, con la tecla o el botón según juegues con teclado o mando, y una pantalla de controles en el menú y en la pausa.
+- **Menús:** la opción marcada sigue al ratón, así que ya no quedan dos opciones marcadas a la vez.
 - **Tránsitos:** entre nivel y nivel, Mateo cruza el socavón y dice lo que piensa. Las salidas son túneles abiertos, ya no paredes.
 - **El Tío:** aparece de lejos y embosca en cada nivel. Ya no atraviesa la cámara cuando te atrapa de frente.
 - **Voces:** todas se volvieron a grabar para que suenen más naturales.

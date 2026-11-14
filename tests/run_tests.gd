@@ -8,6 +8,8 @@ const EXIT_OK := 0
 const EXIT_FAILED := 1
 ## Las pruebas guardan partidas aparte para no pisar la del jugador.
 const TEST_SAVE_PATH := "user://partida_pruebas.cfg"
+## Y ajustes aparte, para no marcar como vistos los consejos del jugador.
+const TEST_SETTINGS_PATH := "user://ajustes_pruebas.cfg"
 
 
 ## Arranca la ejecución de las pruebas cuando el árbol está listo.
@@ -19,6 +21,10 @@ func _initialize() -> void:
 func _run_all() -> void:
 	var save_game: Node = root.get_node("SaveGame")
 	save_game.save_path = TEST_SAVE_PATH
+	var settings: Node = root.get_node("Settings")
+	settings.config_path = TEST_SETTINGS_PATH
+	settings.set("seen_hints", PackedStringArray())
+	settings.set("hints_enabled", true)
 	var passed := 0
 	var failed := 0
 	for path in _find_test_files(TESTS_DIR):
@@ -26,6 +32,7 @@ func _run_all() -> void:
 		passed += results.x
 		failed += results.y
 	save_game.clear()
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(TEST_SETTINGS_PATH))
 	print("\n%d pruebas correctas, %d con fallos" % [passed, failed])
 	if failed > 0:
 		quit(EXIT_FAILED)
