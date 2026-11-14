@@ -6,6 +6,8 @@ extends Area3D
 ## Marca con que se recuerda que ya pasó; única en el nivel.
 @export var done_id := ""
 @export var tio: Tio
+## Dónde aparece el Tío, respecto de la zona que lo dispara.
+@export var spawn_offset := Vector3(0.0, 0.0, -8.0)
 ## Solo pasa si el objetivo actual es este; vacío para que pase siempre.
 @export var after_objective := ""
 
@@ -13,8 +15,9 @@ extends Area3D
 @onready var _sting: AudioStreamPlayer = $Sting
 
 
-## Escucha al jugador.
+## Pone el punto de aparición y escucha al jugador.
 func _ready() -> void:
+	_spawn.position = spawn_offset
 	body_entered.connect(_on_body_entered)
 
 

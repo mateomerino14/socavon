@@ -1,6 +1,7 @@
 extends TestCase
 ## Pruebas de las salidas: cada una sigue por un túnel abierto, para que el jugador vea por dónde
-## continuar y llegue al tránsito sin toparse con una pared.
+## continuar y llegue al tránsito sin toparse con una pared. Las rejas y derrumbes del objetivo no
+## cuentan: se abren jugando.
 
 const LEVELS_WITH_EXIT: Array[int] = [1, 2, 3, 4]
 const LEVEL_PATH := "res://src/world/level_%02d/level_%02d.tscn"
@@ -22,7 +23,16 @@ func test_exits_lead_into_open_tunnels() -> void:
 		var exit: Node3D = level.get_node("LevelExit")
 		var from := exit.global_position + EYE + APPROACH
 		var to := exit.global_position + EYE + BEYOND
-		var query := PhysicsRayQueryParameters3D.create(from, to, WORLD_MASK)
+		var query := PhysicsRayQueryParameters3D.create(from, to, WORLD_MASK, _obstacles(level))
 		var hit := level.get_world_3d().direct_space_state.intersect_ray(query)
 		assert_true(hit.is_empty(), "La salida del nivel %d no debe estar tapiada" % number)
 		level.free()
+
+
+## Cuerpos de las rejas y derrumbes del nivel, que el rayo no debe tomar como pared.
+func _obstacles(level: Node3D) -> Array[RID]:
+	var bodies: Array[RID] = []
+	for body: Node in level.find_children("*", "StaticBody3D", true, false):
+		if body.get_parent() is Gate or body.get_parent() is Rubble:
+			bodies.append((body as StaticBody3D).get_rid())
+	return bodies
