@@ -9,6 +9,9 @@ const BLEND_SECONDS := 0.2
 
 ## Marca con que se recuerda que ya pasó; única en el nivel.
 @export var done_id := ""
+## Dónde aparece y hacia dónde camina, respecto de la zona que lo dispara.
+@export var start_offset := Vector3(-4.0, 0.0, -10.0)
+@export var goal_offset := Vector3(4.0, 0.0, -10.0)
 ## Segundos que tarda en cruzar.
 @export var walk_seconds := 3.0
 ## Pasos del Tío mientras cruza.
@@ -26,8 +29,10 @@ var is_walking := false
 @onready var _step_timer: Timer = $StepTimer
 
 
-## Escondido hasta que el jugador cruce la zona.
+## Pone los puntos de partida y llegada y queda escondido hasta que el jugador cruce la zona.
 func _ready() -> void:
+	_model.position = start_offset
+	_goal.position = goal_offset
 	_model.visible = false
 	_trigger.body_entered.connect(_on_body_entered)
 	_step_timer.timeout.connect(_steps.play)
