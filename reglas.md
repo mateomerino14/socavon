@@ -136,25 +136,30 @@ const MAX_LEVEL := 3
 
 ```
 src/
-├── core/             Autoloads globales (EventBus, GameState, Settings, SaveGame)
-├── items/            Catálogo de objetos, objetos recogibles (con su modelo en visuals/) e Interactable
+├── core/             Autoloads globales (EventBus, GameState, Settings, SaveGame, InputDevice, MenuFocus)
+├── audio/            Música en capas que sigue al Tío
+├── items/            Catálogo de objetos, objetos recogibles, herramientas (tool_pickup/), piedras e Interactable
 ├── player/           Jugador
 │   ├── player.tscn / player.gd      Raíz: lee la entrada y coordina
 │   ├── first_person_camera.gd       Mirada y balanceo
 │   └── components/                  Piezas independientes (aliento, lámpara, pasos, bolsa, escucha, susto)
-├── enemies/          El Tío, con sus sentidos, voz, pasos y animación en components/
-├── story/            Notas, voces, cinemáticas y el final (ending/)
+├── enemies/          El Tío (tio/), con sus sentidos, voz, pasos y animación, y sus apariciones y emboscadas (encounters/)
+├── story/            Notas, voces, cinemáticas, tránsitos entre niveles (transition/), zonas de objetivo y de consejos, y el final (ending/)
 ├── world/            Niveles, piezas modulares, materiales y utilería
-│   ├── level.gd                     Raíz común: inicia o restaura la partida y la guarda
+│   ├── level.gd                     Raíz común: inicia o restaura la partida, la guarda y presenta el nivel
+│   ├── mine_map.gd                  Planta de la mina para el mapa
 │   ├── pieces/                      Kit modular de la mina (tramos de 4 m, cámaras, tapas, gateadero)
+│   ├── obstacles/                   Rejas, palancas, derrumbes y el tablero de fichas
+│   ├── altar/, hiding/, respawn/    Altares, escondites y reaparición
 │   ├── materials/                   Roca, barro, madera, hierro, aguayo, agua y ambiente
-│   ├── props/                       Vigas, rieles, vetas, bocamina
+│   ├── props/                       Vigas, rieles, vetas, cajones, bocamina
 │   ├── water/                       Zonas de agua
+│   ├── level_exit/                  Salida del nivel, con su tránsito
 │   └── level_0N/                    Escena y malla de navegación de cada nivel
-└── ui/               Menú principal, HUD, pausa, opciones, visor de notas, efectos de cámara y tema
-assets/               Modelos (.gltf del Tío, .obj de objetos), texturas, audio (.ogg/.wav) y fuentes
+└── ui/               Menú principal, HUD, consejos, controles, inventario, mapa, pausa, opciones, visor de notas, efectos de cámara y tema
+assets/               Modelos (.gltf del Tío, .obj de objetos), texturas, íconos, audio (.ogg/.wav) y fuentes
 tests/                Pruebas, en carpetas que reflejan src/
-tools/                Generadores de arte, sonido, voces y navegación; nada de aquí entra al juego
+tools/                Generadores de arte, íconos, sonido, voces y navegación; nada de aquí entra al juego
 ```
 
 Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.gd`).
@@ -166,11 +171,13 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | Raíz de sistema (`Player`) | Leer la entrada, decidir el estado, llamar a sus componentes, publicar en `EventBus` | Contener la lógica interna de un componente |
 | Componente | Resolver una sola cosa y avisar con señales propias | Conocer a otros componentes o leer la entrada |
 | `EventBus` | Transportar eventos entre sistemas que no se conocen | Guardar estado |
-| `GameState` | Guardar el estado de la partida (respeto, punto de guardado) | Contener reglas de una mecánica |
+| `GameState` | Guardar el estado de la partida (respeto, punto de guardado, objetivo, herramientas, lo hecho en el nivel y lo recorrido del mapa) | Contener reglas de una mecánica |
+| `InputDevice` | Saber si se juega con teclado o mando y nombrar la tecla o el botón de cada acción | Leer acciones del juego |
+| `MenuFocus` | Hacer que el ratón y el teclado marquen la misma opción en los menús | Decidir qué hace cada opción |
 | `Interactable` | Avisar a su dueño que el jugador lo usó | Decidir qué pasa al usarlo |
 | `Settings` | Guardar los ajustes del jugador en `user://ajustes.cfg` y avisar cambios | Aplicarlos: cada sistema los lee al recibir `changed` |
 | `SaveGame` | Escribir y leer la partida en `user://partida.cfg` y dejarla pendiente para el próximo nivel | Mover al jugador: lo hace `Level` al restaurar |
-| `Level` | Iniciar o restaurar la partida y guardarla cada vez que `GameState` avisa un punto nuevo | Conocer la lógica de altares o del Tío |
+| `Level` | Iniciar o restaurar la partida, pasar la bolsa del nivel anterior, guardarla cada vez que `GameState` avisa un punto nuevo y presentar su nombre y su objetivo | Conocer la lógica de altares o del Tío |
 | HUD y audio | Escuchar `EventBus` y presentar | Cambiar el estado del juego |
 
 **Señales hacia arriba, llamadas hacia abajo:** un nodo llama métodos de sus hijos y escucha las señales de ellos; nunca busca a su padre ni a sus hermanos.
@@ -218,6 +225,20 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 - Cada una tiene `enabled`; las pruebas de un nivel la apagan para empezar a jugar de inmediato.
 - Cuando necesitan mover la mirada de Mateo usan métodos del `Player` (`take_view`, `level_view`, `turn_around`), nunca sus nodos internos.
 
+### Objetivos y salidas
+
+- Cada nivel tiene `title` y `objective`: el HUD muestra el nombre abajo a la izquierda y el objetivo arriba a la izquierda, con su sonido. El objetivo cambia con `GameState.set_objective`.
+- La salida de cada nivel se abre con algo del nivel: dinamita contra un `Rubble`, palancas o una llave para una `Gate`, o fichas en el `FichaBoard`. Las herramientas se recogen con `ToolPickup` y viven en `GameState.tools`.
+- Lo que ya pasó (una reja abierta, una herramienta recogida, una emboscada) se marca con `GameState.mark_done` y un `done_id` único, para que no se repita al continuar.
+- `ObjectiveTrigger` da un objetivo al cruzarlo; `TioApparition` y `TioAmbush` hacen aparecer al Tío una sola vez.
+- Entre niveles, `LevelExit` abre un `Transition` con su `TransitionData` (línea de Mateo, rieles, Tío detrás); el nivel siguiente aparece desde negro.
+
+### Consejos y controles
+
+- Los consejos son textos de `HintCatalog` con las acciones entre llaves, que `InputDevice.fill` cambia por la tecla o el botón del aparato actual. Se piden con `EventBus.hint_requested`: desde `HintTrigger` en el nivel o desde `HintDirector` cuando pasa algo.
+- Cada consejo sale una sola vez; los vistos se guardan en `Settings`. Las pruebas usan su propio archivo de ajustes para no marcar los del jugador.
+- La pantalla de controles (`ControlsPanel`) arma su tabla desde `InputMap`, así sigue a los controles configurados.
+
 ### Notas de la historia
 
 - Cada nota es un recurso `NoteData` en `src/story/notes/<id>.tres`, con `id` único, título, firma y texto.
@@ -237,14 +258,14 @@ Cada escena vive junto a su script con el mismo nombre (`player.tscn` y `player.
 | Nodo | Para qué |
 |---|---|
 | `Player` | El jugador |
-| `Hud` | Barras, avisos y bolsa |
+| `Hud` | Barras, avisos, bolsa, nombre del nivel, objetivo, consejos, inventario y mapa |
 | `RespawnDirector` | Muerte y reaparición en el último guardado |
 | `PauseMenu` | Pausa con Escape y ajustes |
 | `NoteViewer` | Muestra las notas al leerlas |
 | `NavigationRegion3D` | Por dónde camina el Tío |
-| Raíz con `level.gd` | Llama a `GameState.reset()` y guarda el inicio como primer punto |
+| Raíz con `level.gd` | Sigue la partida, guarda el inicio como primer punto y lleva `title` y `objective` |
 | `WorldEnvironment` | Usa `materials/mine_environment.tres` |
-| `LevelExit` | Fin del nivel; carga el siguiente si `next_level_path` tiene valor |
+| `LevelExit` | Fin del nivel; abre su tránsito y el siguiente nivel si `next_level_path` tiene valor |
 
 ### Navegación
 

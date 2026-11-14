@@ -331,8 +331,7 @@ func _catch() -> void:
 	EventBus.player_caught.emit()
 
 
-## Retrocede hasta quedar a la distancia del susto, sin atravesar paredes; si una pared lo frena,
-## empuja al jugador lo que falta. Escondido no se le empuja: sale del escondite al reaparecer.
+## Retrocede a la distancia del susto; si una pared lo frena, empuja al jugador que no se escondió.
 func _step_back_from_player() -> void:
 	var offset := (global_position - _player.global_position) * HORIZONTAL_PLANE
 	if offset.length() >= SCARE_DISTANCE or offset == Vector3.ZERO:
