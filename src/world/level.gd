@@ -19,10 +19,15 @@ const OBJECTIVE_DELAY_SECONDS := 2.5
 @onready var _player: Player = $Player
 
 
-## Reinicia el estado, restaura una partida pendiente o guarda el inicio, y presenta el nivel.
+## Sigue la partida que viene del nivel anterior o empieza una nueva, restaura una partida pendiente
+## o guarda el inicio, y presenta el nivel.
 func _ready() -> void:
 	GameState.checkpoint_saved.connect(_on_checkpoint_saved)
-	GameState.reset()
+	if GameState.is_carrying():
+		GameState.start_next_level()
+		_fill_bag(GameState.take_carried_bag())
+	else:
+		GameState.reset()
 	var pending := SaveGame.take_pending()
 	if pending.is_empty():
 		GameState.save_checkpoint(_player.global_transform)
@@ -77,12 +82,16 @@ func _restore(pending: Dictionary) -> void:
 	GameState.add_respect(pending["respeto"] - GameState.respect)
 	GameState.has_paid = pending["pagado"]
 	GameState.read_notes = pending["notas"]
-	var bag: Dictionary = pending["bolsa"]
-	for type: ItemCatalog.Type in bag:
-		_player.inventory.add(type, bag[type])
+	_fill_bag(pending["bolsa"])
 	var checkpoint: Transform3D = pending["punto"]
 	_player.respawn_at(checkpoint)
 	GameState.save_checkpoint(checkpoint)
+
+
+## Pone en la bolsa del jugador lo que traía.
+func _fill_bag(bag: Dictionary) -> void:
+	for type: ItemCatalog.Type in bag:
+		_player.inventory.add(type, bag[type])
 
 
 ## Cada punto de guardado también queda en disco.
