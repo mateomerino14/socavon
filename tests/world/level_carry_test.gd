@@ -1,6 +1,6 @@
 extends TestCase
-## Pruebas del paso de nivel: la bolsa y el respeto siguen en el nivel siguiente, y una partida nueva
-## empieza de cero.
+## Pruebas del paso de nivel: la bolsa y el respeto siguen en el nivel siguiente, y una partida
+## nueva empieza de cero.
 
 const LEVEL_SCENE := preload("res://src/world/level_02/level_02.tscn")
 const SETTLE_FRAMES := 10
