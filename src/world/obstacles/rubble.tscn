@@ -1,0 +1,71 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/world/obstacles/rubble.gd" id="1_rubble"]
+[ext_resource type="Script" path="res://src/items/interactable.gd" id="2_interactable"]
+[ext_resource type="AudioStream" path="res://assets/audio/fuse_hiss.wav" id="3_fuse"]
+[ext_resource type="AudioStream" path="res://assets/audio/dynamite_blast.wav" id="4_blast"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_body"]
+size = Vector3(3.2, 2.6, 1.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_use"]
+size = Vector3(3, 2.2, 1.0)
+
+[sub_resource type="FogMaterial" id="FogMaterial_dust"]
+density = 0.0
+albedo = Color(0.62, 0.55, 0.46, 1)
+edge_fade = 0.6
+
+[node name="Rubble" type="Node3D"]
+script = ExtResource("1_rubble")
+
+[node name="Rocks" type="Node3D" parent="."]
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+shape = SubResource("BoxShape3D_body")
+
+[node name="Interactable" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("2_interactable")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0.6)
+shape = SubResource("BoxShape3D_use")
+
+[node name="Spark" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.62, 0.25, 1)
+light_energy = 1.5
+omni_range = 2.5
+
+[node name="Flash" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 1.2)
+light_color = Color(1, 0.78, 0.5, 1)
+light_energy = 0.0
+shadow_enabled = true
+omni_range = 16.0
+
+[node name="FuseSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.9)
+stream = ExtResource("3_fuse")
+unit_size = 3.0
+bus = &"Efectos"
+
+[node name="BlastSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0.5)
+stream = ExtResource("4_blast")
+unit_size = 25.0
+max_db = 6.0
+bus = &"Efectos"
+
+[node name="Dust" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 2.5)
+size = Vector3(3.4, 3, 6)
+material = SubResource("FogMaterial_dust")
+
+[node name="FuseTimer" type="Timer" parent="."]
+one_shot = true

@@ -82,6 +82,8 @@ func _restore(pending: Dictionary) -> void:
 	GameState.add_respect(pending["respeto"] - GameState.respect)
 	GameState.has_paid = pending["pagado"]
 	GameState.read_notes = pending["notas"]
+	GameState.tools = pending.get("herramientas", PackedStringArray())
+	GameState.done = pending.get("hechos", PackedStringArray())
 	_fill_bag(pending["bolsa"])
 	var checkpoint: Transform3D = pending["punto"]
 	_player.respawn_at(checkpoint)
