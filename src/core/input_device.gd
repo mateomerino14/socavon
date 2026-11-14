@@ -33,6 +33,15 @@ const JOY_AXIS_NAMES: Dictionary[JoyAxis, String] = {
 	JOY_AXIS_TRIGGER_LEFT: "LT",
 	JOY_AXIS_TRIGGER_RIGHT: "RT",
 }
+## Teclas cuyo nombre en inglés se cambia por uno más claro.
+const KEY_NAMES: Dictionary[Key, String] = {
+	KEY_LEFT: "←",
+	KEY_RIGHT: "→",
+	KEY_UP: "↑",
+	KEY_DOWN: "↓",
+	KEY_ESCAPE: "Esc",
+	KEY_SPACE: "Espacio",
+}
 const MOUSE_BUTTON_NAMES: Dictionary[MouseButton, String] = {
 	MOUSE_BUTTON_LEFT: "Clic izquierdo",
 	MOUSE_BUTTON_RIGHT: "Clic derecho",
@@ -142,10 +151,9 @@ func _event_name(event: InputEvent, is_gamepad: bool) -> String:
 
 ## Nombre de una tecla según la distribución del teclado del jugador.
 func _key_name(event: InputEventKey) -> String:
-	if event.physical_keycode == KEY_NONE:
-		return OS.get_keycode_string(event.keycode)
-	if DisplayServer.get_name() == HEADLESS_SERVER:
-		return OS.get_keycode_string(event.physical_keycode)
-	return OS.get_keycode_string(
-		DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode)
-	)
+	var keycode := event.keycode
+	if event.physical_keycode != KEY_NONE:
+		keycode = event.physical_keycode
+		if DisplayServer.get_name() != HEADLESS_SERVER:
+			keycode = DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode)
+	return KEY_NAMES.get(keycode, OS.get_keycode_string(keycode))
