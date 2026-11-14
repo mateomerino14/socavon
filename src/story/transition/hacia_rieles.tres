@@ -5,7 +5,6 @@
 
 [resource]
 script = ExtResource("1_data")
-title = "Nivel 2 · Los rieles"
 line = ExtResource("2_line")
 has_rails = true
 shows_tio = false

@@ -41,6 +41,7 @@
 [node name="Level05" type="Node3D"]
 script = ExtResource("1_level")
 title = "Nivel 5 · La bocamina"
+objective = "Junta coca, trago y cigarro para pagarle al Tío"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 script = ExtResource("quality_r")

@@ -42,6 +42,7 @@
 [node name="Level03" type="Node3D"]
 script = ExtResource("1_level")
 title = "Nivel 3 · La veta"
+objective = "Llega a la veta de plata"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 script = ExtResource("quality_r")

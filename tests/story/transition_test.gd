@@ -1,6 +1,6 @@
 extends TestCase
-## Pruebas del tránsito entre niveles: Mateo camina, habla, se ve el nombre del nivel siguiente y se
-## puede saltar. También que cada salida tenga su tránsito hacia el nivel que corresponde.
+## Pruebas del tránsito entre niveles: Mateo camina, habla y se puede saltar. También que cada
+## salida tenga su tránsito, con voz, y que cada nivel tenga nombre y objetivo.
 
 const TRANSITION_SCENE := preload("res://src/story/transition/transition.tscn")
 const LINE := preload("res://src/story/voices/mateo_transito_veta.tres")
@@ -9,7 +9,6 @@ const FAST_WALK_SECONDS := 0.3
 const FAST_LINE_DELAY := 0.1
 const FINISH_FRAMES := 120
 const SKIP_FRAMES := 10
-const TITLE := "Nivel 3 · La veta"
 const LEVELS_WITH_EXIT: Array[int] = [1, 2, 3, 4]
 const LEVEL_PATH := "res://src/world/level_%02d/level_%02d.tscn"
 const SPEAKER := "Mateo"
@@ -24,12 +23,11 @@ func before_each() -> void:
 	_transition = TRANSITION_SCENE.instantiate()
 	_transition.enabled = false
 	var data := TransitionData.new()
-	data.title = TITLE
 	data.line = LINE
 	data.has_rails = true
 	data.shows_tio = true
 	_transition.data = data
-	for property: String in ["fade_seconds", "title_seconds"]:
+	for property: String in ["fade_seconds", "hold_seconds"]:
 		_transition.set(property, FAST_SECONDS)
 	_transition.walk_seconds = FAST_WALK_SECONDS
 	_transition.line_delay_seconds = FAST_LINE_DELAY
@@ -44,7 +42,7 @@ func after_each() -> void:
 	_transition.free()
 
 
-## Visto entero: Mateo avanza hacia la cámara, habla y aparece el nombre del nivel.
+## Visto entero: Mateo avanza hacia la cámara y habla.
 func test_plays_whole_transition() -> void:
 	var mateo: Node3D = _transition.get_node("Mateo")
 	var start := mateo.position
@@ -57,9 +55,6 @@ func test_plays_whole_transition() -> void:
 		walked, _transition.walk_distance, "Mateo camina hacia la cámara", FAST_SECONDS
 	)
 	assert_true(_subtitle_speaker == SPEAKER, "Mateo dice su línea con subtítulo")
-	assert_true(
-		(_transition.get_node("%Title") as Label).text == TITLE, "Muestra el nivel siguiente"
-	)
 
 
 ## Lo que pide el tránsito se ve: rieles y el Tío detrás de Mateo.
@@ -78,7 +73,8 @@ func test_skip_ends_quickly() -> void:
 	assert_true(_finished, "Saltado, el tránsito debe terminar")
 
 
-## Cada salida de los niveles 1 a 4 lleva su tránsito, con voz y el nombre del nivel siguiente.
+## Cada salida de los niveles 1 a 4 lleva su tránsito con voz, y el nivel siguiente tiene nombre y
+## objetivo para mostrar al llegar.
 func test_every_exit_has_its_transition() -> void:
 	for number in LEVELS_WITH_EXIT:
 		var transition := _exit_property(number, &"transition") as TransitionData
@@ -87,7 +83,10 @@ func test_every_exit_has_its_transition() -> void:
 			continue
 		assert_true(transition.line != null, "El tránsito del nivel %d debe tener voz" % number)
 		var next_title := _root_property(number + 1, &"title") as String
-		assert_true(transition.title == next_title, "Debe anunciar %s" % next_title)
+		assert_false(next_title.is_empty(), "El nivel %d debe tener nombre" % (number + 1))
+	for number: int in LEVELS_WITH_EXIT + [LEVELS_WITH_EXIT.size() + 1]:
+		var objective := _root_property(number, &"objective") as String
+		assert_false(objective.is_empty(), "El nivel %d debe tener objetivo" % number)
 
 
 ## Lee una propiedad de la salida de un nivel sin instanciarlo.

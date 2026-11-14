@@ -44,6 +44,7 @@
 
 [node name="Level01" type="Node3D"]
 script = ExtResource("2_level")
+objective = "Encuentra a la cuadrilla y una salida"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 script = ExtResource("quality_r")

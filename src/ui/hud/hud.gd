@@ -1,6 +1,7 @@
 class_name Hud
 extends CanvasLayer
-## HUD mínimo: barras de carburo y aliento, acción al frente, avisos, bolsa y subtítulos.
+## HUD mínimo: barras de carburo y aliento, acción al frente, avisos, bolsa y subtítulos; el nombre
+## del nivel abajo a la izquierda y el objetivo arriba a la izquierda, anunciado con un sonido.
 
 const FULL_RATIO := 0.995
 const SHOWN_ALPHA := 1.0
@@ -12,9 +13,14 @@ const PROMPT_FORMAT := "[E]  %s"
 const INVENTORY_SEPARATOR := "   ·   "
 const INVENTORY_ENTRY := "%s %d"
 const SUBTITLE_FORMAT := "%s: %s"
+const TITLE_SECONDS := 4.5
+const OBJECTIVE_SECONDS := 7.0
 
 var _target_alpha := {}
 var _inventory_counts := {}
+## Objetivo que llegó con el HUD oculto, por ejemplo en una cinemática; se anuncia al volver.
+var _pending_objective := ""
+var _is_hud_visible := true
 
 @onready var _fuel_bar: ProgressBar = %FuelBar
 @onready var _stamina_bar: ProgressBar = %StaminaBar
@@ -27,12 +33,24 @@ var _inventory_counts := {}
 @onready var _subtitle_timer: Timer = %SubtitleTimer
 @onready var _bars: Control = $Bars
 @onready var _crosshair: Control = $Crosshair
+@onready var _title_label: Label = %TitleLabel
+@onready var _title_timer: Timer = %TitleTimer
+@onready var _objective_box: Control = %ObjectiveBox
+@onready var _objective_label: Label = %ObjectiveLabel
+@onready var _objective_timer: Timer = %ObjectiveTimer
+@onready var _objective_sound: AudioStreamPlayer = %ObjectiveSound
 
 
 ## Escucha al bus y arranca con todo oculto.
 func _ready() -> void:
 	for control: Control in [
-		_fuel_bar, _stamina_bar, _notice_label, _inventory_label, _subtitle_label
+		_fuel_bar,
+		_stamina_bar,
+		_notice_label,
+		_inventory_label,
+		_subtitle_label,
+		_title_label,
+		_objective_box,
 	]:
 		control.modulate.a = HIDDEN_ALPHA
 		_target_alpha[control] = HIDDEN_ALPHA
@@ -40,6 +58,8 @@ func _ready() -> void:
 	_notice_timer.timeout.connect(_hide.bind(_notice_label))
 	_inventory_timer.timeout.connect(_hide.bind(_inventory_label))
 	_subtitle_timer.timeout.connect(_hide.bind(_subtitle_label))
+	_title_timer.timeout.connect(_hide.bind(_title_label))
+	_objective_timer.timeout.connect(_hide.bind(_objective_box))
 	EventBus.stamina_changed.connect(_on_stamina_changed)
 	EventBus.lamp_fuel_changed.connect(_on_lamp_fuel_changed)
 	EventBus.interaction_prompt_changed.connect(_on_interaction_prompt_changed)
@@ -47,6 +67,8 @@ func _ready() -> void:
 	EventBus.inventory_changed.connect(_on_inventory_changed)
 	EventBus.subtitle_requested.connect(_on_subtitle_requested)
 	EventBus.hud_visibility_requested.connect(_on_hud_visibility_requested)
+	EventBus.level_title_requested.connect(_on_level_title_requested)
+	EventBus.objective_changed.connect(_on_objective_changed)
 
 
 ## Acerca la transparencia de cada elemento a la que le toca.
@@ -85,6 +107,31 @@ func _on_hud_visibility_requested(is_visible: bool) -> void:
 	_bars.visible = is_visible
 	_crosshair.visible = is_visible
 	_prompt_label.visible = is_visible
+	_is_hud_visible = is_visible
+	if is_visible and not _pending_objective.is_empty():
+		_announce_objective(_pending_objective)
+		_pending_objective = ""
+
+
+## Muestra el nombre del nivel abajo a la izquierda.
+func _on_level_title_requested(title: String) -> void:
+	_title_label.text = title
+	_show_for(_title_label, _title_timer, TITLE_SECONDS)
+
+
+## Anuncia el nuevo objetivo, o lo guarda para cuando vuelva el HUD.
+func _on_objective_changed(text: String) -> void:
+	if _is_hud_visible:
+		_announce_objective(text)
+	else:
+		_pending_objective = text
+
+
+## Muestra el objetivo arriba a la izquierda con su sonido.
+func _announce_objective(text: String) -> void:
+	_objective_label.text = text
+	_objective_sound.play()
+	_show_for(_objective_box, _objective_timer, OBJECTIVE_SECONDS)
 
 
 ## Muestra quién habla y qué dice durante el tiempo de la línea.

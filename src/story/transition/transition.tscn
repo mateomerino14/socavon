@@ -25,12 +25,6 @@ stream_1/stream = ExtResource("13_step2")
 stream_2/stream = ExtResource("14_step3")
 stream_3/stream = ExtResource("15_step4")
 
-[sub_resource type="LabelSettings" id="LabelSettings_title"]
-font_size = 34
-font_color = Color(0.92, 0.82, 0.62, 1)
-outline_size = 6
-outline_color = Color(0, 0, 0, 0.8)
-
 [sub_resource type="LabelSettings" id="LabelSettings_subtitle"]
 font_size = 22
 font_color = Color(0.96, 0.93, 0.86, 1)
@@ -186,23 +180,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
-
-[node name="Title" type="Label" parent="Screen"]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -30.0
-offset_right = 400.0
-offset_bottom = 30.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-label_settings = SubResource("LabelSettings_title")
-horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="Screen"]
 unique_name_in_owner = true
