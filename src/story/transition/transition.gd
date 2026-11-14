@@ -1,7 +1,7 @@
 class_name Transition
 extends Node3D
-## Tránsito entre niveles: Mateo cruza un socavón con su lámpara, dice lo que piensa y aparece el
-## nombre del nivel siguiente antes de cargarlo. Une un nivel con otro.
+## Tránsito entre niveles: Mateo cruza un socavón con su lámpara y dice lo que piensa; la pantalla
+## funde a negro y se carga el nivel siguiente, que muestra su nombre al empezar.
 
 ## Termina el tránsito, visto entero o saltado.
 signal finished
@@ -39,7 +39,8 @@ static var _has_arrival := false
 @export var fade_seconds := 1.2
 @export var walk_seconds := 10.0
 @export var line_delay_seconds := 1.5
-@export var title_seconds := 3.0
+## Segundos en negro antes de cargar el nivel, para que Mateo termine de hablar.
+@export var hold_seconds := 1.5
 ## Pasos de Mateo: uno por cada media vuelta de la caminata.
 @export var step_seconds := 0.59
 
@@ -58,7 +59,6 @@ var _tio_start := Vector3.ZERO
 @onready var _step_timer: Timer = $StepTimer
 @onready var _wait_timer: Timer = $WaitTimer
 @onready var _curtain: ColorRect = %Curtain
-@onready var _title: Label = %Title
 @onready var _subtitle: Label = %Subtitle
 @onready var _subtitle_timer: Timer = $SubtitleTimer
 
@@ -87,7 +87,6 @@ func _ready() -> void:
 	_mateo_start = _mateo.position
 	_tio_start = _tio.position
 	_curtain.modulate.a = OPAQUE
-	_title.modulate.a = CLEAR
 	_subtitle.text = ""
 	_step_timer.timeout.connect(_steps.play)
 	_subtitle_timer.timeout.connect(_subtitle.set_text.bind(""))
@@ -114,10 +113,7 @@ func play() -> void:
 	if await _wait(walk_seconds - line_delay_seconds - fade_seconds * 2.0):
 		await _fade(_curtain, OPAQUE)
 	_stop_walking()
-	if not _skip_requested:
-		await _fade(_title, OPAQUE)
-		if await _wait(title_seconds):
-			await _fade(_title, CLEAR)
+	await _wait(hold_seconds)
 	_finish()
 
 
@@ -129,13 +125,11 @@ func skip() -> void:
 		_wait_timer.timeout.emit()
 
 
-## Muestra rieles y al Tío según el tránsito, y pone el nombre del nivel.
+## Muestra rieles y al Tío según el tránsito.
 func _apply_data() -> void:
 	_rails.visible = data != null and data.has_rails
 	_tio.visible = data != null and data.shows_tio
 	_tio_light.visible = _tio.visible
-	if data:
-		_title.text = data.title
 
 
 ## Mateo camina hacia la cámara con sus pasos, y el Tío lo sigue despacio si aparece.
@@ -178,7 +172,6 @@ func _say() -> void:
 func _finish() -> void:
 	_stop_walking()
 	_curtain.modulate.a = OPAQUE
-	_title.modulate.a = CLEAR
 	is_playing = false
 	finished.emit()
 	if not next_level_path.is_empty():

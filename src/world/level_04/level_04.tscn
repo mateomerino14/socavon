@@ -41,6 +41,7 @@
 [node name="Level04" type="Node3D"]
 script = ExtResource("1_level")
 title = "Nivel 4 · La cuadrilla"
+objective = "Busca a Don Faustino y a Rosendo"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 script = ExtResource("quality_r")

@@ -1,5 +1,6 @@
 extends Node
-## Estado de la partida (autoload "GameState"): respeto, guardado, notas leídas y pago al Tío.
+## Estado de la partida (autoload "GameState"): respeto, guardado, notas leídas, pago al Tío y
+## objetivo actual.
 
 signal respect_changed(value: float)
 ## Se guardó un punto de reaparición; la partida en disco se actualiza.
@@ -14,6 +15,8 @@ var checkpoint := Transform3D.IDENTITY
 var read_notes := PackedStringArray()
 ## Verdadero si el jugador le pagó al Tío en la bocamina; decide el final.
 var has_paid := false
+## Lo que el jugador tiene que hacer ahora.
+var objective := ""
 
 
 ## Suma o resta respeto dentro de sus límites.
@@ -44,10 +47,19 @@ func has_read_note(note_id: String) -> bool:
 	return read_notes.has(note_id)
 
 
+## Cambia el objetivo y lo anuncia, solo si es otro.
+func set_objective(text: String) -> void:
+	if text == objective:
+		return
+	objective = text
+	EventBus.objective_changed.emit(text)
+
+
 ## Vuelve al estado de una partida nueva.
 func reset() -> void:
 	respect = STARTING_RESPECT
 	checkpoint = Transform3D.IDENTITY
 	read_notes.clear()
 	has_paid = false
+	objective = ""
 	respect_changed.emit(respect)

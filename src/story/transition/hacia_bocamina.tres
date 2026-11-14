@@ -5,7 +5,6 @@
 
 [resource]
 script = ExtResource("1_data")
-title = "Nivel 5 · La bocamina"
 line = ExtResource("2_line")
 has_rails = false
 shows_tio = true

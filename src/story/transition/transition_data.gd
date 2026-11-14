@@ -1,9 +1,7 @@
 class_name TransitionData
 extends Resource
-## Lo que cuenta un tránsito entre niveles: a dónde llega Mateo, qué dice y qué lo acompaña.
+## Lo que cuenta un tránsito entre niveles: qué dice Mateo y qué lo acompaña.
 
-## Nombre del nivel al que llega, como se muestra al final del tránsito.
-@export var title := ""
 ## Lo que dice Mateo mientras camina.
 @export var line: VoiceLine
 ## Si el socavón lleva rieles, como los que bajan al nivel 2.

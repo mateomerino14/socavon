@@ -46,3 +46,9 @@ signal hud_visibility_requested(is_visible: bool)
 
 ## El jugador abrió una nota para leerla.
 signal note_opened(note: NoteData)
+
+## Empieza un nivel: el HUD muestra su nombre abajo a la izquierda.
+signal level_title_requested(title: String)
+
+## Cambió lo que el jugador tiene que hacer: el HUD lo anuncia arriba a la izquierda con un sonido.
+signal objective_changed(text: String)

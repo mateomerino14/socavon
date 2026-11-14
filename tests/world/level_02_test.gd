@@ -3,6 +3,9 @@ extends TestCase
 
 const LEVEL_SCENE := preload("res://src/world/level_02/level_02.tscn")
 const SETTLE_FRAMES := 20
+## El nombre aparece un segundo después de que se ve el nivel, y el objetivo un rato después.
+const TITLE_FRAMES := 90
+const OBJECTIVE_FRAMES := 240
 const WADE_FRAMES := 60
 const PATH_TOLERANCE := 1.0
 const WATER_SPOT := Vector3(-8.0, 0.05, -12.0)
@@ -11,12 +14,12 @@ const DRY_SPOT := Vector3(0.0, 0.05, -5.0)
 var _level: Level
 var _player: Player
 var _tio: Tio
-var _last_notice := ""
+var _last_title := ""
 
 
-## Carga el nivel y escucha los avisos.
+## Carga el nivel y escucha su nombre.
 func before_each() -> void:
-	EventBus.notice_requested.connect(_on_notice)
+	EventBus.level_title_requested.connect(_on_title)
 	_level = LEVEL_SCENE.instantiate()
 	add_to_tree(_level)
 	_player = _level.get_node("Player")
@@ -25,14 +28,16 @@ func before_each() -> void:
 
 ## Libera el nivel.
 func after_each() -> void:
-	EventBus.notice_requested.disconnect(_on_notice)
+	EventBus.level_title_requested.disconnect(_on_title)
 	_level.free()
 
 
-## Al empezar muestra el nombre del nivel.
+## Al empezar muestra el nombre del nivel y después su objetivo.
 func test_shows_level_title() -> void:
-	await wait_physics_frames(SETTLE_FRAMES)
-	assert_true(_last_notice == _level.title, "Debe anunciar el nivel (fue '%s')" % _last_notice)
+	await wait_physics_frames(TITLE_FRAMES)
+	assert_true(_last_title == _level.title, "Debe anunciar el nivel (fue '%s')" % _last_title)
+	await wait_physics_frames(OBJECTIVE_FRAMES)
+	assert_true(GameState.objective == _level.objective, "Después da el objetivo del nivel")
 
 
 ## Hay camino desde el inicio al altar, a la nota de Wilmer y a la salida.
@@ -94,6 +99,6 @@ func _flat_distance(a: Vector3, b: Vector3) -> float:
 	return Vector2(a.x - b.x, a.z - b.z).length()
 
 
-## Guarda el último aviso.
-func _on_notice(text: String) -> void:
-	_last_notice = text
+## Guarda el último nombre de nivel anunciado.
+func _on_title(text: String) -> void:
+	_last_title = text

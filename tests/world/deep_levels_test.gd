@@ -5,6 +5,8 @@ const LEVEL_03 := preload("res://src/world/level_03/level_03.tscn")
 const LEVEL_04 := preload("res://src/world/level_04/level_04.tscn")
 const LEVEL_05 := preload("res://src/world/level_05/level_05.tscn")
 const SETTLE_FRAMES := 20
+## El nombre aparece un segundo después de que se ve el nivel.
+const TITLE_FRAMES := 90
 const PATH_TOLERANCE := 1.0
 const CRAWL_CENTER := Vector3(-8.0, 0.0, -8.0)
 ## El gateadero es bajo: la malla del Tío no debe pasar cerca de su centro.
@@ -18,17 +20,17 @@ const MIN_CRAWLED := 4.0
 
 var _level: Level
 var _player: Player
-var _last_notice := ""
+var _last_title := ""
 
 
-## Escucha los avisos.
+## Escucha los nombres de nivel.
 func before_each() -> void:
-	EventBus.notice_requested.connect(_on_notice)
+	EventBus.level_title_requested.connect(_on_title)
 
 
 ## Libera el nivel cargado.
 func after_each() -> void:
-	EventBus.notice_requested.disconnect(_on_notice)
+	EventBus.level_title_requested.disconnect(_on_title)
 	if _level:
 		_level.free()
 		_level = null
@@ -38,7 +40,8 @@ func after_each() -> void:
 func test_levels_show_their_titles() -> void:
 	for scene: PackedScene in [LEVEL_03, LEVEL_04, LEVEL_05]:
 		await _load(scene)
-		assert_true(_last_notice == _level.title, "Debe anunciar '%s'" % _level.title)
+		await wait_physics_frames(TITLE_FRAMES)
+		assert_true(_last_title == _level.title, "Debe anunciar '%s'" % _level.title)
 		_level.free()
 		_level = null
 
@@ -131,6 +134,6 @@ func _flat_distance(a: Vector3, b: Vector3) -> float:
 	return Vector2(a.x - b.x, a.z - b.z).length()
 
 
-## Guarda el último aviso.
-func _on_notice(text: String) -> void:
-	_last_notice = text
+## Guarda el último nombre de nivel anunciado.
+func _on_title(text: String) -> void:
+	_last_title = text

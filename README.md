@@ -23,6 +23,7 @@ En [Releases](https://github.com/mateomerino14/socavon/releases) está el `.zip`
 - **Dos finales**, según si le pagas al Tío lo que pide.
 - **Presentación:**
   - menú principal con la mina de fondo;
+  - el nombre de cada nivel abajo a la izquierda y el objetivo arriba a la izquierda, con un aviso sonoro cuando cambia;
   - opciones (con calidad alta y volumen de música), pausa y créditos;
   - texturas escaneadas, iluminación global, niebla volumétrica y grano de película;
   - brazos de Mateo en primera persona y la cuadrilla en la cinemática del derrumbe;
