@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas del inventario: muestra la bolsa del jugador con lo que lleva, el objetivo y el ánimo del
-## Tío; pausa el juego y no se abre en una cinemática.
+## Pruebas del inventario: muestra la bolsa, el objetivo y el ánimo del Tío, y pausa el juego.
 
 const SCREEN_SCENE := preload("res://src/ui/inventory_screen/inventory_screen.tscn")
 const PLAYER_SCENE := preload("res://src/player/player.tscn")

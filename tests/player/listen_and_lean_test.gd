@@ -7,6 +7,10 @@ const ACTION_FRAMES := 45
 const OPEN_SPOT := Vector3(0.0, 0.05, -8.0)
 const NEAR_RIGHT_WALL := Vector3(1.0, 0.05, -11.5)
 const MIN_OPEN_LEAN := 0.3
+## Lo que se puede mover sin que cuente como avanzar.
+const STILL_TOLERANCE := 0.05
+## Mitad del ancho del túnel de prueba: ahí está la pared.
+const WALL_X := 1.5
 
 var _tunnel: Node3D
 var _player: Player
@@ -36,7 +40,7 @@ func test_listening_stops_movement_and_boosts_effects() -> void:
 	Input.action_press("move_forward")
 	await wait_physics_frames(ACTION_FRAMES)
 	var moved := ((_player.global_position - start) * Player.HORIZONTAL_PLANE).length()
-	assert_true(moved < 0.05, "No debe avanzar mientras escucha (avanzó %.2f m)" % moved)
+	assert_true(moved < STILL_TOLERANCE, "No debe avanzar mientras escucha (avanzó %.2f m)" % moved)
 	var effects_db := AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Efectos"))
 	assert_true(effects_db > 0.0, "Los efectos deben sonar más fuerte al escuchar")
 	Input.action_release("listen")
@@ -62,5 +66,5 @@ func test_lean_stops_at_wall() -> void:
 	await wait_physics_frames(ACTION_FRAMES)
 	var head_x := _head.global_position.x
 	assert_true(
-		head_x < 1.5 - Player.LEAN_WALL_MARGIN / 2.0, "La cabeza no debe entrar en la pared"
+		head_x < WALL_X - Player.LEAN_WALL_MARGIN / 2.0, "La cabeza no debe entrar en la pared"
 	)

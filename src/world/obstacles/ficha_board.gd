@@ -1,8 +1,6 @@
 class_name FichaBoard
 extends Node3D
-## Tablero de la lampistería, con un gancho y un nombre por cada minero de la cuadrilla. Cada ficha
-## que se cuelga devuelve a uno de ellos y cuenta para la reja: con todas en su gancho, la reja sube
-## sola. Recuerda qué fichas ya se colgaron.
+## Tablero de la lampistería: cada ficha colgada cuenta para la reja, que sube con las siete.
 
 const FICHA_VISUAL := preload("res://src/items/visuals/ficha.tscn")
 const IRON := preload("res://src/world/materials/iron.tres")

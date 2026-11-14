@@ -1,7 +1,6 @@
 class_name HintCatalog
 extends RefCounted
-## Textos de los consejos de controles. Entre llaves van las acciones, separadas por "|", que
-## InputDevice cambia por su tecla o botón en el aparato con que se juega.
+## Textos de los consejos de controles, con las acciones entre llaves para InputDevice.
 
 const TEXTS: Dictionary[String, String] = {
 	"caminar":

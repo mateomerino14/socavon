@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas del mapa: la planta sale de las piezas del nivel, se dibuja solo lo recorrido, marca la
-## salida y los bloqueos, y pausa el juego mientras está abierto.
+## Pruebas del mapa: la planta, lo recorrido, las marcas y la pausa.
 
 const LEVEL_SCENE := preload("res://src/world/level_02/level_02.tscn")
 const SETTLE_FRAMES := 10

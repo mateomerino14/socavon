@@ -3,6 +3,12 @@ extends TestCase
 
 const LAMP_SCENE := preload("res://src/player/components/carbide_lamp.tscn")
 const SECOND := 1.0
+const MAX_FUEL := 10.0
+const FUEL_AFTER_MEDIUM := 9.0
+const FUEL_AFTER_HIGH := 7.2
+const DRAIN_SECONDS := 20.0
+const REFILL := 5.0
+const FLAME_STEPS := 5
 
 var _lamp: CarbideLamp
 
@@ -10,8 +16,8 @@ var _lamp: CarbideLamp
 ## Crea una lámpara con 10 segundos de carburo.
 func before_each() -> void:
 	_lamp = LAMP_SCENE.instantiate()
-	_lamp.max_fuel = 10.0
-	_lamp.starting_fuel = 10.0
+	_lamp.max_fuel = MAX_FUEL
+	_lamp.starting_fuel = MAX_FUEL
 	add_to_tree(_lamp)
 	_lamp.set_process(false)
 
@@ -24,29 +30,29 @@ func after_each() -> void:
 ## La llama alta gasta más que la media.
 func test_fuel_rate_depends_on_level() -> void:
 	_lamp.consume_fuel(SECOND)
-	assert_almost_eq(_lamp.fuel, 9.0, "La llama media debe gastar 1 por segundo")
+	assert_almost_eq(_lamp.fuel, FUEL_AFTER_MEDIUM, "La llama media debe gastar 1 por segundo")
 	_lamp.increase_level()
 	_lamp.consume_fuel(SECOND)
-	assert_almost_eq(_lamp.fuel, 7.2, "La llama alta debe gastar 1.8 por segundo")
+	assert_almost_eq(_lamp.fuel, FUEL_AFTER_HIGH, "La llama alta debe gastar 1.8 por segundo")
 
 
 ## Sin carburo se apaga y no se puede volver a encender.
 func test_turns_off_when_empty() -> void:
-	_lamp.consume_fuel(20.0 * SECOND)
+	_lamp.consume_fuel(DRAIN_SECONDS * SECOND)
 	assert_false(_lamp.is_lit, "Debe apagarse al quedarse sin carburo")
 	_lamp.toggle()
 	assert_false(_lamp.is_lit, "No debe encender sin carburo")
-	_lamp.add_fuel(5.0)
+	_lamp.add_fuel(REFILL)
 	_lamp.toggle()
 	assert_true(_lamp.is_lit, "Debe encender tras recargar")
 
 
 ## La llama no pasa de los niveles mínimo y máximo.
 func test_level_is_clamped() -> void:
-	for i in 5:
+	for i in FLAME_STEPS:
 		_lamp.increase_level()
 	assert_true(_lamp.level == CarbideLamp.MAX_LEVEL, "No debe pasar del nivel máximo")
-	for i in 5:
+	for i in FLAME_STEPS:
 		_lamp.decrease_level()
 	assert_true(_lamp.level == CarbideLamp.MIN_LEVEL, "No debe bajar del nivel mínimo")
 

@@ -1,7 +1,6 @@
 class_name Lever
 extends Node3D
-## Palanca de hierro en la pared. Al bajarla suena un golpe metálico que el Tío oye y cuenta para su
-## reja. Recuerda si ya se bajó.
+## Palanca de hierro: al bajarla suena un golpe que el Tío oye y cuenta para su reja.
 
 const PULL_PROMPT := "Bajar la palanca"
 const DONE_PROMPT := "La palanca ya está abajo"

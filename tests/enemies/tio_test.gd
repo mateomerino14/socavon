@@ -25,6 +25,10 @@ const WALL_SIZE := Vector3(0.2, 2.0, 3.0)
 ## Metros que un Tío puede moverse mientras otro asusta, como mucho.
 const HOLD_TOLERANCE := 0.05
 const HOLD_FRAMES := 30
+const NOISE_OFFSET := Vector3(-6.0, 0.0, 0.0)
+const FAR_NOISE_OFFSET := Vector3(-8.0, 0.0, 0.0)
+## A 2 metros el presentimiento pasa de este valor.
+const CLOSE_DREAD := 0.7
 
 var _tunnel: Node3D
 var _tio: Tio
@@ -55,7 +59,7 @@ func after_each() -> void:
 func test_loud_noise_makes_him_investigate() -> void:
 	await wait_physics_frames(SETTLE_FRAMES)
 	var start_x := _tio.global_position.x
-	EventBus.noise_emitted.emit(_tio.global_position + Vector3(-6.0, 0.0, 0.0), LOUD)
+	EventBus.noise_emitted.emit(_tio.global_position + NOISE_OFFSET, LOUD)
 	assert_true(_tio.state == Tio.State.SUSPICION, "Debe pasar a sospecha")
 	await wait_physics_frames(FRAMES_PER_SECOND)
 	assert_true(_tio.global_position.x < start_x, "Debe caminar hacia el ruido")
@@ -139,8 +143,10 @@ func _on_player_caught() -> void:
 func test_dread_rises_when_tio_is_near() -> void:
 	var dread_sense: DreadSense = _player.get_node("DreadSense")
 	assert_almost_eq(dread_sense.update_dread(), 0.0, "Lejos del Tío no debe haber presentimiento")
-	_player.global_position = _tio.global_position + Vector3(-2.0, 0.0, 0.0)
-	assert_true(dread_sense.update_dread() > 0.7, "A 2 metros el presentimiento debe ser fuerte")
+	_player.global_position = _tio.global_position + CLOSE_OFFSET
+	assert_true(
+		dread_sense.update_dread() > CLOSE_DREAD, "A 2 metros el presentimiento debe ser fuerte"
+	)
 
 
 ## Al caminar, sus pasos suenan.
@@ -149,7 +155,7 @@ func test_steps_play_while_walking() -> void:
 	var played := [false]
 	audio.finished.connect(func() -> void: played[0] = true)
 	await wait_physics_frames(SETTLE_FRAMES)
-	EventBus.noise_emitted.emit(_tio.global_position + Vector3(-8.0, 0.0, 0.0), LOUD)
+	EventBus.noise_emitted.emit(_tio.global_position + FAR_NOISE_OFFSET, LOUD)
 	var heard := false
 	for i in PATROL_SECONDS * FRAMES_PER_SECOND:
 		await tree.physics_frame

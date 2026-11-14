@@ -6,6 +6,8 @@ const FAST_SECONDS := 0.05
 const SETTLE_FRAMES := 10
 const SEQUENCE_FRAMES := 40
 const CLOSE_OFFSET := Vector3(-0.8, 0.05, 0.0)
+const LONG_SETTLE := 3
+const STILL_TOLERANCE := 0.05
 
 var _tunnel: Node3D
 var _player: Player
@@ -54,7 +56,7 @@ func test_controls_are_disabled_while_dead() -> void:
 	_player.set_controls_enabled(false)
 	var start := _player.global_position
 	Input.action_press("move_forward")
-	await wait_physics_frames(SETTLE_FRAMES * 3)
+	await wait_physics_frames(SETTLE_FRAMES * LONG_SETTLE)
 	Input.action_release("move_forward")
 	var moved := (_player.global_position - start) * Player.HORIZONTAL_PLANE
-	assert_true(moved.length() < 0.05, "No debe moverse sin controles")
+	assert_true(moved.length() < STILL_TOLERANCE, "No debe moverse sin controles")

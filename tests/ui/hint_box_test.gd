@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas de los consejos de controles: se muestran uno a la vez y una sola vez, esperan mientras
-## el HUD está oculto, se pueden apagar y la tabla de controles nombra cada acción.
+## Pruebas de los consejos de controles y de la tabla de controles.
 
 const HINT_BOX_SCENE := preload("res://src/ui/hints/hint_box.tscn")
 const CONTROLS_SCENE := preload("res://src/ui/controls_panel/controls_panel.tscn")

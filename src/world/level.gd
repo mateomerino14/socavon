@@ -1,7 +1,6 @@
 class_name Level
 extends Node3D
-## Raíz de cada nivel: arranca o restaura la partida, la guarda en cada punto, anuncia su nombre y
-## da el primer objetivo. Si se llega desde un tránsito, el nivel aparece desde el negro.
+## Raíz de cada nivel: arranca o restaura la partida, la guarda y presenta su nombre y su objetivo.
 
 ## Segundos que tarda en aclararse la pantalla al llegar desde un tránsito.
 const ARRIVAL_FADE_SECONDS := 1.5

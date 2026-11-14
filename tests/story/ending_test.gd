@@ -9,6 +9,8 @@ const SCREEN_FRAMES := 30
 const AMBUSH_REACH := 2.5
 ## Coseno del ángulo máximo entre la mirada de Mateo y el Tío.
 const FACING_DOT := 0.7
+## El Tío queda tan lejos que no puede alcanzar al jugador.
+const FAR_AWAY := 30.0
 
 var _level: Level
 var _player: Player
@@ -74,7 +76,7 @@ func test_exit_shows_matching_ending() -> void:
 	var screen: EndingScreen = _level.get_node("EndingScreen")
 	_speed_up(exit, screen)
 	GameState.has_paid = true
-	_tio.global_position = _player.global_position + Vector3.FORWARD * 30.0
+	_tio.global_position = _player.global_position + Vector3.FORWARD * FAR_AWAY
 	_player.global_position = exit.global_position
 	await wait_physics_frames(SCREEN_FRAMES)
 	assert_true(exit.is_used, "La bocamina debe activarse")

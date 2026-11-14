@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas de los encuentros con el Tío: la emboscada lo trae a cazar una sola vez y la aparición
-## cruza el túnel y se pierde sin cazar.
+## Pruebas de los encuentros con el Tío: la emboscada caza una vez y la aparición no caza.
 
 const TUNNEL_SCENE := preload("res://src/world/test_tunnel/test_tunnel.tscn")
 const AMBUSH_SCENE := preload("res://src/enemies/encounters/tio_ambush.tscn")

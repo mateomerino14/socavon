@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas del HUD: la bolsa se escribe con mayúscula solo al inicio de cada nombre, en los sustos
-## no queda a la vista lo que se puede usar y se anuncian el nombre del nivel y el objetivo.
+## Pruebas del HUD: la bolsa, lo que se puede usar, el nombre del nivel y el objetivo.
 
 const HUD_SCENE := preload("res://src/ui/hud/hud.tscn")
 const LEAVE_PROMPT := "Salir del escondite"

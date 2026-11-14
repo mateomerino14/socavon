@@ -1,8 +1,6 @@
 class_name IntroCinematic
 extends Node3D
 ## Cinemática del derrumbe: la orden de Faustino, el temblor, el grito de Rosendo y el despertar.
-## La cuadrilla está frente a la cámara: Faustino habla, todos se cubren al temblar y, cuando vuelve
-## la luz, Mateo está solo.
 
 const OPAQUE := 1.0
 const CLEAR := 0.0

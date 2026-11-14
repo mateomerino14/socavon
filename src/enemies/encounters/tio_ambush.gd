@@ -1,7 +1,6 @@
 class_name TioAmbush
 extends Area3D
-## Emboscada: cuando el jugador cruza la zona, el Tío aparece de golpe en un punto y sale a cazarlo,
-## con un golpe de susto. Pasa una sola vez y no se repite al continuar la partida.
+## Emboscada: al cruzar la zona, el Tío aparece de golpe y sale a cazar, una sola vez.
 
 ## Marca con que se recuerda que ya pasó; única en el nivel.
 @export var done_id := ""

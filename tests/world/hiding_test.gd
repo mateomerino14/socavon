@@ -7,6 +7,10 @@ const SENSE_FRAMES := 5
 const FRAMES_PER_SECOND := 60
 const SEARCH_SECONDS := 8
 const FACING_WEST := Vector3(0.0, PI / 2.0, 0.0)
+const INSIDE_TOLERANCE := 0.1
+const OUTSIDE_TOLERANCE := 0.3
+const FACING_DISTANCE := 5.0
+const BESIDE_OFFSET := Vector3(4.0, 0.0, 0.0)
 
 var _tunnel: Node3D
 var _player: Player
@@ -41,12 +45,12 @@ func test_hide_and_leave() -> void:
 	await wait_physics_frames(HIDE_FRAMES)
 	assert_true(_player.is_hidden, "Al terminar la animación queda escondido")
 	var inside := _player.global_position.distance_to(_niche.get_hide_transform().origin)
-	assert_true(inside < 0.1, "Debe quedar en el punto del escondite")
+	assert_true(inside < INSIDE_TOLERANCE, "Debe quedar en el punto del escondite")
 	_player.leave_hiding()
 	await wait_physics_frames(HIDE_FRAMES)
 	assert_true(_player.hiding_spot == null, "Debe salir del escondite")
 	var outside := _player.global_position.distance_to(_niche.get_exit_transform().origin)
-	assert_true(outside < 0.3, "Debe quedar en la salida del escondite")
+	assert_true(outside < OUTSIDE_TOLERANCE, "Debe quedar en la salida del escondite")
 
 
 ## Escondido y a oscuras, el Tío no lo ve aunque esté cerca.
@@ -77,7 +81,7 @@ func test_tio_passing_by_does_not_catch() -> void:
 
 ## Si lo vio entrar, lo saca del escondite.
 func test_tio_who_saw_you_hide_catches_you() -> void:
-	_place_tio_facing_niche(5.0)
+	_place_tio_facing_niche(FACING_DISTANCE)
 	_player.global_position = _niche.get_exit_transform().origin
 	await wait_physics_frames(SENSE_FRAMES)
 	assert_true(_tio.state == Tio.State.HUNT, "Debe estar cazando antes de que se esconda")
@@ -91,7 +95,7 @@ func test_search_checks_hiding_spots() -> void:
 	_lamp.set_lit(false)
 	await _hide_unseen()
 	_tio.spot_check_chance = 1.0
-	_tio.global_position = _niche.get_exit_transform().origin + Vector3(4.0, 0.0, 0.0)
+	_tio.global_position = _niche.get_exit_transform().origin + BESIDE_OFFSET
 	EventBus.noise_emitted.emit(_niche.get_exit_transform().origin, 1.0)
 	_tio.set("_last_known_position", _niche.get_exit_transform().origin)
 	_tio.call("_enter_state", Tio.State.SEARCH)

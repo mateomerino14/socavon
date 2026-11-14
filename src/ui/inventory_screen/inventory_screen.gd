@@ -1,7 +1,6 @@
 class_name InventoryScreen
 extends CanvasLayer
-## Inventario: con Tab detiene el juego y muestra la bolsa con el dibujo de cada objeto, qué es y
-## para qué sirve, las herramientas que lleva, el objetivo y cómo está el Tío con el jugador.
+## Inventario: pausa y muestra la bolsa, para qué sirve cada cosa, el objetivo y el ánimo del Tío.
 
 const SLOT_SCENE := preload("res://src/ui/inventory_screen/inventory_slot.tscn")
 const OBJECTIVE_FORMAT := "Objetivo: %s"

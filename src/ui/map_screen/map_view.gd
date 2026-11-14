@@ -1,7 +1,6 @@
 class_name MapView
 extends Control
-## Dibujo del mapa: los túneles ya recorridos con tinta sobre papel, el jugador como una flecha y
-## marcas para altares, salida y lo que la tapa. El norte queda arriba.
+## Dibujo del mapa: túneles recorridos en tinta sobre papel, la flecha de Mateo y las marcas.
 
 enum Mark { ALTAR, EXIT, BLOCK }
 

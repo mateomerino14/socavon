@@ -1,6 +1,5 @@
 extends SceneTree
-## Dibuja el ícono de cada objeto para el inventario: su modelo iluminado como por una lámpara de
-## carburo, sobre fondo transparente, en assets/ui/items.
+## Dibuja el ícono de cada objeto para el inventario, con luz de lámpara y fondo transparente.
 ##
 ## Uso (necesita pantalla, no funciona con --headless):
 ## godot --path . --script res://tools/render_item_icons.gd
@@ -19,6 +18,9 @@ const KEY_ENERGY := 2.0
 const RIM_COLOR := Color(0.55, 0.62, 0.8)
 const RIM_ENERGY := 1.2
 const AMBIENT_ENERGY := 0.12
+## La luz principal baja desde arriba y un costado; el contraluz, desde atrás.
+const KEY_LIGHT_ROTATION := Vector3(-0.9, 0.5, 0.0)
+const RIM_LIGHT_ROTATION := Vector3(-0.3, PI + 0.4, 0.0)
 
 
 ## Dibuja los íconos uno tras otro y cierra.
@@ -64,12 +66,12 @@ func _studio() -> SubViewport:
 	var key := DirectionalLight3D.new()
 	key.light_color = KEY_COLOR
 	key.light_energy = KEY_ENERGY
-	key.rotation = Vector3(-0.9, 0.5, 0.0)
+	key.rotation = KEY_LIGHT_ROTATION
 	viewport.add_child(key)
 	var rim := DirectionalLight3D.new()
 	rim.light_color = RIM_COLOR
 	rim.light_energy = RIM_ENERGY
-	rim.rotation = Vector3(-0.3, PI + 0.4, 0.0)
+	rim.rotation = RIM_LIGHT_ROTATION
 	viewport.add_child(rim)
 	return viewport
 

@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas del estado de la partida: el objetivo solo se anuncia cuando cambia y una partida nueva
-## lo borra.
+## Pruebas del estado de la partida: el objetivo se anuncia solo al cambiar y se borra al empezar.
 
 const OBJECTIVE := "Busca la palanca de la compuerta"
 
