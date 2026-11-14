@@ -135,8 +135,7 @@ func take_carried_bag() -> Dictionary:
 	return bag
 
 
-## Empieza el nivel siguiente: guarda respeto, notas y pago; deja sin punto, objetivo ni
-## herramientas, que eran de la salida del nivel anterior.
+## Pasa al nivel siguiente: guarda respeto, notas y pago; olvida punto, objetivo y herramientas.
 func start_next_level() -> void:
 	checkpoint = Transform3D.IDENTITY
 	objective = ""

@@ -112,8 +112,7 @@ func labels_for(actions: Array[StringName], is_gamepad: bool) -> String:
 	return " ".join(names)
 
 
-## Cambia en un texto cada grupo de acciones entre llaves, separadas por "|", por sus teclas o
-## botones entre corchetes; por ejemplo "{map} abre el mapa" queda "[M] abre el mapa".
+## Cambia cada "{acción|acción}" de un texto por sus teclas o botones entre corchetes.
 func fill(template: String) -> String:
 	var parts := template.split("{")
 	var result := parts[0]

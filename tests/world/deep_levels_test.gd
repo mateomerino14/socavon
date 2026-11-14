@@ -105,8 +105,7 @@ func test_squad_level_has_two_tios() -> void:
 	assert_true(tios.size() == SQUAD_SIZE, "Debe haber dos Tíos (hay %d)" % tios.size())
 
 
-## Nivel 5: se llega a las siete fichas, al tablero, al altar y a la salida; un Tío ronda y la reja
-## pide todas las fichas.
+## Nivel 5: se llega a las fichas, al tablero, al altar y a la salida; la reja pide las siete.
 func test_sealed_level_has_seven_fichas() -> void:
 	await _load(LEVEL_05)
 	var fichas := _level.get_node("Fichas").get_children()
@@ -128,8 +127,7 @@ func test_sealed_level_has_seven_fichas() -> void:
 	assert_true(tios.size() == SEALED_SIZE, "Debe haber un Tío (hay %d)" % tios.size())
 
 
-## Nivel 5: agachado se llega por el gateadero hasta la ficha de Basilio; el Tío se queda quieto
-## para que no interrumpa.
+## Nivel 5: agachado se cruza el gateadero hasta la ficha de Basilio, con el Tío quieto.
 func test_player_crawls_to_hidden_ficha() -> void:
 	await _load(LEVEL_05)
 	_level.get_node("Tio").process_mode = Node.PROCESS_MODE_DISABLED
@@ -168,8 +166,7 @@ func _load(scene: PackedScene) -> void:
 	await wait_physics_frames(SETTLE_FRAMES)
 
 
-## Comprueba que hay camino desde el inicio hasta cada nodo; a un altar o al tablero se llega por
-## su frente.
+## Comprueba que hay camino a cada nodo; a un altar o al tablero se llega por su frente.
 func _assert_reachable(paths: Array[String]) -> void:
 	var map := _level.get_world_3d().navigation_map
 	for path in paths:

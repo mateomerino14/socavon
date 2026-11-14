@@ -73,8 +73,7 @@ func test_skip_ends_quickly() -> void:
 	assert_true(_finished, "Saltado, el tránsito debe terminar")
 
 
-## Cada salida de los niveles 1 a 5 lleva su tránsito con voz, y el nivel siguiente tiene nombre y
-## objetivo para mostrar al llegar.
+## Cada salida lleva su tránsito con voz, y el nivel siguiente tiene nombre y objetivo.
 func test_every_exit_has_its_transition() -> void:
 	for number in LEVELS_WITH_EXIT:
 		var transition := _exit_property(number, &"transition") as TransitionData
