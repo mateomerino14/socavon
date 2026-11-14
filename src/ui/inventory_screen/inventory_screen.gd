@@ -1,11 +1,13 @@
 class_name InventoryScreen
 extends CanvasLayer
 ## Inventario: con Tab detiene el juego y muestra la bolsa con el dibujo de cada objeto, qué es y
-## para qué sirve, el objetivo actual y cómo está el Tío con el jugador.
+## para qué sirve, las herramientas que lleva, el objetivo y cómo está el Tío con el jugador.
 
 const SLOT_SCENE := preload("res://src/ui/inventory_screen/inventory_slot.tscn")
 const OBJECTIVE_FORMAT := "Objetivo: %s"
 const NO_OBJECTIVE := "Objetivo: explora la mina"
+const TOOLS_FORMAT := "Llevas %s"
+const LIST_SEPARATOR := ", "
 ## Cómo está el Tío según el respeto, de menos a más: el primer umbral que no supera el respeto.
 const RESPECT_MOODS: Array[Array] = [
 	[25.0, "El Tío está furioso contigo"],
@@ -24,6 +26,7 @@ var _is_hud_visible := true
 @onready var _slot_row: HBoxContainer = %SlotRow
 @onready var _objective_label: Label = %ObjectiveLabel
 @onready var _respect_label: Label = %RespectLabel
+@onready var _tools_label: Label = %ToolsLabel
 @onready var _detail_name: Label = %DetailName
 @onready var _detail_description: Label = %DetailDescription
 @onready var _detail_use: Label = %DetailUse
@@ -99,6 +102,8 @@ func _refresh() -> void:
 	if not GameState.objective.is_empty():
 		_objective_label.text = OBJECTIVE_FORMAT % GameState.objective
 	_respect_label.text = mood_for(GameState.respect)
+	_tools_label.visible = not GameState.tools.is_empty()
+	_tools_label.text = TOOLS_FORMAT % LIST_SEPARATOR.join(GameState.tools)
 	_select(maxi(first_owned, 0))
 
 

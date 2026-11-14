@@ -98,6 +98,12 @@ layout_mode = 2
 label_settings = SubResource("LabelSettings_objective")
 autowrap_mode = 3
 
+[node name="ToolsLabel" type="Label" parent="Panel/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_mood")
+autowrap_mode = 3
+
 [node name="Line" type="HSeparator" parent="Panel/Column"]
 layout_mode = 2
 

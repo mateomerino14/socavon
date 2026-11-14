@@ -17,6 +17,11 @@ var read_notes := PackedStringArray()
 var has_paid := false
 ## Lo que el jugador tiene que hacer ahora.
 var objective := ""
+## Herramientas que lleva para abrir la salida del nivel (dinamita, una llave), por su nombre.
+var tools := PackedStringArray()
+## Lo que ya pasó en el nivel y no se deshace al reaparecer o continuar: rejas abiertas, palancas
+## bajadas, derrumbes volados.
+var done := PackedStringArray()
 
 ## Bolsa que lleva el jugador al nivel siguiente, mientras cruza de uno a otro.
 var _carried_bag := {}
@@ -59,6 +64,34 @@ func set_objective(text: String) -> void:
 	EventBus.objective_changed.emit(text)
 
 
+## Recoge una herramienta.
+func add_tool(tool_name: String) -> void:
+	if not has_tool(tool_name):
+		tools.append(tool_name)
+
+
+## Dice si lleva esa herramienta.
+func has_tool(tool_name: String) -> bool:
+	return tools.has(tool_name)
+
+
+## Gasta una herramienta, por ejemplo al encender la dinamita.
+func use_tool(tool_name: String) -> void:
+	if has_tool(tool_name):
+		tools.remove_at(tools.find(tool_name))
+
+
+## Anota que algo del nivel ya pasó.
+func mark_done(event_id: String) -> void:
+	if not is_done(event_id):
+		done.append(event_id)
+
+
+## Dice si algo del nivel ya pasó.
+func is_done(event_id: String) -> bool:
+	return done.has(event_id)
+
+
 ## Guarda la bolsa para el nivel siguiente: el próximo nivel sigue la partida en vez de empezarla.
 func carry_to_next_level(bag: Dictionary) -> void:
 	_carried_bag = bag.duplicate()
@@ -78,10 +111,13 @@ func take_carried_bag() -> Dictionary:
 	return bag
 
 
-## Empieza el nivel siguiente: guarda respeto, notas y pago, y deja sin punto ni objetivo.
+## Empieza el nivel siguiente: guarda respeto, notas y pago; deja sin punto, objetivo ni
+## herramientas, que eran de la salida del nivel anterior.
 func start_next_level() -> void:
 	checkpoint = Transform3D.IDENTITY
 	objective = ""
+	tools.clear()
+	done.clear()
 
 
 ## Vuelve al estado de una partida nueva.
@@ -91,6 +127,8 @@ func reset() -> void:
 	read_notes.clear()
 	has_paid = false
 	objective = ""
+	tools.clear()
+	done.clear()
 	_carried_bag = {}
 	_is_carrying = false
 	respect_changed.emit(respect)
