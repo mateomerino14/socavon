@@ -36,7 +36,7 @@
 [ext_resource type="Resource" path="res://src/story/voices/faustino_llamado.tres" id="32_faustino_llamado"]
 [ext_resource type="Resource" path="res://src/story/voices/tio_cuadrilla.tres" id="33_tio_cuadrilla"]
 [ext_resource type="Resource" path="res://src/story/voices/mateo_dos.tres" id="34_mateo_dos"]
-[ext_resource type="Resource" path="res://src/story/transition/hacia_bocamina.tres" id="35_transition"]
+[ext_resource type="Resource" path="res://src/story/transition/hacia_siete.tres" id="35_transition"]
 [ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_corner.tscn" id="36_tunnel_corne"]
 [ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_t.tscn" id="37_tunnel_t"]
 [ext_resource type="PackedScene" path="res://src/world/obstacles/gate.tscn" id="38_gate"]
@@ -264,7 +264,7 @@ patrol_points = [NodePath("../PatrolPoints/TioShadowWest"), NodePath("../PatrolP
 
 [node name="LevelExit" parent="." instance=ExtResource("16_level_exit")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -62)
-message = "Subiendo hacia la bocamina..."
+message = "Entrando a la galería sellada..."
 next_level_path = "res://src/world/level_05/level_05.tscn"
 transition = ExtResource("35_transition")
 
