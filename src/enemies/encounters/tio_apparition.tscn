@@ -1,0 +1,57 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/enemies/encounters/tio_apparition.gd" id="1_apparition"]
+[ext_resource type="PackedScene" path="res://assets/models/tio/tio.gltf" id="2_tio"]
+[ext_resource type="AudioStream" path="res://assets/audio/tio_sting.wav" id="3_sting"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_1.wav" id="4_step1"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_2.wav" id="5_step2"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_3.wav" id="6_step3"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep_rock_4.wav" id="7_step4"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_steps"]
+random_pitch = 1.1
+streams_count = 4
+stream_0/stream = ExtResource("4_step1")
+stream_1/stream = ExtResource("5_step2")
+stream_2/stream = ExtResource("6_step3")
+stream_3/stream = ExtResource("7_step4")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trigger"]
+size = Vector3(3, 2.6, 1.5)
+
+[node name="TioApparition" type="Node3D"]
+script = ExtResource("1_apparition")
+
+[node name="Trigger" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+shape = SubResource("BoxShape3D_trigger")
+
+[node name="Model" parent="." instance=ExtResource("2_tio")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -10)
+
+[node name="EyeGlow" type="OmniLight3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, -0.6)
+light_color = Color(1, 0.25, 0.1, 1)
+light_energy = 0.5
+omni_range = 2.0
+
+[node name="Steps" type="AudioStreamPlayer3D" parent="Model"]
+stream = SubResource("AudioStreamRandomizer_steps")
+volume_db = 4.0
+unit_size = 6.0
+bus = &"Efectos"
+
+[node name="Goal" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -10)
+
+[node name="Sting" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_sting")
+volume_db = -3.0
+bus = &"Efectos"
+
+[node name="StepTimer" type="Timer" parent="."]
