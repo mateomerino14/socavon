@@ -1,7 +1,6 @@
 class_name Hud
 extends CanvasLayer
-## HUD mínimo: barras de carburo y aliento, acción al frente, avisos, bolsa y subtítulos; el nombre
-## del nivel abajo a la izquierda y el objetivo arriba a la izquierda, anunciado con un sonido.
+## HUD: barras, acción al frente, avisos, bolsa, subtítulos, nombre del nivel y objetivo.
 
 const FULL_RATIO := 0.995
 const SHOWN_ALPHA := 1.0

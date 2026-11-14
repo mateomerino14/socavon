@@ -1,6 +1,5 @@
 extends Node
-## Estado de la partida (autoload "GameState"): respeto, guardado, notas leídas, pago al Tío y
-## objetivo actual. Al pasar de nivel se conservan el respeto, las notas y la bolsa.
+## Estado de la partida (autoload "GameState"): respeto, guardado, notas, pago, objetivo y nivel.
 
 signal respect_changed(value: float)
 ## Se guardó un punto de reaparición; la partida en disco se actualiza.

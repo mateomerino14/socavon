@@ -1,7 +1,6 @@
 class_name Gate
 extends Node3D
-## Reja de hierro que tapa un paso. Se abre con una llave, con sus palancas o cuando la historia lo
-## pide; al subir chirría tan fuerte que el Tío lo oye. Recuerda si ya se abrió.
+## Reja de hierro que tapa un paso: se abre con llave o palancas, chirría y recuerda si se abrió.
 
 const IRON := preload("res://src/world/materials/iron.tres")
 const BAR_COUNT := 8

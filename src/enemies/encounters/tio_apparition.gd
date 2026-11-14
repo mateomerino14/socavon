@@ -1,8 +1,6 @@
 class_name TioApparition
 extends Node3D
-## Aparición: cuando el jugador cruza la zona, el Tío se deja ver un momento cruzando al fondo del
-## túnel, con sus pasos y un golpe de susto, y se pierde en la oscuridad. No caza: solo asusta. Pasa
-## una sola vez y no se repite al continuar la partida.
+## Aparición: al cruzar la zona, el Tío cruza al fondo del túnel y se pierde, sin cazar.
 
 const WALK := &"walk"
 const BLEND_SECONDS := 0.2

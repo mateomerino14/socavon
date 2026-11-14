@@ -12,6 +12,7 @@ const LOUD := 1.0
 const HUNT_SECONDS := 4
 const FRAMES_PER_SECOND := 60
 const NEXT_LEVEL_FILE := "level_02.tscn"
+const FAR_NOISE_OFFSET := Vector3(-8.0, 0.0, 0.0)
 
 var _level: Level
 var _player: Player
@@ -76,7 +77,7 @@ func test_tio_cannot_reach_the_player() -> void:
 ## Aunque oiga un ruido fuerte, no sale de su galería.
 func test_tio_stays_sealed_after_noise() -> void:
 	await wait_physics_frames(SETTLE_FRAMES)
-	EventBus.noise_emitted.emit(_tio.global_position + Vector3(-8.0, 0.0, 0.0), LOUD)
+	EventBus.noise_emitted.emit(_tio.global_position + FAR_NOISE_OFFSET, LOUD)
 	await wait_physics_frames(HUNT_SECONDS * FRAMES_PER_SECOND)
 	assert_true(_tio.global_position.x > SEALED_GALLERY_MIN_X, "El Tío debe seguir en su galería")
 	assert_true(_tio.state != Tio.State.SUSPICION, "Debe rendirse al no poder llegar al ruido")

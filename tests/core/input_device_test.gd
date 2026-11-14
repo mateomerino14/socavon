@@ -1,6 +1,8 @@
 extends TestCase
-## Pruebas del aparato con que se juega: cambia con el teclado o el mando y nombra las teclas y los
-## botones de cada acción.
+## Pruebas del aparato con que se juega y de los nombres de teclas y botones.
+
+## Un roce del stick, por debajo de su zona muerta.
+const STICK_DRIFT := 0.1
 
 var _was_gamepad := false
 var _changes := 0
@@ -38,7 +40,7 @@ func test_ignores_stick_drift() -> void:
 	InputDevice.uses_gamepad = false
 	var motion := InputEventJoypadMotion.new()
 	motion.axis = JOY_AXIS_LEFT_X
-	motion.axis_value = 0.1
+	motion.axis_value = STICK_DRIFT
 	InputDevice._input(motion)
 	assert_false(InputDevice.uses_gamepad, "El roce del stick no cambia de aparato")
 

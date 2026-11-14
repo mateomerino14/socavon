@@ -1,6 +1,5 @@
 extends Node
-## Recuerda si el jugador juega con teclado y ratón o con mando (autoload "InputDevice") y dice con
-## qué tecla o botón se hace cada acción, para mostrarlo en pantalla tal como lo tiene configurado.
+## Aparato con que se juega (autoload "InputDevice") y nombre de la tecla o botón de cada acción.
 
 ## Cambió el aparato con que se juega.
 signal changed

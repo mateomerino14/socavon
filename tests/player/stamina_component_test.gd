@@ -2,6 +2,13 @@ extends TestCase
 ## Pruebas del aliento: gasto al correr, agotamiento y recuperación.
 
 const SECOND := 1.0
+const MAX_STAMINA := 100.0
+const DRAIN := 20.0
+const REGEN := 10.0
+const RECOVER_THRESHOLD := 30.0
+const AFTER_ONE_SECOND := 80.0
+const AFTER_REGEN := 90.0
+const EXHAUST_STEPS := 5
 
 var _stamina: StaminaComponent
 
@@ -9,11 +16,11 @@ var _stamina: StaminaComponent
 ## Crea un componente nuevo con valores fáciles de calcular.
 func before_each() -> void:
 	_stamina = StaminaComponent.new()
-	_stamina.max_stamina = 100.0
-	_stamina.drain_per_second = 20.0
-	_stamina.regen_per_second = 10.0
+	_stamina.max_stamina = MAX_STAMINA
+	_stamina.drain_per_second = DRAIN
+	_stamina.regen_per_second = REGEN
 	_stamina.regen_delay = 1.0
-	_stamina.recover_threshold = 30.0
+	_stamina.recover_threshold = RECOVER_THRESHOLD
 	add_to_tree(_stamina)
 	_stamina.set_physics_process(false)
 
@@ -27,7 +34,7 @@ func after_each() -> void:
 func test_sprinting_drains_stamina() -> void:
 	_stamina.set_draining(true)
 	_stamina.tick(SECOND)
-	assert_almost_eq(_stamina.current, 80.0, "Debe gastar 20 de aliento en un segundo")
+	assert_almost_eq(_stamina.current, AFTER_ONE_SECOND, "Debe gastar 20 de aliento en un segundo")
 
 
 ## Al agotarse no deja correr hasta recuperar el umbral.
@@ -49,14 +56,14 @@ func test_regeneration_waits_for_delay() -> void:
 	_stamina.tick(SECOND)
 	_stamina.set_draining(false)
 	_stamina.tick(0.5 * SECOND)
-	assert_almost_eq(_stamina.current, 80.0, "No debe recuperar durante la pausa")
+	assert_almost_eq(_stamina.current, AFTER_ONE_SECOND, "No debe recuperar durante la pausa")
 	_stamina.tick(0.5 * SECOND)
 	_stamina.tick(SECOND)
-	assert_almost_eq(_stamina.current, 90.0, "Tras la pausa debe recuperar 10 por segundo")
+	assert_almost_eq(_stamina.current, AFTER_REGEN, "Tras la pausa debe recuperar 10 por segundo")
 
 
 ## Gasta todo el aliento en pasos de un segundo.
 func _drain_completely() -> void:
-	for i in 5:
+	for i in EXHAUST_STEPS:
 		_stamina.set_draining(true)
 		_stamina.tick(SECOND)

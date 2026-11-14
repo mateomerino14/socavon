@@ -1,7 +1,6 @@
 class_name MapScreen
 extends CanvasLayer
-## Mapa: Mateo lo va dibujando mientras camina; con M detiene el juego y muestra los túneles que ya
-## recorrió, dónde está, los altares, la salida y lo que la tapa.
+## Mapa: pausa y muestra los túneles recorridos, dónde está Mateo, los altares y la salida.
 
 const OBJECTIVE_FORMAT := "Objetivo: %s"
 const TITLE_FORMAT := "Mapa · %s"

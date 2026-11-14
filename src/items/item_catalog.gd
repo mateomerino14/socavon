@@ -1,7 +1,6 @@
 class_name ItemCatalog
 extends RefCounted
-## Catálogo de objetos: tipos, nombres visibles, topes en la bolsa, valor como ofrenda y lo que el
-## inventario cuenta de cada uno.
+## Catálogo de objetos: tipos, nombres, topes en la bolsa, ofrendas y lo que cuenta el inventario.
 
 enum Type { NONE, CARBIDE, COCA, ALCOHOL, CIGARETTE, STONE }
 

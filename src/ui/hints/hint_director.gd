@@ -1,7 +1,6 @@
 class_name HintDirector
 extends Node
-## Pide los consejos que dependen de lo que pasa en el juego: los primeros pasos, la primera cosa
-## que se puede usar, los primeros objetos recogidos y la primera vez que el Tío caza.
+## Pide los consejos que dependen de lo que pasa en el juego, como recoger algo o que el Tío cace.
 
 const START_HINTS: Array[String] = ["caminar", "lampara"]
 const ITEM_HINTS: Dictionary[ItemCatalog.Type, String] = {

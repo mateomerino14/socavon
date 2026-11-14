@@ -1,7 +1,6 @@
 class_name MusicDirector
 extends Node
-## Música que sigue al Tío: calma mientras patrulla, tensión cuando sospecha de un ruido o te busca,
-## y el bombo cuando te caza. Con dos Tíos manda el que esté más cerca de atraparte.
+## Música que sigue al Tío: calma, tensión o persecución según el Tío que esté más cerca.
 
 enum Mood { CALM, TENSION, CHASE }
 

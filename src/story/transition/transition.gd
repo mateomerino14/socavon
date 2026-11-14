@@ -1,7 +1,6 @@
 class_name Transition
 extends Node3D
-## Tránsito entre niveles: Mateo cruza un socavón con su lámpara y dice lo que piensa; la pantalla
-## funde a negro y se carga el nivel siguiente, que muestra su nombre al empezar.
+## Tránsito entre niveles: Mateo cruza un socavón, dice lo que piensa y se carga el nivel siguiente.
 
 ## Termina el tránsito, visto entero o saltado.
 signal finished

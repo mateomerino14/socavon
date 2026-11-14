@@ -1,7 +1,6 @@
 class_name MineMap
 extends RefCounted
-## Planta de un nivel para el mapa: los huecos de cada pieza de túnel vistos desde arriba, como
-## rectángulos en el plano del suelo (x, z).
+## Planta de un nivel para el mapa: los huecos de cada pieza de túnel vistos desde arriba.
 
 const MINE_NODE := "Mine"
 const BOX_CORNERS: Array[Vector3] = [

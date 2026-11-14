@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas del tránsito entre niveles: Mateo camina, habla y se puede saltar. También que cada
-## salida tenga su tránsito, con voz, y que cada nivel tenga nombre y objetivo.
+## Pruebas del tránsito entre niveles y de que cada salida tenga el suyo, con voz.
 
 const TRANSITION_SCENE := preload("res://src/story/transition/transition.tscn")
 const LINE := preload("res://src/story/voices/mateo_transito_veta.tres")
