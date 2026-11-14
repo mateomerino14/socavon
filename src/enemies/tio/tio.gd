@@ -291,6 +291,14 @@ func _check_spot_catch(spot: HidingSpot) -> void:
 		_catch()
 
 
+## Aparece de golpe en un punto y sale a cazar al jugador; si lo pierde, busca como siempre.
+func ambush(from: Transform3D) -> void:
+	global_transform = from
+	velocity = Vector3.ZERO
+	_last_known_position = _player.global_position
+	_enter_state(State.HUNT)
+
+
 ## Sale tras el jugador y no se rinde aunque lo pierda de vista; se usa al huir sin pagar.
 func start_chase() -> void:
 	is_relentless = true

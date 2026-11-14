@@ -1,6 +1,6 @@
 """Sintetiza el rugido del Tío, materia prima del grito de captura que arma generate_voices.py, el
-aviso de nuevo objetivo (una campana metálica grave) y los sonidos de las salidas: reja que chirría,
-palanca que golpea, mecha que sisea y explosión de dinamita.
+aviso de nuevo objetivo (una campana metálica grave), los sonidos de las salidas (reja que chirría,
+palanca que golpea, mecha que sisea y explosión de dinamita) y el golpe de susto de las apariciones.
 
 Los demás sonidos de la mina salen de grabaciones reales: ver tools/audio/build_oga_sounds.py.
 
@@ -34,6 +34,9 @@ GATE_SECONDS = 2.4
 LEVER_SECONDS = 0.9
 FUSE_SECONDS = 1.0
 BLAST_SECONDS = 4.0
+STING_SECONDS = 3.0
+# Golpe de susto: cuerdas disonantes que suben de golpe sobre un bombo grave.
+STING_NOTES = [146.8, 155.6, 207.7, 220.0, 311.1]
 
 
 def write_wav(path, samples):
@@ -191,6 +194,25 @@ def blast(rng):
     return normalize(samples, 0.95)
 
 
+def sting(rng):
+    """Golpe de susto: un siseo que crece al revés y estalla en cuerdas disonantes con un bombo."""
+    swell_count = int(0.6 * SAMPLE_RATE)
+    swell = low_pass([rng.uniform(-1, 1) for _ in range(swell_count)], 0.5)
+    samples = [swell[i] * (i / swell_count) ** 3 * 0.5 for i in range(swell_count)]
+    phases = [rng.random() for _ in STING_NOTES]
+    for i in range(int(STING_SECONDS * SAMPLE_RATE)):
+        t = i / SAMPLE_RATE
+        strings = 0.0
+        for note, phase in zip(STING_NOTES, phases):
+            vibrato = 1.0 + 0.006 * math.sin(2 * math.pi * 5.5 * t + phase * 6)
+            saw = (note * vibrato * t + phase) % 1.0 * 2.0 - 1.0
+            strings += saw / len(STING_NOTES)
+        drum = math.sin(2 * math.pi * (60 - 20 * min(t, 0.5)) * t) * math.exp(-t * 6.0)
+        envelope = math.exp(-t * 1.4)
+        samples.append(math.tanh((strings * 0.9 * envelope + drum * 1.2) * 1.5))
+    return normalize(low_pass(samples, 0.35), 0.85)
+
+
 def main():
     """Genera el rugido en tools/audio_sources/ y los demás sonidos en assets/audio/."""
     write_wav(SOURCES_DIR / "tio_roar.wav", scream(random.Random(SEED)))
@@ -199,6 +221,7 @@ def main():
     write_wav(ASSETS_DIR / "lever_pull.wav", lever(random.Random(SEED)))
     write_wav(ASSETS_DIR / "fuse_hiss.wav", fuse(random.Random(SEED)))
     write_wav(ASSETS_DIR / "dynamite_blast.wav", blast(random.Random(SEED)))
+    write_wav(ASSETS_DIR / "tio_sting.wav", sting(random.Random(SEED)))
     print(f"Rugido en {SOURCES_DIR}; aviso de objetivo y sonidos de las salidas en {ASSETS_DIR}")
 
 
