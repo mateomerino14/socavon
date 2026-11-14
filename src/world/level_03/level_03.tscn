@@ -38,6 +38,11 @@
 [ext_resource type="Resource" path="res://src/story/voices/mateo_veta.tres" id="34_mateo_veta"]
 [ext_resource type="Resource" path="res://src/story/voices/faustino_eco.tres" id="35_faustino_eco"]
 [ext_resource type="Resource" path="res://src/story/transition/hacia_cuadrilla.tres" id="36_transition"]
+[ext_resource type="PackedScene" path="res://src/world/obstacles/gate.tscn" id="37_gate"]
+[ext_resource type="PackedScene" path="res://src/items/visuals/key.tscn" id="38_key"]
+[ext_resource type="PackedScene" path="res://src/items/tool_pickup/tool_pickup.tscn" id="39_tool_pickup"]
+[ext_resource type="PackedScene" path="res://src/story/objective_trigger/objective_trigger.tscn" id="40_objective_tr"]
+[ext_resource type="PackedScene" path="res://src/enemies/encounters/tio_ambush.tscn" id="41_tio_ambush"]
 
 [node name="Level03" type="Node3D"]
 script = ExtResource("1_level")
@@ -85,9 +90,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -16)
 
 [node name="VeinChamber" parent="Mine" instance=ExtResource("9_chamber")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -24)
-
-[node name="VeinCapWest" parent="Mine" instance=ExtResource("10_tunnel_cap")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -21.5, 0, -24)
 
 [node name="ExitStraight" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -32)
@@ -143,7 +145,7 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8, 0, -24)
 [node name="Veins" type="Node3D" parent="."]
 
 [node name="Vein1" parent="Veins" instance=ExtResource("11_silver_vein")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.98, 1.4, -22)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.98, 1.4, -20.2)
 
 [node name="Vein2" parent="Veins" instance=ExtResource("11_silver_vein")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -11.02, 1.6, -26)
@@ -333,3 +335,75 @@ lines = Array[ExtResource("32_voice_line")]([ExtResource("35_faustino_eco")])
 voice = NodePath("../FaustinoVoice")
 
 [node name="MusicDirector" parent="." instance=ExtResource("music_r")]
+
+[node name="OldHall" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -24, 0, -24)
+
+[node name="OldJunction" parent="Mine" instance=ExtResource("6_tunnel_t")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -28, 0, -24)
+
+[node name="OldNorth" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, -28)
+
+[node name="OldNorthEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, -32)
+
+[node name="OldCrawl" parent="Mine" instance=ExtResource("7_tunnel_crawl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, -20)
+
+[node name="OldNook" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -28, 0, -16)
+
+[node name="OldFrame1" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -23, 0, -24)
+
+[node name="OldFrame2" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, -27)
+
+[node name="OldFrame3" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, -31)
+
+[node name="Obstacles" type="Node3D" parent="."]
+
+[node name="ExitGate" parent="Obstacles" instance=ExtResource("37_gate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -30.6)
+done_id = "nivel3_candado"
+key_tool = "la llave del candado"
+locked_hint = "La reja tiene un candado"
+objective_after = "Sigue la voz de Don Faustino"
+
+[node name="Tools" type="Node3D" parent="."]
+
+[node name="PadlockKey" parent="Tools" instance=ExtResource("39_tool_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.3, 0, -31.9)
+tool_name = "la llave del candado"
+visual = ExtResource("38_key")
+objective_after = "Abre el candado de la salida"
+
+[node name="Objectives" type="Node3D" parent="."]
+
+[node name="PadlockSighted" parent="Objectives" instance=ExtResource("40_objective_tr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -27.5)
+objective = "La salida de la veta tiene candado: busca la llave en la galería vieja"
+after_objective = "Llega a la veta de plata"
+
+[node name="Encounters" type="Node3D" parent="."]
+
+[node name="VeinAmbush" parent="Encounters" node_paths=PackedStringArray("tio") instance=ExtResource("41_tio_ambush")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -24, 0, -24)
+done_id = "nivel3_emboscada"
+tio = NodePath("../../Tio")
+spawn_offset = Vector3(0, 0, 8)
+after_objective = "Abre el candado de la salida"
+
+[node name="Coca2" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4, 0, -15.6)
+item_type = 2
+
+[node name="Carbide3" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.6, 0, -16.2)
+item_type = 1
+
+[node name="Stone4" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.2, 0, -29.5)
+item_type = 5

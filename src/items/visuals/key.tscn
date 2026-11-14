@@ -18,6 +18,7 @@ material = ExtResource("1_iron")
 size = Vector3(0.012, 0.035, 0.025)
 
 [node name="KeyVisual" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="Ring" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.012, -0.09)
