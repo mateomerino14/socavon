@@ -24,6 +24,7 @@ func _on_body_entered(body: Node3D) -> void:
 	EventBus.notice_requested.emit(message)
 	if next_level_path.is_empty():
 		return
+	GameState.carry_to_next_level((body as Player).inventory.get_counts())
 	if transition:
 		Transition.go(get_tree(), transition, next_level_path)
 	else:

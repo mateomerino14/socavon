@@ -1,6 +1,6 @@
 extends Node
 ## Estado de la partida (autoload "GameState"): respeto, guardado, notas leídas, pago al Tío y
-## objetivo actual.
+## objetivo actual. Al pasar de nivel se conservan el respeto, las notas y la bolsa.
 
 signal respect_changed(value: float)
 ## Se guardó un punto de reaparición; la partida en disco se actualiza.
@@ -17,6 +17,10 @@ var read_notes := PackedStringArray()
 var has_paid := false
 ## Lo que el jugador tiene que hacer ahora.
 var objective := ""
+
+## Bolsa que lleva el jugador al nivel siguiente, mientras cruza de uno a otro.
+var _carried_bag := {}
+var _is_carrying := false
 
 
 ## Suma o resta respeto dentro de sus límites.
@@ -55,6 +59,31 @@ func set_objective(text: String) -> void:
 	EventBus.objective_changed.emit(text)
 
 
+## Guarda la bolsa para el nivel siguiente: el próximo nivel sigue la partida en vez de empezarla.
+func carry_to_next_level(bag: Dictionary) -> void:
+	_carried_bag = bag.duplicate()
+	_is_carrying = true
+
+
+## Dice si el nivel que se abre continúa desde el anterior.
+func is_carrying() -> bool:
+	return _is_carrying
+
+
+## Entrega la bolsa que viene del nivel anterior y la olvida.
+func take_carried_bag() -> Dictionary:
+	var bag := _carried_bag
+	_carried_bag = {}
+	_is_carrying = false
+	return bag
+
+
+## Empieza el nivel siguiente: guarda respeto, notas y pago, y deja sin punto ni objetivo.
+func start_next_level() -> void:
+	checkpoint = Transform3D.IDENTITY
+	objective = ""
+
+
 ## Vuelve al estado de una partida nueva.
 func reset() -> void:
 	respect = STARTING_RESPECT
@@ -62,4 +91,6 @@ func reset() -> void:
 	read_notes.clear()
 	has_paid = false
 	objective = ""
+	_carried_bag = {}
+	_is_carrying = false
 	respect_changed.emit(respect)
