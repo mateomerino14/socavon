@@ -84,6 +84,8 @@ func _restore(pending: Dictionary) -> void:
 	GameState.read_notes = pending["notas"]
 	GameState.tools = pending.get("herramientas", PackedStringArray())
 	GameState.done = pending.get("hechos", PackedStringArray())
+	for cell: Vector2i in pending.get("mapa", []):
+		GameState.explored[cell] = true
 	_fill_bag(pending["bolsa"])
 	var checkpoint: Transform3D = pending["punto"]
 	_player.respawn_at(checkpoint)

@@ -9,6 +9,9 @@ signal checkpoint_saved
 const MIN_RESPECT := 0.0
 const MAX_RESPECT := 100.0
 const STARTING_RESPECT := 50.0
+## Lado de cada celda del mapa y hasta dónde alumbra la lámpara al dibujarlo, en metros.
+const MAP_CELL := 2.0
+const MAP_REACH := 4.0
 
 var respect := STARTING_RESPECT
 var checkpoint := Transform3D.IDENTITY
@@ -22,6 +25,8 @@ var tools := PackedStringArray()
 ## Lo que ya pasó en el nivel y no se deshace al reaparecer o continuar: rejas abiertas, palancas
 ## bajadas, derrumbes volados.
 var done := PackedStringArray()
+## Celdas del nivel que el jugador ya recorrió, para el mapa.
+var explored := {}
 
 ## Bolsa que lleva el jugador al nivel siguiente, mientras cruza de uno a otro.
 var _carried_bag := {}
@@ -92,6 +97,25 @@ func is_done(event_id: String) -> bool:
 	return done.has(event_id)
 
 
+## Marca en el mapa lo que se alcanza a ver alrededor de un punto.
+func explore_around(point: Vector3) -> void:
+	var reach := ceili(MAP_REACH / MAP_CELL)
+	var center := map_cell(point)
+	for x in range(-reach, reach + 1):
+		for z in range(-reach, reach + 1):
+			explored[center + Vector2i(x, z)] = true
+
+
+## Dice si ya se vio la zona de ese punto.
+func is_explored(point: Vector3) -> bool:
+	return explored.has(map_cell(point))
+
+
+## Celda del mapa que contiene un punto.
+static func map_cell(point: Vector3) -> Vector2i:
+	return Vector2i(floori(point.x / MAP_CELL), floori(point.z / MAP_CELL))
+
+
 ## Guarda la bolsa para el nivel siguiente: el próximo nivel sigue la partida en vez de empezarla.
 func carry_to_next_level(bag: Dictionary) -> void:
 	_carried_bag = bag.duplicate()
@@ -118,6 +142,7 @@ func start_next_level() -> void:
 	objective = ""
 	tools.clear()
 	done.clear()
+	explored.clear()
 
 
 ## Vuelve al estado de una partida nueva.
@@ -129,6 +154,7 @@ func reset() -> void:
 	objective = ""
 	tools.clear()
 	done.clear()
+	explored.clear()
 	_carried_bag = {}
 	_is_carrying = false
 	respect_changed.emit(respect)

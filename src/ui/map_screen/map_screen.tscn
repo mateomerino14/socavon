@@ -1,0 +1,86 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/map_screen/map_screen.gd" id="1_screen"]
+[ext_resource type="Script" path="res://src/ui/map_screen/map_view.gd" id="2_view"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 30.0
+content_margin_top = 22.0
+content_margin_right = 30.0
+content_margin_bottom = 18.0
+bg_color = Color(0.06, 0.045, 0.035, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 0.45, 0.26, 0.7)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 28
+font_color = Color(0.92, 0.82, 0.62, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_objective"]
+font_size = 17
+font_color = Color(0.94, 0.9, 0.82, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hint"]
+font_size = 14
+font_color = Color(0.6, 0.55, 0.48, 1)
+
+[node name="MapScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 8
+script = ExtResource("1_screen")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.72)
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -320.0
+offset_right = 500.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Column" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MapTitle" type="Label" parent="Panel/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_title")
+
+[node name="MapObjective" type="Label" parent="Panel/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_objective")
+autowrap_mode = 3
+
+[node name="MapView" type="Control" parent="Panel/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2_view")
+
+[node name="Hint" type="Label" parent="Panel/Column"]
+layout_mode = 2
+text = "▲ Tú     ● Altar     ✕ Salida     ▬ Reja o derrumbe          [M] Cerrar"
+label_settings = SubResource("LabelSettings_hint")
+horizontal_alignment = 2
