@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/ui/map_screen/map_screen.gd" id="1_screen"]
 [ext_resource type="Script" path="res://src/ui/map_screen/map_view.gd" id="2_view"]
+[ext_resource type="Script" path="res://src/ui/key_hint_label.gd" id="k_hint"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 30.0
@@ -81,6 +82,7 @@ script = ExtResource("2_view")
 
 [node name="Hint" type="Label" parent="Panel/Column"]
 layout_mode = 2
-text = "▲ Tú     ● Altar     ✕ Salida     ▬ Reja o derrumbe          [M] Cerrar"
+script = ExtResource("k_hint")
+template = "▲ Tú     ● Altar     ✕ Salida     ▬ Reja o derrumbe          {map} Cerrar"
 label_settings = SubResource("LabelSettings_hint")
 horizontal_alignment = 2

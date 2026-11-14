@@ -43,6 +43,7 @@
 [ext_resource type="PackedScene" path="res://src/items/tool_pickup/tool_pickup.tscn" id="39_tool_pickup"]
 [ext_resource type="PackedScene" path="res://src/story/objective_trigger/objective_trigger.tscn" id="40_objective_tr"]
 [ext_resource type="PackedScene" path="res://src/enemies/encounters/tio_ambush.tscn" id="41_tio_ambush"]
+[ext_resource type="PackedScene" path="res://src/story/hint_trigger/hint_trigger.tscn" id="42_hint_trigger"]
 
 [node name="Level03" type="Node3D"]
 script = ExtResource("1_level")
@@ -407,3 +408,9 @@ item_type = 1
 [node name="Stone4" parent="Pickups" instance=ExtResource("14_pickup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.2, 0, -29.5)
 item_type = 5
+
+[node name="Hints" type="Node3D" parent="."]
+
+[node name="HintGatear" parent="Hints" instance=ExtResource("42_hint_trigger")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -2.5, 0, -8)
+hint_id = "gatear"

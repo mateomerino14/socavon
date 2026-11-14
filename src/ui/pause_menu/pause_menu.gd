@@ -8,15 +8,18 @@ var is_open := false
 
 @onready var _main_panel: Control = %MainPanel
 @onready var _options_panel: OptionsPanel = %OptionsPanel
+@onready var _controls_panel: ControlsPanel = %ControlsPanel
 
 
 ## Conecta los botones y arranca oculto.
 func _ready() -> void:
 	%ResumeButton.pressed.connect(close)
 	%OptionsButton.pressed.connect(_show_options)
+	%ControlsButton.pressed.connect(_show_controls)
 	%MenuButton.pressed.connect(_go_to_main_menu)
 	%QuitButton.pressed.connect(get_tree().quit)
 	_options_panel.back_requested.connect(_show_main)
+	_controls_panel.back_requested.connect(_show_main)
 	visible = false
 
 
@@ -51,6 +54,7 @@ func close() -> void:
 func _show_main() -> void:
 	_main_panel.visible = true
 	_options_panel.visible = false
+	_controls_panel.visible = false
 	%ResumeButton.grab_focus()
 
 
@@ -59,6 +63,13 @@ func _show_options() -> void:
 	_main_panel.visible = false
 	_options_panel.visible = true
 	_options_panel.refresh()
+
+
+## Muestra la tabla de controles.
+func _show_controls() -> void:
+	_main_panel.visible = false
+	_controls_panel.visible = true
+	_controls_panel.refresh()
 
 
 ## Quita la pausa y vuelve al menú principal; la partida queda en el último guardado.

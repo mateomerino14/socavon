@@ -52,3 +52,6 @@ signal level_title_requested(title: String)
 
 ## Cambió lo que el jugador tiene que hacer: el HUD lo anuncia arriba a la izquierda con un sonido.
 signal objective_changed(text: String)
+
+## Pide mostrar un consejo de controles, por su identificador en HintCatalog.
+signal hint_requested(id: String)

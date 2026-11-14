@@ -21,6 +21,7 @@ var _camera_origin: Vector3
 @onready var _curtain: ColorRect = %Curtain
 @onready var _main_panel: Control = %MainPanel
 @onready var _options_panel: OptionsPanel = %OptionsPanel
+@onready var _controls_panel: ControlsPanel = %ControlsPanel
 @onready var _credits_panel: Control = %CreditsPanel
 @onready var _continue_button: Button = %ContinueButton
 
@@ -33,10 +34,12 @@ func _ready() -> void:
 	_continue_button.pressed.connect(SaveGame.continue_game)
 	%NewGameButton.pressed.connect(SaveGame.new_game.bind(FIRST_LEVEL))
 	%OptionsButton.pressed.connect(_show_options)
+	%ControlsButton.pressed.connect(_show_controls)
 	%CreditsButton.pressed.connect(_show_credits)
 	%QuitButton.pressed.connect(get_tree().quit)
 	%CreditsBackButton.pressed.connect(_show_main)
 	_options_panel.back_requested.connect(_show_main)
+	_controls_panel.back_requested.connect(_show_main)
 	var players := find_children("*", "AnimationPlayer", true, false)
 	for player: AnimationPlayer in players:
 		player.get_animation(IDLE_ANIMATION).loop_mode = Animation.LOOP_LINEAR
@@ -59,6 +62,7 @@ func _process(delta: float) -> void:
 func _show_main() -> void:
 	_main_panel.visible = true
 	_options_panel.visible = false
+	_controls_panel.visible = false
 	_credits_panel.visible = false
 	if _continue_button.disabled:
 		%NewGameButton.grab_focus()
@@ -71,6 +75,13 @@ func _show_options() -> void:
 	_main_panel.visible = false
 	_options_panel.visible = true
 	_options_panel.refresh()
+
+
+## Muestra la tabla de controles.
+func _show_controls() -> void:
+	_main_panel.visible = false
+	_controls_panel.visible = true
+	_controls_panel.refresh()
 
 
 ## Muestra los créditos.
