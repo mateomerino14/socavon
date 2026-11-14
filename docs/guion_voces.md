@@ -49,10 +49,12 @@ Para el Tío sirve una voz grave y lenta; luego se le puede bajar el tono en Aud
 
 ## Voces provisionales
 
-Mientras no haya grabaciones, `tools/generate_voices.py` crea todas las líneas con voces mexicanas de Piper en alta calidad (`es_MX-claude-high` para Mateo y Wilmer, `es_MX-ald-medium` para Rosendo, Don Faustino y el Tío) y las actúa. En `DIRECTION` cada línea se parte en tramos con su emoción:
+Mientras no haya grabaciones, `tools/generate_voices.py` crea todas las líneas con Chatterbox Multilingual:
 
-- **Humanos**: gritar, pánico (rápido, agudo, temblando y saturado), susurro con miedo, llamar a lo lejos, burla, voz de fantasma (Wilmer). También respiraciones antes de hablar.
-- **El Tío**: susurro pegado al oído con un rumor grave, gruñido de tres capas (grave, una octava abajo y siseo), risa temblorosa y rugido casi gritado. Suele empezar en susurro y estallar, con silencio antes del golpe.
-- El grito de captura (`tio_scream.wav`) mezcla al Tío gritando con el rugido sintético `tio_roar.wav` de `tools/generate_sounds.py`.
+- **Una toma entera por línea:** cada frase se dice de una vez, con la emoción que le da `DIRECTION` (calma, firmeza, inquietud, miedo, llamado, pánico, fantasma, amenaza, risa o rugido), así la entonación no se corta.
+- **Timbre de cada personaje:** Chatterbox imita una muestra corta de cada uno, en `tools/audio_sources/voice_refs` (se arman con `tools/audio/build_voice_refs.py`): Mateo joven, Don Faustino mayor, Rosendo y Wilmer con otras voces y el Tío grave.
+- **Revisión:** Whisper transcribe cada toma y, si no se entiende el texto, se pide otra (hasta cinco) y se queda la mejor. Las palabras que Chatterbox no sabe decir van escritas como suenan en `SPOKEN` (por ejemplo, "wawa" se dice "guagua"); el subtítulo no cambia.
+- **Eco:** los humanos llevan el eco del socavón y Wilmer uno lejano y repetido. Al Tío se le baja el tono, se le suma una voz mucho más grave debajo y lleva un eco corto: con ecos largos sus palabras dejan de entenderse.
+- El grito de captura (`tio_scream.wav`) mezcla al Tío rugiendo con el rugido sintético `tio_roar.wav` de `tools/generate_sounds.py`.
 
 Para cambiar una línea por una grabación real, guarda el archivo con el mismo nombre en `assets/audio/voices/`.

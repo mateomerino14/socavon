@@ -9,9 +9,10 @@ Personajes y animaciones
 Mateo, Rosendo y Don Faustino se armaron con MakeHuman (makehumancommunity.org), con recursos CC0. Se mueven con la Universal Animation Library de Quaternius (quaternius.com), CC0.
 
 Voces
-Sintetizadas con Piper (github.com/rhasspy/piper):
-- ald, español de México, dominio público.
-- claude, español de México, de HirCoir, licencia Apache 2.0.
+Sintetizadas con Chatterbox Multilingual de Resemble AI (github.com/resemble-ai/chatterbox), licencia MIT. Chatterbox marca sus audios con una marca de agua inaudible.
+Las muestras de timbre que imita salen de:
+- Kokoro de hexgrad (voces em_alex y em_santa), licencia Apache 2.0.
+- Piper (github.com/rhasspy/piper): voz ald, español de México, dominio público, y voz claude, español de México, de HirCoir, licencia Apache 2.0.
 
 Sonidos y música
 Grabaciones de OpenGameArt (opengameart.org), dominio público (CC0), de TinyWorlds, rubberduck, Independent.nu, StarNinjas, Musheran y JaggedStone.
