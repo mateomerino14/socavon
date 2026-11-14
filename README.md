@@ -48,7 +48,11 @@ Desde el cruce hay dos caminos a la cámara de la veta de plata. El oeste es un 
 
 Hay dos Tíos: uno en el cruce de los ramales y otro en la cámara del norte. En el ramal oeste está el pañuelo de Rosendo; en el este, la confesión de Don Faustino, que le ofreció al Tío uno de los suyos para salir él. Su voz te llama desde ahí. Rosendo deja la pista del final: "paga tú, con lo que tengas, pero paga. Coca, trago y cigarro".
 
-### Nivel 5: La bocamina
+### Nivel 5: Los siete
+
+La galería que tapiaron en 1975 con la cuadrilla adentro. En la lampistería, junto a la reja de la galería sellada, hay un tablero con siete ganchos vacíos y siete nombres. Las fichas de bronce de los siete están repartidas por las alas oeste y este, una de ellas pasando un gateadero y otra en el agua por donde se fue Severino. Cada ficha que cuelgas devuelve a uno de ellos; con las siete en su gancho, la reja sube sola. Un Tío ronda las dos alas y aparece de golpe en el lazo del este.
+
+### Nivel 6: La bocamina
 
 El último altar no acepta ofrendas sueltas: el Tío cobra coca, alcohol y cigarro juntos. Están repartidos en los ramales que él vigila.
 
@@ -117,7 +121,7 @@ src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, 
 src/enemies/   El Tío y sus componentes (oído, vista, voz, pasos, animación)
 src/items/     Catálogo de objetos, objetos recogibles con su modelo e Interactable
 src/story/     Notas, voces, cinemáticas, tránsitos entre niveles y el final (altar, persecución, bocamina)
-src/world/     Los cinco niveles, piezas modulares, altar, agua, escondites, soportes y materiales
+src/world/     Los seis niveles, piezas modulares, altar, agua, escondites, soportes y materiales
 src/ui/        Menú principal, HUD, pausa, opciones, visor de notas, pantalla de muerte y tema visual
 tests/         Pruebas automáticas, en carpetas que reflejan src/
 tools/         Generadores (Blender, sonidos, voces, malla de navegación) y buscador de código sin uso

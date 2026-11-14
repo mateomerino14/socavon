@@ -1,7 +1,7 @@
 extends TestCase
 ## Pruebas del final: el pago al Tío, la persecución al huir sin pagar y el final que toca.
 
-const LEVEL_SCENE := preload("res://src/world/level_05/level_05.tscn")
+const LEVEL_SCENE := preload("res://src/world/level_06/level_06.tscn")
 const SETTLE_FRAMES := 20
 const SENSE_FRAMES := 5
 const FAST_SECONDS := 0.05

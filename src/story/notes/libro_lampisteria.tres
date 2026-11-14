@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="NoteData" format=3]
+
+[ext_resource type="Script" path="res://src/story/note_data.gd" id="1_note"]
+
+[resource]
+script = ExtResource("1_note")
+id = "libro_lampisteria"
+title = "Libro de la lampistería"
+signature = "Lampistería del nivel cerrado, 14 de marzo de 1975"
+body = "Turno de noche. Bajaron siete: se entregaron siete lámparas y siete fichas.
+Subieron: ninguno.
+
+Las fichas no volvieron al tablero. Mientras una ficha no vuelva a su gancho, para la mina ese hombre sigue adentro.
+
+Don Justo decía que el Tío no suelta a nadie que no haya marcado su salida."

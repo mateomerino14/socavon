@@ -1,0 +1,52 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/world/obstacles/ficha_board.gd" id="1_board"]
+[ext_resource type="Script" path="res://src/items/interactable.gd" id="2_interactable"]
+[ext_resource type="Material" path="res://src/world/materials/wood.tres" id="3_wood"]
+[ext_resource type="AudioStream" path="res://assets/audio/ficha_clink.wav" id="4_sound"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_plank"]
+material = ExtResource("3_wood")
+size = Vector3(1.75, 0.5, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_header"]
+material = ExtResource("3_wood")
+size = Vector3(1.85, 0.08, 0.08)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_use"]
+size = Vector3(1.8, 1.0, 0.8)
+
+[node name="FichaBoard" type="Node3D"]
+script = ExtResource("1_board")
+
+[node name="Plank" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38, 0.025)
+mesh = SubResource("BoxMesh_plank")
+
+[node name="Header" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67, 0.04)
+mesh = SubResource("BoxMesh_header")
+
+[node name="Title" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0.03)
+pixel_size = 0.002
+modulate = Color(0.78, 0.7, 0.55, 1)
+outline_size = 0
+text = "FICHAS · NIVEL CERRADO"
+font_size = 22
+
+[node name="Interactable" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("2_interactable")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0.4)
+shape = SubResource("BoxShape3D_use")
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0.1)
+stream = ExtResource("4_sound")
+unit_size = 4.0
+bus = &"Efectos"

@@ -3,7 +3,7 @@ extends TestCase
 ## continuar y llegue al tránsito sin toparse con una pared. Las rejas y derrumbes del objetivo no
 ## cuentan: se abren jugando.
 
-const LEVELS_WITH_EXIT: Array[int] = [1, 2, 3, 4]
+const LEVELS_WITH_EXIT: Array[int] = [1, 2, 3, 4, 5]
 const LEVEL_PATH := "res://src/world/level_%02d/level_%02d.tscn"
 const SETTLE_FRAMES := 5
 ## El rayo sale a la altura de los ojos desde unos metros antes del túnel de salida.

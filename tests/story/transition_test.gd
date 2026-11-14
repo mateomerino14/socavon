@@ -9,7 +9,7 @@ const FAST_WALK_SECONDS := 0.3
 const FAST_LINE_DELAY := 0.1
 const FINISH_FRAMES := 120
 const SKIP_FRAMES := 10
-const LEVELS_WITH_EXIT: Array[int] = [1, 2, 3, 4]
+const LEVELS_WITH_EXIT: Array[int] = [1, 2, 3, 4, 5]
 const LEVEL_PATH := "res://src/world/level_%02d/level_%02d.tscn"
 const SPEAKER := "Mateo"
 
@@ -73,7 +73,7 @@ func test_skip_ends_quickly() -> void:
 	assert_true(_finished, "Saltado, el tránsito debe terminar")
 
 
-## Cada salida de los niveles 1 a 4 lleva su tránsito con voz, y el nivel siguiente tiene nombre y
+## Cada salida de los niveles 1 a 5 lleva su tránsito con voz, y el nivel siguiente tiene nombre y
 ## objetivo para mostrar al llegar.
 func test_every_exit_has_its_transition() -> void:
 	for number in LEVELS_WITH_EXIT:

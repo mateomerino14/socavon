@@ -35,6 +35,9 @@ LEVER_SECONDS = 0.9
 FUSE_SECONDS = 1.0
 BLAST_SECONDS = 4.0
 STING_SECONDS = 3.0
+CLINK_SECONDS = 1.2
+# Parciales de una ficha de bronce: (frecuencia, amplitud, apagado).
+CLINK_PARTIALS = [(2350.0, 1.0, 9.0), (3910.0, 0.55, 12.0), (5620.0, 0.3, 16.0)]
 # Golpe de susto: cuerdas disonantes que suben de golpe sobre un bombo grave.
 STING_NOTES = [146.8, 155.6, 207.7, 220.0, 311.1]
 
@@ -213,6 +216,22 @@ def sting(rng):
     return normalize(low_pass(samples, 0.35), 0.85)
 
 
+def clink(rng):
+    """Ficha de bronce colgada en su gancho: un toque agudo y dos rebotes más suaves."""
+    samples = [0.0] * int(CLINK_SECONDS * SAMPLE_RATE)
+    for delay, strength in ((0.0, 1.0), (0.09, 0.45), (0.16, 0.2)):
+        start = int(delay * SAMPLE_RATE)
+        detune = rng.uniform(0.98, 1.02)
+        for i in range(len(samples) - start):
+            t = i / SAMPLE_RATE
+            ring = sum(
+                amplitude * math.exp(-t * decay) * math.sin(2 * math.pi * frequency * detune * t)
+                for frequency, amplitude, decay in CLINK_PARTIALS
+            )
+            samples[start + i] += ring * strength * min(t / 0.001, 1.0)
+    return normalize(samples, 0.7)
+
+
 def main():
     """Genera el rugido en tools/audio_sources/ y los demás sonidos en assets/audio/."""
     write_wav(SOURCES_DIR / "tio_roar.wav", scream(random.Random(SEED)))
@@ -222,6 +241,7 @@ def main():
     write_wav(ASSETS_DIR / "fuse_hiss.wav", fuse(random.Random(SEED)))
     write_wav(ASSETS_DIR / "dynamite_blast.wav", blast(random.Random(SEED)))
     write_wav(ASSETS_DIR / "tio_sting.wav", sting(random.Random(SEED)))
+    write_wav(ASSETS_DIR / "ficha_clink.wav", clink(random.Random(SEED)))
     print(f"Rugido en {SOURCES_DIR}; aviso de objetivo y sonidos de las salidas en {ASSETS_DIR}")
 
 
