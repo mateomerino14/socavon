@@ -48,6 +48,7 @@ func test_names_each_action() -> void:
 	assert_true(InputDevice.label_for(&"interact", false) == "E", "Usar es la E")
 	assert_true(InputDevice.label_for(&"interact", true) == "A", "En el mando, usar es la A")
 	assert_true(InputDevice.label_for(&"throw", true) == "RT", "Lanzar es el gatillo derecho")
+	assert_true(InputDevice.label_for(&"pause", false) == "Esc", "La pausa es Esc")
 	assert_true(InputDevice.label_for(&"look_left", false) == "Ratón", "Se mira con el ratón")
 	var move: Array[StringName] = [&"move_forward", &"move_left"]
 	assert_true(InputDevice.labels_for(move, true) == "Stick izquierdo", "Sin repetir el stick")
