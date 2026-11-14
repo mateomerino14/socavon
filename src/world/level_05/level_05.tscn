@@ -37,6 +37,9 @@
 [ext_resource type="Resource" path="res://src/story/voices/mateo_luz.tres" id="33_mateo_luz"]
 [ext_resource type="PackedScene" path="res://src/story/voice_trigger.tscn" id="34_voice_trigger"]
 [ext_resource type="PackedScene" path="res://src/world/props/mine_mouth.tscn" id="35_mine_mouth"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_corner.tscn" id="36_tunnel_corne"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_t.tscn" id="37_tunnel_t"]
+[ext_resource type="PackedScene" path="res://src/enemies/encounters/tio_apparition.tscn" id="38_tio_appariti"]
 
 [node name="Level05" type="Node3D"]
 script = ExtResource("1_level")
@@ -67,23 +70,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
 [node name="West1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -4, 0, -8)
 
-[node name="WestDeadEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8, 0, -8)
-
 [node name="East1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, -8)
 
-[node name="EastDeadEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8, 0, -8)
-
 [node name="PayChamber" parent="Mine" instance=ExtResource("7_chamber")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
-
-[node name="CapEast" parent="Mine" instance=ExtResource("8_tunnel_cap")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 5.5, 0, -16)
-
-[node name="CapWest" parent="Mine" instance=ExtResource("8_tunnel_cap")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -5.5, 0, -16)
 
 [node name="Straight2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24)
@@ -142,11 +133,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, -5)
 item_type = 1
 
 [node name="Coca" parent="Pickups" instance=ExtResource("14_pickup")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.4, 0, -8.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6, 0, -24.3)
 item_type = 2
 
 [node name="Alcohol" parent="Pickups" instance=ExtResource("14_pickup")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.4, 0, -7.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6, 0, -24.3)
 item_type = 3
 
 [node name="Cigarette" parent="Pickups" instance=ExtResource("14_pickup")]
@@ -193,7 +184,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19)
 
 [node name="Tio" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("17_tio")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -19)
-patrol_points = [NodePath("../PatrolPoints/TioWestArm"), NodePath("../PatrolPoints/TioEastArm"), NodePath("../PatrolPoints/TioChamber")]
+patrol_points = [NodePath("../PatrolPoints/TioWestArm"), NodePath("../PatrolPoints/TioWestHall"), NodePath("../PatrolPoints/TioChamber"), NodePath("../PatrolPoints/TioEastHall"), NodePath("../PatrolPoints/TioEastArm")]
 
 [node name="EndingScreen" parent="." instance=ExtResource("18_ending_screen")]
 
@@ -255,3 +246,83 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -27.5)
 lines = Array[ExtResource("12_voice_line")]([ExtResource("33_mateo_luz")])
 
 [node name="MusicDirector" parent="." instance=ExtResource("music_r")]
+
+[node name="WestCorner1" parent="Mine" instance=ExtResource("36_tunnel_corne")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8, 0, -8)
+
+[node name="WestHall1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -12)
+
+[node name="WestJunction" parent="Mine" instance=ExtResource("37_tunnel_t")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8, 0, -16)
+
+[node name="WestHall2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -20)
+
+[node name="WestCorner2" parent="Mine" instance=ExtResource("36_tunnel_corne")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -8, 0, -24)
+
+[node name="WestOfferingEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -12, 0, -24)
+
+[node name="WestFrame1" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -11)
+
+[node name="WestFrame2" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -19)
+
+[node name="WestFrame3" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -11, 0, -24)
+
+[node name="EastCorner1" parent="Mine" instance=ExtResource("36_tunnel_corne")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 8, 0, -8)
+
+[node name="EastHall1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -12)
+
+[node name="EastJunction" parent="Mine" instance=ExtResource("37_tunnel_t")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8, 0, -16)
+
+[node name="EastHall2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -20)
+
+[node name="EastCorner2" parent="Mine" instance=ExtResource("36_tunnel_corne")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -24)
+
+[node name="EastOfferingEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 12, 0, -24)
+
+[node name="EastFrame1" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -11)
+
+[node name="EastFrame2" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -19)
+
+[node name="EastFrame3" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 11, 0, -24)
+
+[node name="Encounters" type="Node3D" parent="."]
+
+[node name="EastApparition" parent="Encounters" instance=ExtResource("38_tio_appariti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -10.5)
+done_id = "nivel5_aparicion"
+start_offset = Vector3(-5, 0, -5.5)
+goal_offset = Vector3(0, 0, -11)
+walk_seconds = 3.0
+
+[node name="TioWestHall" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -20)
+
+[node name="TioEastHall" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -20)
+
+[node name="WestHallCart" parent="HidingSpots" instance=ExtResource("29_mine_cart_hiding_spot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.9, 0, -12.5)
+
+[node name="Stone2" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0, -12.6)
+item_type = 5
+
+[node name="Carbide2" parent="Pickups" instance=ExtResource("14_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3, 0, -20.6)
+item_type = 1
