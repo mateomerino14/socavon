@@ -24,6 +24,7 @@ En [Releases](https://github.com/mateomerino14/socavon/releases) está el `.zip`
 - **Presentación:**
   - menú principal con la mina de fondo;
   - el nombre de cada nivel abajo a la izquierda y el objetivo arriba a la izquierda, con un aviso sonoro cuando cambia;
+  - inventario con el dibujo y el uso de cada objeto, y un mapa que Mateo dibuja a medida que explora;
   - opciones (con calidad alta y volumen de música), pausa y créditos;
   - texturas escaneadas, iluminación global, niebla volumétrica y grano de película;
   - brazos de Mateo en primera persona y la cuadrilla en la cinemática del derrumbe;
@@ -91,6 +92,7 @@ Al cruzar la bocamina se muestra tu final, la partida guardada se borra y vuelve
 | Escuchar (te quedas quieto) | Mantener clic derecho | LT / L2 |
 | Asomarse por esquinas | Q / Z | LB / RB |
 | Inventario (pausa el juego) | Tab o I | Back / Select |
+| Mapa (pausa el juego) | M | R3 |
 | Pausa y opciones | Esc | Start |
 
 ## Desarrollo

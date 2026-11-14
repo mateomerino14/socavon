@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" path="res://src/ui/film_effects/film_effects.tscn" id="2_film"]
 [ext_resource type="AudioStream" path="res://assets/audio/objective_chime.wav" id="3_chime"]
 [ext_resource type="PackedScene" path="res://src/ui/inventory_screen/inventory_screen.tscn" id="4_inventory"]
+[ext_resource type="PackedScene" path="res://src/ui/map_screen/map_screen.tscn" id="5_map"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_track"]
 bg_color = Color(0.08, 0.07, 0.06, 0.6)
@@ -245,3 +246,5 @@ unique_name_in_owner = true
 one_shot = true
 
 [node name="InventoryScreen" parent="." instance=ExtResource("4_inventory")]
+
+[node name="MapScreen" parent="." instance=ExtResource("5_map")]

@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 ENGINE_CALLBACKS = {
-    "_init", "_ready", "_process", "_physics_process", "_input", "_unhandled_input",
+    "_init", "_ready", "_process", "_physics_process", "_input", "_unhandled_input", "_draw",
     "_enter_tree", "_exit_tree", "_initialize", "_notification", "_integrate_forces",
 }
 TEST_HOOKS = {"before_each", "after_each"}

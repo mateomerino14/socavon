@@ -29,6 +29,7 @@ func save(level_path: String, inventory: InventoryComponent) -> void:
 	config.set_value(SECTION, "objetivo", GameState.objective)
 	config.set_value(SECTION, "herramientas", GameState.tools)
 	config.set_value(SECTION, "hechos", GameState.done)
+	config.set_value(SECTION, "mapa", GameState.explored.keys())
 	config.set_value(SECTION, "bolsa", inventory.get_counts())
 	config.save(save_path)
 
