@@ -1,6 +1,8 @@
 extends TestCase
-## Pruebas del aparato con que se juega: cambia con el teclado o el mando y nombra las teclas y los
-## botones de cada acción.
+## Pruebas del aparato con que se juega y de los nombres de teclas y botones.
+
+## Un roce del stick, por debajo de su zona muerta.
+const STICK_DRIFT := 0.1
 
 var _was_gamepad := false
 var _changes := 0
@@ -38,7 +40,7 @@ func test_ignores_stick_drift() -> void:
 	InputDevice.uses_gamepad = false
 	var motion := InputEventJoypadMotion.new()
 	motion.axis = JOY_AXIS_LEFT_X
-	motion.axis_value = 0.1
+	motion.axis_value = STICK_DRIFT
 	InputDevice._input(motion)
 	assert_false(InputDevice.uses_gamepad, "El roce del stick no cambia de aparato")
 
@@ -48,6 +50,7 @@ func test_names_each_action() -> void:
 	assert_true(InputDevice.label_for(&"interact", false) == "E", "Usar es la E")
 	assert_true(InputDevice.label_for(&"interact", true) == "A", "En el mando, usar es la A")
 	assert_true(InputDevice.label_for(&"throw", true) == "RT", "Lanzar es el gatillo derecho")
+	assert_true(InputDevice.label_for(&"pause", false) == "Esc", "La pausa es Esc")
 	assert_true(InputDevice.label_for(&"look_left", false) == "Ratón", "Se mira con el ratón")
 	var move: Array[StringName] = [&"move_forward", &"move_left"]
 	assert_true(InputDevice.labels_for(move, true) == "Stick izquierdo", "Sin repetir el stick")

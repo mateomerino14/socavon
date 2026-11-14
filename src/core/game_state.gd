@@ -1,6 +1,5 @@
 extends Node
-## Estado de la partida (autoload "GameState"): respeto, guardado, notas leídas, pago al Tío y
-## objetivo actual. Al pasar de nivel se conservan el respeto, las notas y la bolsa.
+## Estado de la partida (autoload "GameState"): respeto, guardado, notas, pago, objetivo y nivel.
 
 signal respect_changed(value: float)
 ## Se guardó un punto de reaparición; la partida en disco se actualiza.
@@ -135,8 +134,7 @@ func take_carried_bag() -> Dictionary:
 	return bag
 
 
-## Empieza el nivel siguiente: guarda respeto, notas y pago; deja sin punto, objetivo ni
-## herramientas, que eran de la salida del nivel anterior.
+## Pasa al nivel siguiente: guarda respeto, notas y pago; olvida punto, objetivo y herramientas.
 func start_next_level() -> void:
 	checkpoint = Transform3D.IDENTITY
 	objective = ""

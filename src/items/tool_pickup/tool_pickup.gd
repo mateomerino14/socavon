@@ -1,7 +1,6 @@
 class_name ToolPickup
 extends Node3D
-## Herramienta en el suelo que abre la salida del nivel, como la dinamita o una llave. No va a la
-## bolsa: se lleva hasta que se usa.
+## Herramienta en el suelo que abre la salida, como la dinamita o una llave; se lleva hasta usarla.
 
 const PICK_PROMPT := "Recoger %s"
 const PICKED_NOTICE := "Recogiste %s"

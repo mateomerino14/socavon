@@ -1,7 +1,6 @@
 class_name Rubble
 extends Node3D
-## Derrumbe que tapa un paso. Con dinamita se le enciende la mecha y, tras unos segundos, revienta:
-## destello, temblor y un estruendo que el Tío oye desde lejos. Recuerda si ya se voló.
+## Derrumbe que tapa un paso: con dinamita revienta con un estruendo que el Tío oye de lejos.
 
 const ROCK_MESH := preload("res://assets/models/props/stone.obj")
 const ROCK_MATERIAL := preload("res://src/world/materials/rock.tres")

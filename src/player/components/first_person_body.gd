@@ -1,7 +1,6 @@
 class_name FirstPersonBody
 extends Node3D
-## Los brazos de Mateo vistos desde sus ojos: quietos quedan abajo, fuera de la vista, y aparecen al
-## lanzar una piedra. Van en su propia capa de render.
+## Los brazos de Mateo en primera persona: esperan fuera de la vista y aparecen al lanzar.
 
 const IDLE := &"idle"
 const THROW := &"throw"

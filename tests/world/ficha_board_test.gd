@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas del tablero de fichas: cuelga las que lleva el jugador, cuenta las que faltan, abre la
-## reja con todas y las recuerda al continuar la partida.
+## Pruebas del tablero de fichas: cuelga, cuenta las que faltan, abre la reja y las recuerda.
 
 const BOARD_SCENE := preload("res://src/world/obstacles/ficha_board.tscn")
 const GATE_SCENE := preload("res://src/world/obstacles/gate.tscn")

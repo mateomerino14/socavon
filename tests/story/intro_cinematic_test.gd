@@ -5,6 +5,11 @@ const LEVEL_SCENE := preload("res://src/world/level_01/level_01.tscn")
 const FAST_SECONDS := 0.05
 const RUN_FRAMES := 10
 const FINISH_FRAMES := 120
+const STILL_TOLERANCE := 0.05
+## Calma tan larga que no termina durante la prueba.
+const LONG_CALM_SECONDS := 30.0
+const LONG_RUN := 3
+const CREW_SIZE := 3
 
 var _level: Level
 var _intro: IntroCinematic
@@ -44,7 +49,8 @@ func test_intro_blocks_then_returns_control() -> void:
 	Input.action_press("move_forward")
 	await wait_physics_frames(RUN_FRAMES)
 	assert_true(
-		_player.global_position.distance_to(start) < 0.05, "No debe moverse en la cinemática"
+		_player.global_position.distance_to(start) < STILL_TOLERANCE,
+		"No debe moverse en la cinemática"
 	)
 	Input.action_release("move_forward")
 	await wait_physics_frames(FINISH_FRAMES)
@@ -56,22 +62,22 @@ func test_intro_blocks_then_returns_control() -> void:
 
 ## Escape la salta y devuelve el control.
 func test_intro_can_be_skipped() -> void:
-	_intro.calm_seconds = 30.0
+	_intro.calm_seconds = LONG_CALM_SECONDS
 	await wait_physics_frames(RUN_FRAMES)
 	var skip := InputEventAction.new()
 	skip.action = "pause"
 	skip.pressed = true
 	Input.parse_input_event(skip)
-	await wait_physics_frames(RUN_FRAMES * 3)
+	await wait_physics_frames(RUN_FRAMES * LONG_RUN)
 	assert_false(_intro.is_playing, "Escape debe saltar la cinemática")
 
 
 ## La cuadrilla aparece con Faustino hablando y, cuando Mateo despierta, ya no está.
 func test_crew_appears_then_is_gone() -> void:
-	_intro.calm_seconds = 30.0
+	_intro.calm_seconds = LONG_CALM_SECONDS
 	await wait_physics_frames(RUN_FRAMES)
 	var faustino: Node3D = _intro.foreman
-	assert_true(_intro.crew.size() == 3, "Faustino, Rosendo y Mateo")
+	assert_true(_intro.crew.size() == CREW_SIZE, "Faustino, Rosendo y Mateo")
 	for miner in _intro.crew:
 		assert_true(miner.visible, "Toda la cuadrilla se ve al empezar")
 	var animation := faustino.find_child("AnimationPlayer") as AnimationPlayer
@@ -80,6 +86,6 @@ func test_crew_appears_then_is_gone() -> void:
 	skip.action = "pause"
 	skip.pressed = true
 	Input.parse_input_event(skip)
-	await wait_physics_frames(RUN_FRAMES * 3)
+	await wait_physics_frames(RUN_FRAMES * LONG_RUN)
 	for miner in _intro.crew:
 		assert_false(miner.visible, "Al despertar, Mateo está solo")

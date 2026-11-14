@@ -1,7 +1,6 @@
 class_name ControlsPanel
 extends VBoxContainer
-## Tabla de controles, compartida por el menú principal y el de pausa: cada acción con su tecla y su
-## botón de mando, tal como están configurados.
+## Tabla de controles del menú y la pausa: cada acción con su tecla y su botón de mando.
 
 signal back_requested
 

@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas de los créditos: nombran al autor, explican la historia y mandan a las licencias, que
-## viajan junto al juego.
+## Pruebas de los créditos: nombran al autor, explican la historia y mandan a las licencias.
 
 const MENU_SCENE := preload("res://src/ui/main_menu/main_menu.tscn")
 const AUTHOR := "Mateo Alejandro Merino Vidal"

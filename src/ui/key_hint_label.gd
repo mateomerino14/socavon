@@ -1,7 +1,6 @@
 class_name KeyHintLabel
 extends Label
-## Texto con teclas o botones que cambian según se juegue con teclado o con mando. Las acciones van
-## entre llaves, como "{map} Cerrar".
+## Texto con teclas entre llaves, como "{map} Cerrar", que cambian según teclado o mando.
 
 @export var template := ""
 

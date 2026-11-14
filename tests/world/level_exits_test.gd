@@ -1,7 +1,5 @@
 extends TestCase
-## Pruebas de las salidas: cada una sigue por un túnel abierto, para que el jugador vea por dónde
-## continuar y llegue al tránsito sin toparse con una pared. Las rejas y derrumbes del objetivo no
-## cuentan: se abren jugando.
+## Pruebas de las salidas: cada una sigue por un túnel abierto hasta pasar su disparador.
 
 const LEVELS_WITH_EXIT: Array[int] = [1, 2, 3, 4, 5]
 const LEVEL_PATH := "res://src/world/level_%02d/level_%02d.tscn"

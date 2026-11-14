@@ -1,6 +1,5 @@
 extends Node
-## Recuerda si el jugador juega con teclado y ratón o con mando (autoload "InputDevice") y dice con
-## qué tecla o botón se hace cada acción, para mostrarlo en pantalla tal como lo tiene configurado.
+## Aparato con que se juega (autoload "InputDevice") y nombre de la tecla o botón de cada acción.
 
 ## Cambió el aparato con que se juega.
 signal changed
@@ -32,6 +31,15 @@ const JOY_AXIS_NAMES: Dictionary[JoyAxis, String] = {
 	JOY_AXIS_RIGHT_Y: "Stick derecho",
 	JOY_AXIS_TRIGGER_LEFT: "LT",
 	JOY_AXIS_TRIGGER_RIGHT: "RT",
+}
+## Teclas cuyo nombre en inglés se cambia por uno más claro.
+const KEY_NAMES: Dictionary[Key, String] = {
+	KEY_LEFT: "←",
+	KEY_RIGHT: "→",
+	KEY_UP: "↑",
+	KEY_DOWN: "↓",
+	KEY_ESCAPE: "Esc",
+	KEY_SPACE: "Espacio",
 }
 const MOUSE_BUTTON_NAMES: Dictionary[MouseButton, String] = {
 	MOUSE_BUTTON_LEFT: "Clic izquierdo",
@@ -103,8 +111,7 @@ func labels_for(actions: Array[StringName], is_gamepad: bool) -> String:
 	return " ".join(names)
 
 
-## Cambia en un texto cada grupo de acciones entre llaves, separadas por "|", por sus teclas o
-## botones entre corchetes; por ejemplo "{map} abre el mapa" queda "[M] abre el mapa".
+## Cambia cada "{acción|acción}" de un texto por sus teclas o botones entre corchetes.
 func fill(template: String) -> String:
 	var parts := template.split("{")
 	var result := parts[0]
@@ -142,10 +149,9 @@ func _event_name(event: InputEvent, is_gamepad: bool) -> String:
 
 ## Nombre de una tecla según la distribución del teclado del jugador.
 func _key_name(event: InputEventKey) -> String:
-	if event.physical_keycode == KEY_NONE:
-		return OS.get_keycode_string(event.keycode)
-	if DisplayServer.get_name() == HEADLESS_SERVER:
-		return OS.get_keycode_string(event.physical_keycode)
-	return OS.get_keycode_string(
-		DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode)
-	)
+	var keycode := event.keycode
+	if event.physical_keycode != KEY_NONE:
+		keycode = event.physical_keycode
+		if DisplayServer.get_name() != HEADLESS_SERVER:
+			keycode = DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode)
+	return KEY_NAMES.get(keycode, OS.get_keycode_string(keycode))

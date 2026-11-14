@@ -1,7 +1,5 @@
 extends Node
-## En los menús, el ratón y el teclado o el mando marcan siempre la misma opción (autoload
-## "MenuFocus"): al pasar el ratón por un botón, deslizador o casilla, toma el foco; al moverse con
-## las flechas o el mando, la opción bajo el ratón deja de verse marcada.
+## Ratón y teclado o mando marcan la misma opción en los menús (autoload "MenuFocus").
 
 
 ## Sigue atento también en los menús de pausa.

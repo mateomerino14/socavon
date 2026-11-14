@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas de los brazos en primera persona: quietos esperan abajo y lanzan al tirar una piedra;
-## nunca se ven en otra capa que la suya.
+## Pruebas de los brazos en primera persona: esperan abajo, lanzan y solo se ven en su capa.
 
 const TUNNEL_SCENE := preload("res://src/world/test_tunnel/test_tunnel.tscn")
 const BODY_LAYER := 2048

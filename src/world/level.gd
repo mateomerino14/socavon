@@ -1,7 +1,6 @@
 class_name Level
 extends Node3D
-## Raíz de cada nivel: arranca o restaura la partida, la guarda en cada punto, anuncia su nombre y
-## da el primer objetivo. Si se llega desde un tránsito, el nivel aparece desde el negro.
+## Raíz de cada nivel: arranca o restaura la partida, la guarda y presenta su nombre y su objetivo.
 
 ## Segundos que tarda en aclararse la pantalla al llegar desde un tránsito.
 const ARRIVAL_FADE_SECONDS := 1.5
@@ -19,8 +18,7 @@ const OBJECTIVE_DELAY_SECONDS := 2.5
 @onready var _player: Player = $Player
 
 
-## Sigue la partida que viene del nivel anterior o empieza una nueva, restaura una partida pendiente
-## o guarda el inicio, y presenta el nivel.
+## Sigue o empieza la partida, restaura la pendiente o guarda el inicio, y presenta el nivel.
 func _ready() -> void:
 	GameState.checkpoint_saved.connect(_on_checkpoint_saved)
 	if GameState.is_carrying():
@@ -38,8 +36,7 @@ func _ready() -> void:
 	_present.call_deferred(pending.get("objetivo", "") as String)
 
 
-## Programa el nombre del nivel y luego el objetivo: el guardado o, si no hay, el primero del nivel.
-## Los temporizadores se sueltan solos si el nivel se cierra antes.
+## Programa el nombre del nivel y luego el objetivo: el guardado o, si no hay, el del nivel.
 func _present(saved_objective: String) -> void:
 	var first := objective
 	if not saved_objective.is_empty():

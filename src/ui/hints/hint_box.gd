@@ -1,8 +1,6 @@
 class_name HintBox
 extends PanelContainer
-## Cuadro de consejos de controles, arriba a la derecha. Muestra un consejo a la vez, con la tecla o
-## el botón del aparato con que se juega, y cada consejo una sola vez. Espera mientras el HUD está
-## oculto, por ejemplo en una cinemática.
+## Cuadro de consejos de controles: uno a la vez, con la tecla del aparato y sin repetirse.
 
 const SHOW_SECONDS := 7.0
 ## Pausa entre un consejo y el siguiente, para que el primero se desvanezca.

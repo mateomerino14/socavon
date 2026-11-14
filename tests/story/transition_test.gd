@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas del tránsito entre niveles: Mateo camina, habla y se puede saltar. También que cada
-## salida tenga su tránsito, con voz, y que cada nivel tenga nombre y objetivo.
+## Pruebas del tránsito entre niveles y de que cada salida tenga el suyo, con voz.
 
 const TRANSITION_SCENE := preload("res://src/story/transition/transition.tscn")
 const LINE := preload("res://src/story/voices/mateo_transito_veta.tres")
@@ -73,8 +72,7 @@ func test_skip_ends_quickly() -> void:
 	assert_true(_finished, "Saltado, el tránsito debe terminar")
 
 
-## Cada salida de los niveles 1 a 5 lleva su tránsito con voz, y el nivel siguiente tiene nombre y
-## objetivo para mostrar al llegar.
+## Cada salida lleva su tránsito con voz, y el nivel siguiente tiene nombre y objetivo.
 func test_every_exit_has_its_transition() -> void:
 	for number in LEVELS_WITH_EXIT:
 		var transition := _exit_property(number, &"transition") as TransitionData

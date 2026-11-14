@@ -1,6 +1,8 @@
 extends TestCase
 ## Pruebas de la bolsa: topes por tipo, quitar objetos y orden de las ofrendas.
 
+const TOO_MANY := 3
+
 var _inventory: InventoryComponent
 
 
@@ -30,7 +32,7 @@ func test_add_respects_max_stack() -> void:
 ## Quitar más de lo que hay no cambia nada.
 func test_remove_fails_without_enough_items() -> void:
 	_inventory.add(ItemCatalog.Type.STONE, 2)
-	assert_false(_inventory.remove(ItemCatalog.Type.STONE, 3), "No debe quitar 3 si hay 2")
+	assert_false(_inventory.remove(ItemCatalog.Type.STONE, TOO_MANY), "No debe quitar 3 si hay 2")
 	assert_true(_inventory.count(ItemCatalog.Type.STONE) == 2, "Debe seguir con 2 piedras")
 	assert_true(_inventory.remove(ItemCatalog.Type.STONE, 2), "Debe quitar las 2 piedras")
 	assert_true(_inventory.count(ItemCatalog.Type.STONE) == 0, "Debe quedar sin piedras")

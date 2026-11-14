@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas de la opción marcada en los menús: el ratón elige el botón bajo él, y al moverse con las
-## flechas el botón bajo el ratón deja de verse marcado.
+## Pruebas de la opción marcada en los menús con el ratón y las flechas.
 
 var _column: VBoxContainer
 var _first: Button

@@ -1,6 +1,5 @@
 extends TestCase
-## Pruebas de lo que abre las salidas: reja con candado o con palancas, derrumbe con dinamita,
-## herramientas, zonas de objetivo, y que todo quede como estaba al continuar la partida.
+## Pruebas de rejas, palancas, derrumbes, herramientas y zonas de objetivo, y de su guardado.
 
 const GATE_SCENE := preload("res://src/world/obstacles/gate.tscn")
 const LEVER_SCENE := preload("res://src/world/obstacles/lever.tscn")
