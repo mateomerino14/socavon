@@ -4,7 +4,7 @@ Juego de terror en primera persona ambientado en las minas del Cerro Rico de Pot
 
 Es la primera historia del universo del Manqha Pacha.
 
-Versión `1.1.0`: el juego completo, con cinco niveles, dos finales y partida guardada, ahora con texturas escaneadas, brazos en primera persona, música que sigue al Tío y voces nuevas.
+Versión `1.2.0`: el juego completo, ahora con seis niveles más grandes y con objetivos, mapa, inventario, tránsitos entre niveles y voces nuevas.
 
 ## Descargar y jugar
 
