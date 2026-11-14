@@ -19,7 +19,8 @@ En [Releases](https://github.com/mateomerino14/socavon/releases) está el `.zip`
 - **El Tío:** patrulla, sospecha, caza, busca y se calma con ofrendas. Oye tus pasos y las piedras que lanzas, ve según tu luz y revisa los escondites. Tiene modelo de arcilla pintada, animaciones y voz.
 - **Escondites:** nichos en la roca y carros mineros, con animación al entrar y salir.
 - **Altares:** pides permiso o dejas coca, alcohol o cigarros. Suben el respeto del Tío y guardan la partida.
-- **Historia:** se cuenta con notas, inscripciones en la roca, voces actuadas con subtítulos y dos cinemáticas, la del derrumbe y la de la bocamina. Entre nivel y nivel, un tránsito muestra a Mateo cruzando el socavón: dice lo que piensa, a veces el Tío lo sigue en la oscuridad y aparece el nombre del nivel siguiente.
+- **Historia:** se cuenta con notas, inscripciones en la roca, voces actuadas con subtítulos y dos cinemáticas, la del derrumbe y la de la bocamina. Entre nivel y nivel, un tránsito muestra a Mateo cruzando el socavón: dice lo que piensa, a veces el Tío lo sigue en la oscuridad. Al llegar, el nivel muestra su nombre y su primer objetivo.
+- **Objetivos:** cada nivel tiene una salida cerrada que hay que abrir: volar un derrumbe con dinamita, bajar palancas, encontrar la llave de un candado o colgar las fichas de los siete. El Tío aparece de lejos y embosca en momentos de la historia.
 - **Dos finales**, según si le pagas al Tío lo que pide.
 - **Presentación:**
   - menú principal con la mina de fondo;
@@ -34,19 +35,19 @@ En [Releases](https://github.com/mateomerino14/socavon/releases) está el `.zip`
 
 ### Nivel 1: El derrumbe
 
-Empieza con una cinemática: Don Faustino ordena entrar sin ch'alla, la mina tiembla, Rosendo grita y todo se derrumba. Despiertas entre las piedras y caminas hacia el norte hasta un cruce. El ramal oeste guarda coca, carburo y piedras; el este lleva por un pasillo con soportes hasta la cámara del primer altar, y de ahí a la salida. Por el camino hay cuatro textos que empiezan a contar qué pasó en ese nivel en los años 70. El Tío no puede alcanzarte en este nivel: camina por una galería sellada al este y solo se le oye a través de la roca.
+Empieza con una cinemática: Don Faustino ordena entrar sin ch'alla, la mina tiembla, Rosendo grita y todo se derrumba. Despiertas entre las piedras y caminas hacia el norte hasta un cruce. El ramal oeste guarda coca, carburo y piedras; el este lleva por un pasillo con soportes hasta la cámara del primer altar. El paso a los rieles está derrumbado: hay que buscar dinamita en el polvorín y volar el derrumbe. Por el camino hay cuatro textos que empiezan a contar qué pasó en ese nivel en los años 70. El Tío no puede alcanzarte en este nivel: camina por una galería sellada al este y solo se le oye a través de la roca.
 
 ### Nivel 2: Los rieles
 
-Bajas por los rieles por donde sacaban el mineral. En el cruce, el ramal este lleva al segundo altar, con la lista de raya de los siete de 1975. El oeste está inundado: el agua te frena y cada paso chapotea fuerte, y desde el fondo te llama la voz de Wilmer. Allí está su nota, que advierte que esa voz ya no es suya. Al norte, en el buzón donde bajaban los carros, ronda el Tío. Esta vez anda suelto y te puede alcanzar; los carros sirven de escondite. La salida queda pasando el buzón, por donde entra aire de arriba.
+Bajas por los rieles por donde sacaban el mineral. En el cruce, el ramal este lleva al segundo altar, con la lista de raya de los siete de 1975. El oeste está inundado: el agua te frena y cada paso chapotea fuerte, y desde el fondo te llama la voz de Wilmer. Allí está su nota, que advierte que esa voz ya no es suya. Al norte, en el buzón donde bajaban los carros, ronda el Tío. Esta vez anda suelto y te puede alcanzar; los carros sirven de escondite. La salida queda pasando el buzón, por donde entra aire de arriba, pero una reja la cierra: la palanca de la compuerta está en el ramal oeste, y al bajarla el Tío te oye.
 
 ### Nivel 3: La veta
 
-Desde el cruce hay dos caminos a la cámara de la veta de plata. El oeste es un gateadero tan bajo que hay que pasarlo agachado, pero el Tío no cabe ahí; al salir está el altar. El este es un túnel largo y alto por donde ronda el Tío, y ahí están la coca, el alcohol y el carburo. En la veta, el casco de Justo Condori dice que lo que brilla no es plata. Desde el norte, la voz de Don Faustino pide ayuda.
+Desde el cruce hay dos caminos a la cámara de la veta de plata. El oeste es un gateadero tan bajo que hay que pasarlo agachado, pero el Tío no cabe ahí; al salir está el altar. El este es un túnel largo y alto por donde ronda el Tío, y ahí están la coca, el alcohol y el carburo. En la veta, el casco de Justo Condori dice que lo que brilla no es plata. La salida tiene candado: la llave está en la galería vieja, donde el Tío embosca. Desde el norte, la voz de Don Faustino pide ayuda.
 
 ### Nivel 4: La cuadrilla
 
-Hay dos Tíos: uno en el cruce de los ramales y otro en la cámara del norte. En el ramal oeste está el pañuelo de Rosendo; en el este, la confesión de Don Faustino, que le ofreció al Tío uno de los suyos para salir él. Su voz te llama desde ahí. Rosendo deja la pista del final: "paga tú, con lo que tengas, pero paga. Coca, trago y cigarro".
+Hay dos Tíos: uno en el cruce de los ramales y otro en la cámara del norte. En el ramal oeste está el pañuelo de Rosendo; en el este, la confesión de Don Faustino, que le ofreció al Tío uno de los suyos para salir él. Su voz te llama desde ahí. Rosendo deja la pista del final: "paga tú, con lo que tengas, pero paga. Coca, trago y cigarro". La reja del pique sube con dos palancas, una al fondo de cada ramal.
 
 ### Nivel 5: Los siete
 
@@ -118,11 +119,11 @@ Al cruzar la bocamina se muestra tu final, la partida guardada se borra y vuelve
 ```
 src/core/      Autoloads: bus de eventos, estado de la partida, ajustes y partida guardada
 src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, escucha, susto)
-src/enemies/   El Tío y sus componentes (oído, vista, voz, pasos, animación)
-src/items/     Catálogo de objetos, objetos recogibles con su modelo e Interactable
+src/enemies/   El Tío, sus componentes (oído, vista, voz, pasos, animación) y sus apariciones y emboscadas
+src/items/     Catálogo de objetos, objetos y herramientas recogibles con su modelo e Interactable
 src/story/     Notas, voces, cinemáticas, tránsitos entre niveles y el final (altar, persecución, bocamina)
-src/world/     Los seis niveles, piezas modulares, altar, agua, escondites, soportes y materiales
-src/ui/        Menú principal, HUD, pausa, opciones, visor de notas, pantalla de muerte y tema visual
+src/world/     Los seis niveles, piezas modulares, mapa, obstáculos (rejas, palancas, derrumbes, tablero de fichas), altar, agua, escondites, soportes y materiales
+src/ui/        Menú principal, HUD, inventario, mapa, pausa, opciones, visor de notas, pantalla de muerte y tema visual
 tests/         Pruebas automáticas, en carpetas que reflejan src/
 tools/         Generadores (Blender, sonidos, voces, malla de navegación) y buscador de código sin uso
 assets/        Modelos, texturas, audio y fuentes
