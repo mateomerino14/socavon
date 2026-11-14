@@ -90,6 +90,7 @@ Al cruzar la bocamina se muestra tu final, la partida guardada se borra y vuelve
 | Lanzar una piedra | Clic izquierdo | RT / R2 |
 | Escuchar (te quedas quieto) | Mantener clic derecho | LT / L2 |
 | Asomarse por esquinas | Q / Z | LB / RB |
+| Inventario (pausa el juego) | Tab o I | Back / Select |
 | Pausa y opciones | Esc | Start |
 
 ## Desarrollo
@@ -146,6 +147,7 @@ python3 tools/find_unused.py src tests
 | Sonidos de la mina y música (ver [tools/audio](tools/audio/README.md)) | `python3 tools/audio/build_oga_sounds.py <descargas> assets/audio` y `build_music.py` |
 | Rugido del Tío, base del grito | `python3 tools/generate_sounds.py` |
 | Voces actuadas con Chatterbox | `python3 tools/generate_voices.py [id ...]` (ver el [guion](docs/guion_voces.md)) |
+| Íconos del inventario | `godot --path . --script res://tools/render_item_icons.gd` (necesita pantalla) |
 | Malla de navegación de un nivel | `godot --headless --path . -s tools/bake_navmesh.gd -- res://src/world/level_0N/level_0N.tscn` |
 | Ejecutable de Windows | `godot --headless --export-release "Windows Desktop" build/Socavon.exe` |
 
