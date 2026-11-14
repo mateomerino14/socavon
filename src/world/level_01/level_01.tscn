@@ -40,6 +40,7 @@
 [ext_resource type="Resource" path="res://src/story/voices/mateo_siete.tres" id="56_mateo_siete"]
 [ext_resource type="PackedScene" path="res://src/story/cinematics/intro_cinematic.tscn" id="60_intro"]
 [ext_resource type="Resource" path="res://src/story/transition/hacia_rieles.tres" id="61_transition"]
+[ext_resource type="PackedScene" path="res://src/world/props/rail_track.tscn" id="62_rails"]
 
 [node name="Level01" type="Node3D"]
 script = ExtResource("2_level")
@@ -96,7 +97,16 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 2.5, 0, -24)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -32)
 
 [node name="ExitDeadEnd" parent="Mine" instance=ExtResource("6_dead_end")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -48)
+
+[node name="ExitPassage1" parent="Mine" instance=ExtResource("3_straight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -36)
+
+[node name="ExitPassage2" parent="Mine" instance=ExtResource("3_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -40)
+
+[node name="ExitPassage3" parent="Mine" instance=ExtResource("3_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -44)
 
 [node name="Rubble" type="CSGCombiner3D" parent="." groups=["navigation_source"]]
 use_collision = true
@@ -143,6 +153,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -15.5)
 
 [node name="Frame7" parent="Supports" instance=ExtResource("9_frame")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -31)
+
+[node name="ExitFrame1" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -37)
+
+[node name="ExitFrame2" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -41)
+
+[node name="ExitFrame3" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -45)
+
+[node name="ExitRails" type="Node3D" parent="."]
+
+[node name="ExitTrack1" parent="ExitRails" instance=ExtResource("62_rails")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -32)
+
+[node name="ExitTrack2" parent="ExitRails" instance=ExtResource("62_rails")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -36)
+
+[node name="ExitTrack3" parent="ExitRails" instance=ExtResource("62_rails")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -40)
+
+[node name="ExitTrack4" parent="ExitRails" instance=ExtResource("62_rails")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -44)
 
 [node name="Altars" type="Node3D" parent="." groups=["navigation_source"]]
 
@@ -232,7 +265,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -22)
 patrol_points = [NodePath("../PatrolPoints/SealedNorth"), NodePath("../PatrolPoints/SealedSouth")]
 
 [node name="LevelExit" parent="." instance=ExtResource("19_exit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -35.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -42)
 message = "Bajando a Los rieles..."
 next_level_path = "res://src/world/level_02/level_02.tscn"
 transition = ExtResource("61_transition")

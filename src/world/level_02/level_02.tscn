@@ -92,7 +92,16 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -5.5, 0, -32)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
 
 [node name="ExitDeadEnd" parent="Mine" instance=ExtResource("6_dead_end")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56)
+
+[node name="ExitPassage1" parent="Mine" instance=ExtResource("3_straight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -44)
+
+[node name="ExitPassage2" parent="Mine" instance=ExtResource("3_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -48)
+
+[node name="ExitPassage3" parent="Mine" instance=ExtResource("3_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -52)
 
 [node name="WestStraight1" parent="Mine" instance=ExtResource("3_straight")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -4, 0, -12)
@@ -177,6 +186,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -16)
 [node name="Flooded2" parent="Rails" instance=ExtResource("10_rails")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -20)
 
+[node name="ExitTrack1" parent="Rails" instance=ExtResource("10_rails")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -44)
+
+[node name="ExitTrack2" parent="Rails" instance=ExtResource("10_rails")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -48)
+
+[node name="ExitTrack3" parent="Rails" instance=ExtResource("10_rails")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -52)
+
 [node name="Water" type="Node3D" parent="."]
 
 [node name="WestArm" parent="Water" instance=ExtResource("11_water")]
@@ -212,6 +230,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -17)
 
 [node name="Frame8" parent="Supports" instance=ExtResource("9_frame")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, -12)
+
+[node name="ExitFrame1" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45)
+
+[node name="ExitFrame2" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -49)
+
+[node name="ExitFrame3" parent="Supports" instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -53)
 
 [node name="Altars" type="Node3D" parent="." groups=["navigation_source"]]
 
@@ -307,7 +334,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34)
 patrol_points = [NodePath("../PatrolPoints/Chute"), NodePath("../PatrolPoints/Crossing"), NodePath("../PatrolPoints/WestArm"), NodePath("../PatrolPoints/ChuteWest")]
 
 [node name="LevelExit" parent="." instance=ExtResource("21_exit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -43.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
 message = "Bajando a La veta..."
 next_level_path = "res://src/world/level_03/level_03.tscn"
 transition = ExtResource("39_transition")

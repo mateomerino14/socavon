@@ -92,7 +92,16 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -21.5, 0, -24)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -32)
 
 [node name="ExitDeadEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -48)
+
+[node name="ExitPassage1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -36)
+
+[node name="ExitPassage2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -40)
+
+[node name="ExitPassage3" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -44)
 
 [node name="East1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, -8)
@@ -169,6 +178,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0.0, -31)
 
 [node name="Frame6" parent="Supports" instance=ExtResource("12_timber_frame")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.0, -20.5)
+
+[node name="ExitFrame1" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -37)
+
+[node name="ExitFrame2" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -41)
+
+[node name="ExitFrame3" parent="Supports" instance=ExtResource("12_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -45)
 
 [node name="Altars" type="Node3D" parent="." groups=["navigation_source"]]
 
@@ -257,7 +275,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -16)
 patrol_points = [NodePath("../PatrolPoints/TioChamber"), NodePath("../PatrolPoints/TioEastLoop"), NodePath("../PatrolPoints/TioBackTunnel"), NodePath("../PatrolPoints/TioChamberEast")]
 
 [node name="LevelExit" parent="." instance=ExtResource("18_level_exit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -35.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -42)
 message = "Bajando a La cuadrilla..."
 next_level_path = "res://src/world/level_04/level_04.tscn"
 transition = ExtResource("36_transition")
