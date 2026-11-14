@@ -6,6 +6,7 @@ signal changed
 const SECTION := "controles"
 const AUDIO_SECTION := "audio"
 const VIDEO_SECTION := "video"
+const HINTS_SECTION := "consejos"
 const DEFAULT_PATH := "user://ajustes.cfg"
 const MIN_SENSITIVITY := 0.25
 const MAX_SENSITIVITY := 2.5
@@ -19,6 +20,10 @@ var master_volume := 1.0
 var music_volume := 0.8
 ## Luz rebotada, luz indirecta en pantalla y niebla volumétrica; en baja se apagan.
 var high_quality := true
+## Mostrar los consejos de controles mientras se juega.
+var hints_enabled := true
+## Consejos que el jugador ya vio; no se repiten en ninguna partida.
+var seen_hints := PackedStringArray()
 
 
 ## Carga los ajustes guardados al iniciar.
@@ -35,6 +40,8 @@ func load_settings() -> void:
 		master_volume = config.get_value(AUDIO_SECTION, "volumen_general", master_volume)
 		music_volume = config.get_value(AUDIO_SECTION, "volumen_musica", music_volume)
 		high_quality = config.get_value(VIDEO_SECTION, "calidad_alta", high_quality)
+		hints_enabled = config.get_value(HINTS_SECTION, "mostrar", hints_enabled)
+		seen_hints = config.get_value(HINTS_SECTION, "vistos", seen_hints)
 	_apply_volume()
 	changed.emit()
 
@@ -47,6 +54,8 @@ func save_settings() -> void:
 	config.set_value(AUDIO_SECTION, "volumen_general", master_volume)
 	config.set_value(AUDIO_SECTION, "volumen_musica", music_volume)
 	config.set_value(VIDEO_SECTION, "calidad_alta", high_quality)
+	config.set_value(HINTS_SECTION, "mostrar", hints_enabled)
+	config.set_value(HINTS_SECTION, "vistos", seen_hints)
 	config.save(config_path)
 
 
@@ -80,6 +89,22 @@ func set_music_volume(value: float) -> void:
 func set_high_quality(value: bool) -> void:
 	high_quality = value
 	_commit()
+
+
+## Muestra u oculta los consejos de controles; al volver a mostrarlos, se repiten todos.
+func set_hints_enabled(value: bool) -> void:
+	hints_enabled = value
+	if value:
+		seen_hints.clear()
+	_commit()
+
+
+## Anota que el jugador ya vio un consejo.
+func mark_hint_seen(id: String) -> void:
+	if id in seen_hints:
+		return
+	seen_hints.append(id)
+	save_settings()
 
 
 ## Guarda y avisa del cambio.

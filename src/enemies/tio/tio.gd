@@ -10,6 +10,8 @@ enum State { PATROL, SUSPICION, HUNT, SEARCH, CALM }
 const HORIZONTAL_PLANE := Vector3(1.0, 0.0, 1.0)
 const ARRIVAL_DISTANCE := 0.7
 const CATCH_DISTANCE := 1.1
+## Al atrapar se planta a esta distancia, para que el jugador vea su cara y no su interior.
+const SCARE_DISTANCE := 1.3
 const TURN_SPEED := 6.0
 const LOOK_AROUND_SPEED := 1.2
 const SEARCH_RADIUS := 6.0
@@ -77,6 +79,7 @@ func _ready() -> void:
 	_hearing.heard.connect(_on_heard)
 	EventBus.offering_made.connect(_on_offering_made)
 	EventBus.player_hid.connect(_on_player_hid)
+	EventBus.player_caught.connect(_hold_still)
 	GameState.respect_changed.connect(_on_respect_changed)
 	_on_respect_changed(GameState.respect)
 	_enter_state(State.PATROL)
@@ -288,6 +291,14 @@ func _check_spot_catch(spot: HidingSpot) -> void:
 		_catch()
 
 
+## Aparece de golpe en un punto y sale a cazar al jugador; si lo pierde, busca como siempre.
+func ambush(from: Transform3D) -> void:
+	global_transform = from
+	velocity = Vector3.ZERO
+	_last_known_position = _player.global_position
+	_enter_state(State.HUNT)
+
+
 ## Sale tras el jugador y no se rinde aunque lo pierda de vista; se usa al huir sin pagar.
 func start_chase() -> void:
 	is_relentless = true
@@ -313,9 +324,32 @@ func get_face_position() -> Vector3:
 ## Marca la captura y la avisa.
 func _catch() -> void:
 	_has_caught = true
+	velocity = Vector3.ZERO
+	_step_back_from_player()
 	_face_player()
 	_animator.play_catch()
 	EventBus.player_caught.emit()
+
+
+## Retrocede hasta quedar a la distancia del susto, sin atravesar paredes; si una pared lo frena,
+## empuja al jugador lo que falta. Escondido no se le empuja: sale del escondite al reaparecer.
+func _step_back_from_player() -> void:
+	var offset := (global_position - _player.global_position) * HORIZONTAL_PLANE
+	if offset.length() >= SCARE_DISTANCE or offset == Vector3.ZERO:
+		return
+	var direction := offset.normalized()
+	move_and_collide(direction * (SCARE_DISTANCE - offset.length()))
+	var missing := (
+		SCARE_DISTANCE - ((global_position - _player.global_position) * HORIZONTAL_PLANE).length()
+	)
+	if missing > 0.0 and _player.hiding_spot == null:
+		_player.move_and_collide(-direction * missing)
+
+
+## Mientras dura un susto ningún Tío se mueve, para que otro no llegue encima de la cámara.
+func _hold_still() -> void:
+	_has_caught = true
+	velocity = Vector3.ZERO
 
 
 ## Se gira de golpe hacia el jugador para embestirlo de frente.

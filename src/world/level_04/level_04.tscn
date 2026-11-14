@@ -36,10 +36,18 @@
 [ext_resource type="Resource" path="res://src/story/voices/faustino_llamado.tres" id="32_faustino_llamado"]
 [ext_resource type="Resource" path="res://src/story/voices/tio_cuadrilla.tres" id="33_tio_cuadrilla"]
 [ext_resource type="Resource" path="res://src/story/voices/mateo_dos.tres" id="34_mateo_dos"]
+[ext_resource type="Resource" path="res://src/story/transition/hacia_siete.tres" id="35_transition"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_corner.tscn" id="36_tunnel_corne"]
+[ext_resource type="PackedScene" path="res://src/world/pieces/tunnel_t.tscn" id="37_tunnel_t"]
+[ext_resource type="PackedScene" path="res://src/world/obstacles/gate.tscn" id="38_gate"]
+[ext_resource type="PackedScene" path="res://src/world/obstacles/lever.tscn" id="39_lever"]
+[ext_resource type="PackedScene" path="res://src/story/objective_trigger/objective_trigger.tscn" id="40_objective_tr"]
+[ext_resource type="PackedScene" path="res://src/enemies/encounters/tio_apparition.tscn" id="41_tio_appariti"]
 
 [node name="Level04" type="Node3D"]
 script = ExtResource("1_level")
 title = "Nivel 4 · La cuadrilla"
+objective = "Busca a Don Faustino y a Rosendo"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 script = ExtResource("quality_r")
@@ -83,17 +91,11 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -4, 0, -28)
 [node name="West2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8, 0, -28)
 
-[node name="WestDeadEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -12, 0, -28)
-
 [node name="East1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4, 0, -28)
 
 [node name="East2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 8, 0, -28)
-
-[node name="EastDeadEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 12, 0, -28)
 
 [node name="Straight4" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
@@ -104,17 +106,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -36)
 [node name="ChamberB" parent="Mine" instance=ExtResource("6_chamber")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -44)
 
-[node name="CapBEast" parent="Mine" instance=ExtResource("7_tunnel_cap")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 5.5, 0, -44)
-
-[node name="CapBWest" parent="Mine" instance=ExtResource("7_tunnel_cap")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -5.5, 0, -44)
-
 [node name="Straight6" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -52)
 
 [node name="ExitDeadEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -68)
+
+[node name="ExitPassage1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56)
+
+[node name="ExitPassage2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -60)
+
+[node name="ExitPassage3" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64)
 
 [node name="Rails" type="Node3D" parent="."]
 
@@ -132,6 +137,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, -36)
 
 [node name="Rail5" parent="Rails" instance=ExtResource("9_rail_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, -52)
+
+[node name="ExitTrack1" parent="Rails" instance=ExtResource("9_rail_track")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56)
+
+[node name="ExitTrack2" parent="Rails" instance=ExtResource("9_rail_track")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -60)
+
+[node name="ExitTrack3" parent="Rails" instance=ExtResource("9_rail_track")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64)
 
 [node name="Supports" type="Node3D" parent="." groups=["navigation_source"]]
 
@@ -155,6 +169,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, -34)
 
 [node name="Frame7" parent="Supports" instance=ExtResource("10_timber_frame")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, -52)
+
+[node name="ExitFrame1" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -57)
+
+[node name="ExitFrame2" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -61)
+
+[node name="ExitFrame3" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -65)
 
 [node name="Altars" type="Node3D" parent="." groups=["navigation_source"]]
 
@@ -237,12 +260,13 @@ patrol_points = [NodePath("../PatrolPoints/TioNorth"), NodePath("../PatrolPoints
 
 [node name="TioShadow" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("15_tio")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -28)
-patrol_points = [NodePath("../PatrolPoints/TioShadowWest"), NodePath("../PatrolPoints/TioShadowEast")]
+patrol_points = [NodePath("../PatrolPoints/TioShadowWest"), NodePath("../PatrolPoints/ShadowWestWing"), NodePath("../PatrolPoints/TioShadowEast"), NodePath("../PatrolPoints/ShadowEastWing")]
 
 [node name="LevelExit" parent="." instance=ExtResource("16_level_exit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -55.5)
-message = "Subiendo hacia la bocamina..."
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -62)
+message = "Entrando a la galería sellada..."
 next_level_path = "res://src/world/level_05/level_05.tscn"
+transition = ExtResource("35_transition")
 
 [node name="Player" parent="." instance=ExtResource("17_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.9)
@@ -307,3 +331,127 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -37.5)
 lines = Array[ExtResource("30_voice_line")]([ExtResource("34_mateo_dos")])
 
 [node name="MusicDirector" parent="." instance=ExtResource("music_r")]
+
+[node name="WestCorner1" parent="Mine" instance=ExtResource("36_tunnel_corne")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -12, 0, -28)
+
+[node name="WestWing1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -32)
+
+[node name="WestLeverJunction" parent="Mine" instance=ExtResource("37_tunnel_t")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -12, 0, -36)
+
+[node name="WestLeverEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -16, 0, -36)
+
+[node name="WestWing2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -40)
+
+[node name="WestCorner2" parent="Mine" instance=ExtResource("36_tunnel_corne")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -44)
+
+[node name="WestChamberHall" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8, 0, -44)
+
+[node name="WestFrame1" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -31)
+
+[node name="WestFrame2" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -39)
+
+[node name="WestFrame3" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -15, 0, -36)
+
+[node name="WestFrame4" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7, 0, -44)
+
+[node name="EastCorner1" parent="Mine" instance=ExtResource("36_tunnel_corne")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 12, 0, -28)
+
+[node name="EastWing1" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -32)
+
+[node name="EastLeverJunction" parent="Mine" instance=ExtResource("37_tunnel_t")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 12, 0, -36)
+
+[node name="EastLeverEnd" parent="Mine" instance=ExtResource("4_tunnel_dead_end")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 16, 0, -36)
+
+[node name="EastWing2" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -40)
+
+[node name="EastCorner2" parent="Mine" instance=ExtResource("36_tunnel_corne")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 12, 0, -44)
+
+[node name="EastChamberHall" parent="Mine" instance=ExtResource("5_tunnel_straight")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 8, 0, -44)
+
+[node name="EastFrame1" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -31)
+
+[node name="EastFrame2" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -39)
+
+[node name="EastFrame3" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 15, 0, -36)
+
+[node name="EastFrame4" parent="Supports" instance=ExtResource("10_timber_frame")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 7, 0, -44)
+
+[node name="Obstacles" type="Node3D" parent="."]
+
+[node name="ShaftGate" parent="Obstacles" instance=ExtResource("38_gate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50.6)
+done_id = "nivel4_reja"
+levers_needed = 2
+locked_hint = "La reja no se mueve: la suben dos palancas"
+objective_after = "Sal por el pique"
+
+[node name="WestLever" parent="Obstacles" node_paths=PackedStringArray("gate") instance=ExtResource("39_lever")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -16.9, 0, -36)
+done_id = "nivel4_palanca_west"
+gate = NodePath("../ShaftGate")
+objective_after = "Baja la otra palanca"
+
+[node name="EastLever" parent="Obstacles" node_paths=PackedStringArray("gate") instance=ExtResource("39_lever")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 16.9, 0, -36)
+done_id = "nivel4_palanca_east"
+gate = NodePath("../ShaftGate")
+objective_after = "Baja la otra palanca"
+
+[node name="Objectives" type="Node3D" parent="."]
+
+[node name="GateSighted" parent="Objectives" instance=ExtResource("40_objective_tr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -47)
+objective = "La reja del pique sube con dos palancas, una en cada ramal"
+after_objective = "Busca a Don Faustino y a Rosendo"
+
+[node name="Encounters" type="Node3D" parent="."]
+
+[node name="WingApparition" parent="Encounters" instance=ExtResource("41_tio_appariti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -30.5)
+done_id = "nivel4_aparicion"
+start_offset = Vector3(-4, 0, -5.5)
+goal_offset = Vector3(0, 0, -11)
+walk_seconds = 3.0
+
+[node name="ShadowWestWing" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -38)
+
+[node name="ShadowEastWing" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -38)
+
+[node name="WestWingCart" parent="HidingSpots" instance=ExtResource("27_mine_cart_hiding_spot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0, -40.5)
+
+[node name="Stone4" parent="Pickups" instance=ExtResource("12_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 0, -36.6)
+item_type = 5
+
+[node name="Coca2" parent="Pickups" instance=ExtResource("12_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6, 0, -35.3)
+item_type = 2
+
+[node name="Carbide2" parent="Pickups" instance=ExtResource("12_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2, 0, -41.5)
+item_type = 1

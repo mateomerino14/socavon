@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://src/world/materials/brass.tres" id="1_brass"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_disc"]
+material = ExtResource("1_brass")
+top_radius = 0.035
+bottom_radius = 0.035
+height = 0.005
+radial_segments = 20
+rings = 1
+
+[sub_resource type="TorusMesh" id="TorusMesh_hole"]
+material = ExtResource("1_brass")
+inner_radius = 0.006
+outer_radius = 0.011
+rings = 12
+ring_segments = 6
+
+[node name="FichaVisual" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Disc" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.003, 0)
+mesh = SubResource("CylinderMesh_disc")
+
+[node name="Hole" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.004, -0.042)
+mesh = SubResource("TorusMesh_hole")

@@ -28,3 +28,16 @@ python3 tools/audio/build_music.py <carpeta_de_descarga> assets/audio/music
 Las capas son bucles sin costura; el bucle se activa en su `.import` (`loop=true`).
 
 El rugido sintético del Tío, base del grito de captura, sigue saliendo de `tools/generate_sounds.py`.
+
+## Voces
+
+`tools/generate_voices.py` actúa todas las líneas con Chatterbox Multilingual (MIT) y revisa cada toma con Whisper. Las muestras de timbre de cada personaje están en `tools/audio_sources/voice_refs`; `build_voice_refs.py` las arma con Kokoro (Apache 2.0) y Piper, solo si se quieren cambiar. Conviene un entorno con Python 3.11:
+
+```bash
+pip install --index-url https://download.pytorch.org/whl/cpu torch==2.6.0 torchaudio==2.6.0
+pip install chatterbox-tts faster-whisper "setuptools<70"
+python3 tools/generate_voices.py            # todas las voces y el grito del Tío
+python3 tools/generate_voices.py tio_cobro  # solo esas líneas
+```
+
+En CPU tarda unos 30 segundos por línea. La primera vez descarga los modelos de Hugging Face.

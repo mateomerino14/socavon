@@ -1,14 +1,20 @@
-**Socavón 1.1.0**: la mina se ve, suena y se juega mejor, con todo lo aprendido en Espejo.
+**Socavón 1.2.0**: el juego crece. Ahora tiene seis niveles más grandes, con objetivos que abren cada salida, un mapa, un inventario y un tránsito entre nivel y nivel.
 
 **Para jugar:** descarga el `.zip` de Windows, descomprímelo y abre `Socavon.exe`. No hace falta instalar nada. Usa audífonos.
 
 Si Windows avisa que el programa no está firmado, elige "Más información" y luego "Ejecutar de todas formas".
 
 **Qué cambió**
-- **Gráficos:** la roca, el barro, la madera y el hierro son texturas escaneadas de verdad. La luz rebota en las paredes (iluminación global) y en Opciones hay un interruptor de calidad alta para equipos más modestos.
-- **Primera persona:** ahora ves los brazos de Mateo, que se estiran al recoger u ofrendar y lanzan las piedras.
-- **Cinemática del derrumbe:** Don Faustino, Rosendo y Mateo aparecen en la galería, con su casco y su lámpara, y se cubren cuando cae el techo.
-- **Sonido:** pasos, agua, goteo, golpes, derrumbe y aire de la galería salen de grabaciones reales.
-- **Música:** tres capas (calma, tensión y persecución) que cambian según lo que hace el Tío, con su propio volumen en Opciones.
-- **Voces:** nuevas voces para Mateo, Wilmer, Rosendo, Don Faustino y el Tío.
-- **Créditos:** explican si la historia es real y qué es el Tío. Las licencias del material de otros autores van en `LICENCIAS.txt`, junto al juego.
+- **Nivel nuevo, "Los siete":** es la galería que tapiaron en 1975. Para que la reja se abra, hay que encontrar las siete fichas de la cuadrilla y colgarlas en el tablero de la lampistería.
+- **Niveles más grandes:** cada uno tiene laberintos, ramales nuevos y una salida que hay que abrir:
+  - con dinamita;
+  - con palancas;
+  - con la llave de un candado.
+- **Objetivos:** aparecen arriba a la izquierda con un aviso sonoro, y el nombre del nivel siempre sale abajo a la izquierda.
+- **Mapa (M):** Mateo lo dibuja a medida que explora. Marca altares, salidas y lo que bloquea el paso.
+- **Inventario (Tab o I):** muestra el dibujo y el uso de cada objeto, las herramientas que llevas y el ánimo del Tío. La bolsa pasa de un nivel al siguiente.
+- **Consejos y controles:** cuadros que enseñan cada control la primera vez que hace falta, con la tecla o el botón según juegues con teclado o mando, y una pantalla de controles en el menú y en la pausa.
+- **Menús:** la opción marcada sigue al ratón, así que ya no quedan dos opciones marcadas a la vez.
+- **Tránsitos:** entre nivel y nivel, Mateo cruza el socavón y dice lo que piensa. Las salidas son túneles abiertos, ya no paredes.
+- **El Tío:** aparece de lejos y embosca en cada nivel. Ya no atraviesa la cámara cuando te atrapa de frente.
+- **Voces:** todas se volvieron a grabar para que suenen más naturales.

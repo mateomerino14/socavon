@@ -1,34 +1,45 @@
 extends TestCase
-## Pruebas de los niveles 3 a 5: se anuncian, se recorren, encadenan y cada uno tiene su peligro.
+## Pruebas de los niveles 3 a 6: se anuncian, se recorren, encadenan y cada uno tiene su peligro.
 
 const LEVEL_03 := preload("res://src/world/level_03/level_03.tscn")
 const LEVEL_04 := preload("res://src/world/level_04/level_04.tscn")
 const LEVEL_05 := preload("res://src/world/level_05/level_05.tscn")
+const LEVEL_06 := preload("res://src/world/level_06/level_06.tscn")
 const SETTLE_FRAMES := 20
+## El nombre aparece un segundo después de que se ve el nivel.
+const TITLE_FRAMES := 90
 const PATH_TOLERANCE := 1.0
 const CRAWL_CENTER := Vector3(-8.0, 0.0, -8.0)
 ## El gateadero es bajo: la malla del Tío no debe pasar cerca de su centro.
 const CRAWL_CLEARANCE := 1.5
 const SQUAD_SIZE := 2
+const SEALED_SIZE := 1
+const MINERS := 7
+## La ficha del gateadero está donde el Tío no entra: la malla llega solo hasta la boca.
+const CRAWL_FICHA := "FichaBasilio"
+const CRAWL_MOUTH_PATH := "PatrolPoints/CrawlMouth"
+## Al tablero se llega por su frente, a esta distancia de la pared.
+const BOARD_FRONT := 1.0
 const CRAWL_ENTRANCE := Vector3(-1.5, 0.05, -8.0)
 const FACING_WEST := PI / 2.0
+const FACING_EAST := -PI / 2.0
 const CRAWL_FRAMES := 240
 ## Metros que debe avanzar agachado dentro del gateadero.
 const MIN_CRAWLED := 4.0
 
 var _level: Level
 var _player: Player
-var _last_notice := ""
+var _last_title := ""
 
 
-## Escucha los avisos.
+## Escucha los nombres de nivel.
 func before_each() -> void:
-	EventBus.notice_requested.connect(_on_notice)
+	EventBus.level_title_requested.connect(_on_title)
 
 
 ## Libera el nivel cargado.
 func after_each() -> void:
-	EventBus.notice_requested.disconnect(_on_notice)
+	EventBus.level_title_requested.disconnect(_on_title)
 	if _level:
 		_level.free()
 		_level = null
@@ -36,14 +47,15 @@ func after_each() -> void:
 
 ## Cada nivel anuncia su nombre al empezar.
 func test_levels_show_their_titles() -> void:
-	for scene: PackedScene in [LEVEL_03, LEVEL_04, LEVEL_05]:
+	for scene: PackedScene in [LEVEL_03, LEVEL_04, LEVEL_05, LEVEL_06]:
 		await _load(scene)
-		assert_true(_last_notice == _level.title, "Debe anunciar '%s'" % _level.title)
+		await wait_physics_frames(TITLE_FRAMES)
+		assert_true(_last_title == _level.title, "Debe anunciar '%s'" % _level.title)
 		_level.free()
 		_level = null
 
 
-## Las salidas encadenan los niveles 3, 4 y 5.
+## Las salidas encadenan los niveles 3 a 6.
 func test_exits_chain_to_the_next_level() -> void:
 	await _load(LEVEL_03)
 	var exit: LevelExit = _level.get_node("LevelExit")
@@ -52,6 +64,10 @@ func test_exits_chain_to_the_next_level() -> void:
 	await _load(LEVEL_04)
 	exit = _level.get_node("LevelExit")
 	assert_true(exit.next_level_path.ends_with("level_05.tscn"), "El nivel 4 debe llevar al 5")
+	_level.free()
+	await _load(LEVEL_05)
+	exit = _level.get_node("LevelExit")
+	assert_true(exit.next_level_path.ends_with("level_06.tscn"), "El nivel 5 debe llevar al 6")
 
 
 ## Nivel 3: hay camino al altar, a la veta y a la salida, y el Tío no cabe en el gateadero.
@@ -89,9 +105,50 @@ func test_squad_level_has_two_tios() -> void:
 	assert_true(tios.size() == SQUAD_SIZE, "Debe haber dos Tíos (hay %d)" % tios.size())
 
 
-## Nivel 5: se llega a las tres ofrendas, al altar del pago y a la bocamina.
-func test_mouth_level_is_walkable() -> void:
+## Nivel 5: se llega a las siete fichas, al tablero, al altar y a la salida; un Tío ronda y la reja
+## pide todas las fichas.
+func test_sealed_level_has_seven_fichas() -> void:
 	await _load(LEVEL_05)
+	var fichas := _level.get_node("Fichas").get_children()
+	assert_true(fichas.size() == MINERS, "Debe haber siete fichas (hay %d)" % fichas.size())
+	var paths: Array[String] = ["Obstacles/FichaBoard", "Altars/LampAltar", "LevelExit"]
+	for ficha in fichas:
+		if ficha.name != CRAWL_FICHA:
+			paths.append("Fichas/" + ficha.name)
+	_assert_reachable(paths)
+	_assert_reachable([CRAWL_MOUTH_PATH])
+	var board: FichaBoard = _level.get_node("Obstacles/FichaBoard")
+	var gate: Gate = _level.get_node("Obstacles/SealedGate")
+	assert_true(board.miners.size() == MINERS, "El tablero tiene un gancho por minero")
+	assert_true(gate.levers_needed == MINERS, "La reja pide todas las fichas")
+	for ficha: ToolPickup in fichas:
+		var miner := ficha.tool_name.trim_prefix(FichaBoard.TOOL_PREFIX)
+		assert_true(miner in board.miners, "La ficha de %s debe tener gancho" % miner)
+	var tios := tree.get_nodes_in_group(&"enemies")
+	assert_true(tios.size() == SEALED_SIZE, "Debe haber un Tío (hay %d)" % tios.size())
+
+
+## Nivel 5: agachado se llega por el gateadero hasta la ficha de Basilio; el Tío se queda quieto
+## para que no interrumpa.
+func test_player_crawls_to_hidden_ficha() -> void:
+	await _load(LEVEL_05)
+	_level.get_node("Tio").process_mode = Node.PROCESS_MODE_DISABLED
+	var mouth: Vector3 = _level.get_node(CRAWL_MOUTH_PATH).global_position
+	_player.global_position = mouth + Vector3.UP * CRAWL_ENTRANCE.y
+	_player.rotation.y = FACING_EAST
+	Input.action_press("crouch")
+	await wait_physics_frames(SETTLE_FRAMES)
+	Input.action_press("move_forward")
+	await wait_physics_frames(CRAWL_FRAMES)
+	Input.action_release("move_forward")
+	Input.action_release("crouch")
+	var crawled := _player.global_position.x - mouth.x
+	assert_true(crawled > MIN_CRAWLED, "Debe cruzar el gateadero (avanzó %.2f m)" % crawled)
+
+
+## Nivel 6: se llega a las tres ofrendas, al altar del pago y a la bocamina.
+func test_mouth_level_is_walkable() -> void:
+	await _load(LEVEL_06)
 	_assert_reachable(
 		[
 			"Pickups/Coca",
@@ -111,7 +168,8 @@ func _load(scene: PackedScene) -> void:
 	await wait_physics_frames(SETTLE_FRAMES)
 
 
-## Comprueba que hay camino desde el inicio hasta cada nodo; a un altar se llega por su frente.
+## Comprueba que hay camino desde el inicio hasta cada nodo; a un altar o al tablero se llega por
+## su frente.
 func _assert_reachable(paths: Array[String]) -> void:
 	var map := _level.get_world_3d().navigation_map
 	for path in paths:
@@ -119,6 +177,8 @@ func _assert_reachable(paths: Array[String]) -> void:
 		var target := node.global_position
 		if node is Altar:
 			target = (node as Altar).get_respawn_transform().origin
+		if node is FichaBoard:
+			target += node.global_basis.z * BOARD_FRONT
 		var route := NavigationServer3D.map_get_path(map, _player.global_position, target, true)
 		var end := _player.global_position
 		if not route.is_empty():
@@ -131,6 +191,6 @@ func _flat_distance(a: Vector3, b: Vector3) -> float:
 	return Vector2(a.x - b.x, a.z - b.z).length()
 
 
-## Guarda el último aviso.
-func _on_notice(text: String) -> void:
-	_last_notice = text
+## Guarda el último nombre de nivel anunciado.
+func _on_title(text: String) -> void:
+	_last_title = text

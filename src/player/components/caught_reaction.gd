@@ -64,8 +64,10 @@ func reset() -> void:
 	camera.v_offset = 0.0
 
 
-## Busca al captor más cercano y empieza el susto.
+## Busca al captor más cercano y empieza el susto; si ya está asustado, no lo repite.
 func _on_player_caught() -> void:
+	if is_active:
+		return
 	_catcher = _closest_enemy()
 	if _catcher == null:
 		return

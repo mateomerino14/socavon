@@ -3,8 +3,6 @@ extends RayCast3D
 ## Rayo desde los ojos que detecta lo que se puede usar al frente y avisa su texto.
 
 signal focus_changed(prompt: String)
-## Se usó lo que estaba al frente.
-signal interacted
 
 var _focused: Interactable
 var _current_prompt := ""
@@ -29,4 +27,3 @@ func update_focus(player: Player) -> void:
 func try_interact(player: Player) -> void:
 	if _focused:
 		_focused.interact(player)
-		interacted.emit()

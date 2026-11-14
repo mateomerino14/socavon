@@ -26,12 +26,17 @@ func save(level_path: String, inventory: InventoryComponent) -> void:
 	config.set_value(SECTION, "respeto", GameState.respect)
 	config.set_value(SECTION, "pagado", GameState.has_paid)
 	config.set_value(SECTION, "notas", GameState.read_notes)
+	config.set_value(SECTION, "objetivo", GameState.objective)
+	config.set_value(SECTION, "herramientas", GameState.tools)
+	config.set_value(SECTION, "hechos", GameState.done)
+	config.set_value(SECTION, "mapa", GameState.explored.keys())
 	config.set_value(SECTION, "bolsa", inventory.get_counts())
 	config.save(save_path)
 
 
 ## Carga la partida guardada y abre su nivel; el nivel la aplica al empezar.
 func continue_game() -> void:
+	GameState.reset()
 	var level_path := load_pending()
 	if not level_path.is_empty():
 		get_tree().change_scene_to_file(level_path)
@@ -50,6 +55,7 @@ func load_pending() -> String:
 ## Borra lo guardado y empieza desde el nivel indicado.
 func new_game(first_level_path: String) -> void:
 	clear()
+	GameState.reset()
 	get_tree().change_scene_to_file(first_level_path)
 
 

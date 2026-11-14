@@ -4,7 +4,7 @@ Juego de terror en primera persona ambientado en las minas del Cerro Rico de Pot
 
 Es la primera historia del universo del Manqha Pacha.
 
-Versión `1.1.0`: el juego completo, con cinco niveles, dos finales y partida guardada, ahora con texturas escaneadas, brazos en primera persona, música que sigue al Tío y voces nuevas.
+Versión `1.2.0`: el juego completo, ahora con seis niveles más grandes y con objetivos, mapa, inventario, tránsitos entre niveles y voces nuevas.
 
 ## Descargar y jugar
 
@@ -19,10 +19,15 @@ En [Releases](https://github.com/mateomerino14/socavon/releases) está el `.zip`
 - **El Tío:** patrulla, sospecha, caza, busca y se calma con ofrendas. Oye tus pasos y las piedras que lanzas, ve según tu luz y revisa los escondites. Tiene modelo de arcilla pintada, animaciones y voz.
 - **Escondites:** nichos en la roca y carros mineros, con animación al entrar y salir.
 - **Altares:** pides permiso o dejas coca, alcohol o cigarros. Suben el respeto del Tío y guardan la partida.
-- **Historia:** se cuenta con notas, inscripciones en la roca, voces actuadas con subtítulos y dos cinemáticas, la del derrumbe y la de la bocamina.
+- **Historia:** se cuenta con notas, inscripciones en la roca, voces actuadas con subtítulos y dos cinemáticas, la del derrumbe y la de la bocamina. Entre nivel y nivel, un tránsito muestra a Mateo cruzando el socavón: dice lo que piensa, a veces el Tío lo sigue en la oscuridad. Al llegar, el nivel muestra su nombre y su primer objetivo.
+- **Objetivos:** cada nivel tiene una salida cerrada que hay que abrir: volar un derrumbe con dinamita, bajar palancas, encontrar la llave de un candado o colgar las fichas de los siete. El Tío aparece de lejos y embosca en momentos de la historia.
 - **Dos finales**, según si le pagas al Tío lo que pide.
 - **Presentación:**
   - menú principal con la mina de fondo;
+  - el nombre de cada nivel abajo a la izquierda y el objetivo arriba a la izquierda, con un aviso sonoro cuando cambia;
+  - inventario con el dibujo y el uso de cada objeto, y un mapa que Mateo dibuja a medida que explora;
+  - consejos que enseñan cada control la primera vez que hace falta, con la tecla o el botón según juegues con teclado o mando (se apagan en Opciones);
+  - pantalla de controles en el menú principal y en la pausa;
   - opciones (con calidad alta y volumen de música), pausa y créditos;
   - texturas escaneadas, iluminación global, niebla volumétrica y grano de película;
   - brazos de Mateo en primera persona y la cuadrilla en la cinemática del derrumbe;
@@ -32,21 +37,25 @@ En [Releases](https://github.com/mateomerino14/socavon/releases) está el `.zip`
 
 ### Nivel 1: El derrumbe
 
-Empieza con una cinemática: Don Faustino ordena entrar sin ch'alla, la mina tiembla, Rosendo grita y todo se derrumba. Despiertas entre las piedras y caminas hacia el norte hasta un cruce. El ramal oeste guarda coca, carburo y piedras; el este lleva por un pasillo con soportes hasta la cámara del primer altar, y de ahí a la salida. Por el camino hay cuatro textos que empiezan a contar qué pasó en ese nivel en los años 70. El Tío no puede alcanzarte en este nivel: camina por una galería sellada al este y solo se le oye a través de la roca.
+Empieza con una cinemática: Don Faustino ordena entrar sin ch'alla, la mina tiembla, Rosendo grita y todo se derrumba. Despiertas entre las piedras y caminas hacia el norte hasta un cruce. El ramal oeste guarda coca, carburo y piedras; el este lleva por un pasillo con soportes hasta la cámara del primer altar. El paso a los rieles está derrumbado: hay que buscar dinamita en el polvorín y volar el derrumbe. Por el camino hay cuatro textos que empiezan a contar qué pasó en ese nivel en los años 70. El Tío no puede alcanzarte en este nivel: camina por una galería sellada al este y solo se le oye a través de la roca.
 
 ### Nivel 2: Los rieles
 
-Bajas por los rieles por donde sacaban el mineral. En el cruce, el ramal este lleva al segundo altar, con la lista de raya de los siete de 1975. El oeste está inundado: el agua te frena y cada paso chapotea fuerte, y desde el fondo te llama la voz de Wilmer. Allí está su nota, que advierte que esa voz ya no es suya. Al norte, en el buzón donde bajaban los carros, ronda el Tío. Esta vez anda suelto y te puede alcanzar; los carros sirven de escondite. La salida queda pasando el buzón, por donde entra aire de arriba.
+Bajas por los rieles por donde sacaban el mineral. En el cruce, el ramal este lleva al segundo altar, con la lista de raya de los siete de 1975. El oeste está inundado: el agua te frena y cada paso chapotea fuerte, y desde el fondo te llama la voz de Wilmer. Allí está su nota, que advierte que esa voz ya no es suya. Al norte, en el buzón donde bajaban los carros, ronda el Tío. Esta vez anda suelto y te puede alcanzar; los carros sirven de escondite. La salida queda pasando el buzón, por donde entra aire de arriba, pero una reja la cierra: la palanca de la compuerta está en el ramal oeste, y al bajarla el Tío te oye.
 
 ### Nivel 3: La veta
 
-Desde el cruce hay dos caminos a la cámara de la veta de plata. El oeste es un gateadero tan bajo que hay que pasarlo agachado, pero el Tío no cabe ahí; al salir está el altar. El este es un túnel largo y alto por donde ronda el Tío, y ahí están la coca, el alcohol y el carburo. En la veta, el casco de Justo Condori dice que lo que brilla no es plata. Desde el norte, la voz de Don Faustino pide ayuda.
+Desde el cruce hay dos caminos a la cámara de la veta de plata. El oeste es un gateadero tan bajo que hay que pasarlo agachado, pero el Tío no cabe ahí; al salir está el altar. El este es un túnel largo y alto por donde ronda el Tío, y ahí están la coca, el alcohol y el carburo. En la veta, el casco de Justo Condori dice que lo que brilla no es plata. La salida tiene candado: la llave está en la galería vieja, donde el Tío embosca. Desde el norte, la voz de Don Faustino pide ayuda.
 
 ### Nivel 4: La cuadrilla
 
-Hay dos Tíos: uno en el cruce de los ramales y otro en la cámara del norte. En el ramal oeste está el pañuelo de Rosendo; en el este, la confesión de Don Faustino, que le ofreció al Tío uno de los suyos para salir él. Su voz te llama desde ahí. Rosendo deja la pista del final: "paga tú, con lo que tengas, pero paga. Coca, trago y cigarro".
+Hay dos Tíos: uno en el cruce de los ramales y otro en la cámara del norte. En el ramal oeste está el pañuelo de Rosendo; en el este, la confesión de Don Faustino, que le ofreció al Tío uno de los suyos para salir él. Su voz te llama desde ahí. Rosendo deja la pista del final: "paga tú, con lo que tengas, pero paga. Coca, trago y cigarro". La reja del pique sube con dos palancas, una al fondo de cada ramal.
 
-### Nivel 5: La bocamina
+### Nivel 5: Los siete
+
+La galería que tapiaron en 1975 con la cuadrilla adentro. En la lampistería, junto a la reja de la galería sellada, hay un tablero con siete ganchos vacíos y siete nombres. Las fichas de bronce de los siete están repartidas por las alas oeste y este, una de ellas pasando un gateadero y otra en el agua por donde se fue Severino. Cada ficha que cuelgas devuelve a uno de ellos; con las siete en su gancho, la reja sube sola. Un Tío ronda las dos alas y aparece de golpe en el lazo del este.
+
+### Nivel 6: La bocamina
 
 El último altar no acepta ofrendas sueltas: el Tío cobra coca, alcohol y cigarro juntos. Están repartidos en los ramales que él vigila.
 
@@ -76,6 +85,8 @@ Al cruzar la bocamina se muestra tu final, la partida guardada se borra y vuelve
 
 ## Controles
 
+También se ven en el juego, en **Controles**, desde el menú principal o la pausa.
+
 | Acción | Teclado y ratón | Mando |
 |---|---|---|
 | Moverse | W A S D | Stick izquierdo |
@@ -89,6 +100,8 @@ Al cruzar la bocamina se muestra tu final, la partida guardada se borra y vuelve
 | Lanzar una piedra | Clic izquierdo | RT / R2 |
 | Escuchar (te quedas quieto) | Mantener clic derecho | LT / L2 |
 | Asomarse por esquinas | Q / Z | LB / RB |
+| Inventario (pausa el juego) | Tab o I | Back / Select |
+| Mapa (pausa el juego) | M | R3 |
 | Pausa y opciones | Esc | Start |
 
 ## Desarrollo
@@ -97,7 +110,7 @@ Al cruzar la bocamina se muestra tu final, la partida guardada se borra y vuelve
 
 - [Godot 4.7.2](https://godotengine.org/download) (versión estándar, no la .NET).
 - Git.
-- Para regenerar arte y sonido: Blender 5.2 (o el módulo `bpy`), Python 3, ffmpeg y `piper-tts`.
+- Para regenerar arte y sonido: Blender 5.2 (o el módulo `bpy`), Python 3 y ffmpeg; para las voces, `chatterbox-tts` y `faster-whisper` (ver [tools/audio](tools/audio/README.md)).
 
 ### Abrir el proyecto
 
@@ -108,13 +121,13 @@ Al cruzar la bocamina se muestra tu final, la partida guardada se borra y vuelve
 ### Estructura
 
 ```
-src/core/      Autoloads: bus de eventos, estado de la partida, ajustes y partida guardada
+src/core/      Autoloads: bus de eventos, estado de la partida, ajustes, partida guardada, aparato de juego y foco de los menús
 src/player/    Jugador, cámara y componentes (aliento, lámpara, pasos, bolsa, escucha, susto)
-src/enemies/   El Tío y sus componentes (oído, vista, voz, pasos, animación)
-src/items/     Catálogo de objetos, objetos recogibles con su modelo e Interactable
-src/story/     Notas, voces, cinemática del derrumbe y el final (altar del pago, persecución, bocamina)
-src/world/     Los cinco niveles, piezas modulares, altar, agua, escondites, soportes y materiales
-src/ui/        Menú principal, HUD, pausa, opciones, visor de notas, pantalla de muerte y tema visual
+src/enemies/   El Tío, sus componentes (oído, vista, voz, pasos, animación) y sus apariciones y emboscadas
+src/items/     Catálogo de objetos, objetos y herramientas recogibles con su modelo e Interactable
+src/story/     Notas, voces, cinemáticas, tránsitos entre niveles y el final (altar, persecución, bocamina)
+src/world/     Los seis niveles, piezas modulares, mapa, obstáculos (rejas, palancas, derrumbes, tablero de fichas), altar, agua, escondites, soportes y materiales
+src/ui/        Menú principal, HUD, consejos, controles, inventario, mapa, pausa, opciones, visor de notas, pantalla de muerte y tema visual
 tests/         Pruebas automáticas, en carpetas que reflejan src/
 tools/         Generadores (Blender, sonidos, voces, malla de navegación) y buscador de código sin uso
 assets/        Modelos, texturas, audio y fuentes
@@ -144,7 +157,8 @@ python3 tools/find_unused.py src tests
 | Texturas escaneadas de la mina | `python3 tools/download_textures.py assets/textures/mine 2k` |
 | Sonidos de la mina y música (ver [tools/audio](tools/audio/README.md)) | `python3 tools/audio/build_oga_sounds.py <descargas> assets/audio` y `build_music.py` |
 | Rugido del Tío, base del grito | `python3 tools/generate_sounds.py` |
-| Voces actuadas | `python3 tools/generate_voices.py <carpeta de los modelos de Piper>` (ver el [guion](docs/guion_voces.md)) |
+| Voces actuadas con Chatterbox | `python3 tools/generate_voices.py [id ...]` (ver el [guion](docs/guion_voces.md)) |
+| Íconos del inventario | `godot --path . --script res://tools/render_item_icons.gd` (necesita pantalla) |
 | Malla de navegación de un nivel | `godot --headless --path . -s tools/bake_navmesh.gd -- res://src/world/level_0N/level_0N.tscn` |
 | Ejecutable de Windows | `godot --headless --export-release "Windows Desktop" build/Socavon.exe` |
 

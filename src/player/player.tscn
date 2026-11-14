@@ -81,8 +81,7 @@ script = ExtResource("6_interactor")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -0.1, -0.45)
 script = ExtResource("8_thrower")
 
-[node name="FirstPersonBody" parent="Head/Camera3D" node_paths=PackedStringArray("interactor", "stone_thrower") instance=ExtResource("20_body")]
-interactor = NodePath("../Interactor")
+[node name="FirstPersonBody" parent="Head/Camera3D" node_paths=PackedStringArray("stone_thrower") instance=ExtResource("20_body")]
 stone_thrower = NodePath("../StoneThrower")
 
 [node name="StaminaComponent" type="Node" parent="."]

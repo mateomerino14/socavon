@@ -16,6 +16,8 @@ const LAST_SEPARATOR := " y "
 const PAYMENT_RESPECT := 50.0
 ## El pago se anuncia como la ofrenda mayor, la que calma al Tío.
 const MAIN_OFFERING := ItemCatalog.Type.ALCOHOL
+## Objetivo una vez pagado: la salida queda libre.
+const PAID_OBJECTIVE := "Sal por la bocamina, hacia la luz"
 
 ## Quién habla cuando el Tío recibe el pago.
 @export var voice: VoicePlayer
@@ -43,6 +45,7 @@ func _on_interacted(player: Player) -> void:
 		player.inventory.remove(item)
 	GameState.has_paid = true
 	GameState.add_respect(PAYMENT_RESPECT)
+	GameState.set_objective(PAID_OBJECTIVE)
 	GameState.save_checkpoint(get_respawn_transform())
 	EventBus.offering_made.emit(global_position, MAIN_OFFERING)
 	EventBus.notice_requested.emit(PAID_NOTICE)
