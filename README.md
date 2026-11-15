@@ -83,6 +83,10 @@ Al cruzar la bocamina se muestra tu final, la partida guardada se borra y vuelve
 - **Pasos:** sus pisadas suenan graves y más fuertes cuanto más rápido va; al escuchar se oyen mejor.
 - **Presentimiento:** a menos de 10 m la llama de la lámpara tiembla y se encoge; encima de ti casi se apaga.
 
+## Prensa
+
+En [`prensa/`](prensa/README.md) hay un tráiler y capturas del juego por si se quiere publicar.
+
 ## Controles
 
 También se ven en el juego, en **Controles**, desde el menú principal o la pausa.
